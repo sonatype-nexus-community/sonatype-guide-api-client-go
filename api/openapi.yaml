@@ -1,0 +1,3425 @@
+openapi: 3.1.0
+info:
+  contact:
+    name: Sonatype Community Maintainers
+    url: https://github.com/sonatype-nexus-community
+  description: "REST API into [Sonatype Guide](https://guide.sonatype.com)."
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Sonatype Guide API
+  version: "202601"
+servers:
+- description: Generated server url
+  url: http://api.guide.sonatype.com
+security:
+- bearer-jwt: []
+tags:
+- description: Credit usage and billing period APIs
+  name: Usage
+- description: Vulnerability search and filtering API
+  name: Vulnerabilities
+- description: Personal Access Token management APIs
+  name: Current User Tokens
+- description: Component search and filtering API
+  name: Components
+- description: Credit balance and usage tracking API
+  name: Credits
+- description: Billing and subscription management API
+  name: Billing
+- description: Current user organization management APIs
+  name: Current User Organization
+- description: Version upgrade recommendation API
+  name: Recommendations
+paths:
+  /api/v3/authorized/component-report:
+    post:
+      operationId: getComponentReports_1
+      parameters:
+      - explode: false
+        in: header
+        name: User-Agent
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PurlRequest_Post"
+          application/vnd.ossindex.component-report-request.v1+json:
+            schema:
+              $ref: "#/components/schemas/PurlRequest_Post"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ComponentReport_Post"
+                type: array
+            application/vnd.ossindex.component-report.v1+json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ComponentReport_Post"
+                type: array
+          description: OK
+      tags:
+      - ossi-controller
+  /api/v3/authorized/component-report/**:
+    get:
+      operationId: getComponentReport
+      parameters:
+      - explode: false
+        in: header
+        name: User-Agent
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentReport_Get"
+            application/vnd.ossindex.component-report.v1+json:
+              schema:
+                $ref: "#/components/schemas/ComponentReport_Get"
+          description: OK
+      tags:
+      - ossi-controller
+  /api/v3/component-report:
+    post:
+      operationId: getComponentReports
+      parameters:
+      - explode: false
+        in: header
+        name: User-Agent
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PurlRequest_Post"
+          application/vnd.ossindex.component-report-request.v1+json:
+            schema:
+              $ref: "#/components/schemas/PurlRequest_Post"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ComponentReport_Post"
+                type: array
+            application/vnd.ossindex.component-report.v1+json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ComponentReport_Post"
+                type: array
+          description: OK
+      tags:
+      - ossi-controller
+  /api/v3/component-report/**:
+    get:
+      operationId: getComponentReport_1
+      parameters:
+      - explode: false
+        in: header
+        name: User-Agent
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ComponentReport_Get"
+            application/vnd.ossindex.component-report.v1+json:
+              schema:
+                $ref: "#/components/schemas/ComponentReport_Get"
+          description: OK
+      tags:
+      - ossi-controller
+  /api/v3/version:
+    get:
+      deprecated: true
+      operationId: getVersion
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: OK
+      tags:
+      - ossi-controller
+  /billing/customer:
+    get:
+      description: Retrieves the current user's customer profile information. Returns
+        the customer ID and associated email address for billing purposes.
+      operationId: getCustomerInfo
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  customer:
+                    email: test@test.com
+                    id: 169q4nUvkKuNOMVk
+                type: string
+          description: Customer information retrieved successfully
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerInfo"
+          description: User is not an organization owner and cannot access billing
+            information
+      summary: Get customer information
+      tags:
+      - Billing
+  /billing/invoices:
+    get:
+      description: "Retrieves the complete invoice history for the current user. Returns\
+        \ a list of all invoices with details including invoice ID, date, description,\
+        \ amount, payment status, PDF link, and credit usage for each billing period."
+      operationId: getUserInvoiceHistory
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  invoices:
+                  - amount: 1200.0
+                    creditsTotal: 5000
+                    creditsUsed: 3000
+                    date: 2024-10-31
+                    description: Teams Plan (Annual)
+                    id: inv_2024_001
+                    pdfUrl: /invoices/inv_2024_001.pdf
+                    status: paid
+                type: string
+          description: Invoice history retrieved successfully
+        "403":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Invoice"
+                type: array
+          description: User is not an organization owner and cannot access billing
+            information
+      summary: Get user invoice history
+      tags:
+      - Billing
+  /billing/plans:
+    get:
+      description: "Retrieves all available subscription plans including plan tier,\
+        \ display name, monthly credits, and Chargebee item ID. The user's current\
+        \ active plan is marked with isCurrentPlan flag. Supports both FREE users\
+        \ (with direct subscription) and PAID users (with organization subscription)."
+      operationId: getPlans
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  plans:
+                  - chargebeeItemId: null
+                    credits: 500
+                    isCurrentPlan: false
+                    name: Free
+                    tier: FREE
+                  - chargebeeItemId: Guide-Team-USD-Yearly
+                    credits: 5000
+                    isCurrentPlan: true
+                    name: Team
+                    tier: TEAM
+                  - chargebeeItemId: Guide-Pro-USD-Yearly
+                    credits: 25000
+                    isCurrentPlan: false
+                    name: Pro
+                    tier: PRO
+                type: string
+          description: Plans information retrieved successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlansResponse"
+          description: Subscription not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PlansResponse"
+          description: Internal server error
+      summary: Get all available plans with current plan marked
+      tags:
+      - Billing
+  /billing/subscription:
+    get:
+      description: "Retrieves the current user's subscription plan and credit usage\
+        \ information. Returns the active plan details including pricing, credit limits,\
+        \ and current usage statistics with billing period dates."
+      operationId: getUserSubscription
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  creditUsage:
+                    percentage: 65
+                    periodEnd: 2025-11-09
+                    periodStart: 2025-10-10
+                    total: 5000
+                    used: 3250
+                  plan:
+                    cancelAtPeriodEnd: false
+                    credits: 5000
+                    interval: per month
+                    name: Free (Personal)
+                    price: 0
+                    status: active
+                type: string
+          description: Subscription details retrieved successfully
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubscriptionDetailsResponse"
+          description: User is not an organization owner and cannot access billing
+            information
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubscriptionDetailsResponse"
+          description: Organization or subscription not found
+      summary: Get user subscription details
+      tags:
+      - Billing
+  /billing/v2:
+    get:
+      description: "Retrieves billing details including cost, period, and payment\
+        \ method"
+      operationId: getBillingV2
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingDTO"
+          description: Billing info retrieved
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingDTO"
+          description: User is not an organization owner
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingDTO"
+          description: Subscription not found
+      summary: Get billing information (v2)
+      tags:
+      - Billing
+  /billing/v2/plans:
+    get:
+      description: Retrieves all subscription plans with current plan marked
+      operationId: getPlansV2
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/PlanDTOv2"
+                type: array
+          description: Plans retrieved
+        "404":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/PlanDTOv2"
+                type: array
+          description: Subscription not found
+      summary: Get all available plans (v2)
+      tags:
+      - Billing
+  /components/dependencies:
+    get:
+      description: "Retrieves all direct dependencies of a specific component using\
+        \ explicit coordinate parameters (format, namespace, name, version). Returns\
+        \ full component details for each dependency with comprehensive filtering\
+        \ by format, category, CVSS severity, and license. Namespace is optional for\
+        \ some formats"
+      operationId: getComponentDependenciesByPurlQueryParam
+      parameters:
+      - description: "URL-encoded PURL (e.g., pkg%3Amaven%2F...)"
+        explode: true
+        in: query
+        name: purl
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: "Text search query (searches name, namespace, refid)"
+        explode: true
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Pagination offset (default: 0)"
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Pagination limit (default: 20)"
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Field to sort by (default: name)"
+        explode: true
+        in: query
+        name: sortField
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Sort order: asc or desc (default: asc)"
+        explode: true
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Format filter (e.g., maven, npm, pypi) - repeatable"
+        explode: true
+        in: query
+        name: formats
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Category filter (e.g., Logging, Framework) - repeatable"
+        explode: true
+        in: query
+        name: categories
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "CVSS severity filter (e.g., critical, high) - repeatable"
+        explode: true
+        in: query
+        name: severities
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Minimum CVSS score (0.0 to 10.0)
+        explode: true
+        in: query
+        name: minCvss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: Maximum CVSS score (0.0 to 10.0)
+        explode: true
+        in: query
+        name: maxCvss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: Minimum version score (0 to 100)
+        explode: true
+        in: query
+        name: minVersionScore
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: Maximum version score (0 to 100)
+        explode: true
+        in: query
+        name: maxVersionScore
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Licence family filter (e.g., Banned, Copyleft) - repeatable"
+        explode: true
+        in: query
+        name: licenseFamilies
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Licence name filter (e.g., MIT, Apache-2.0, GPL-3.0+) - repeatable"
+        explode: true
+        in: query
+        name: licenses
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: "Filter by latest stable versions: 'true' for stable only, 'false'\
+          \ for non-stable only, 'all' for no filter"
+        explode: true
+        in: query
+        name: latestStable
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Package format (e.g., maven, npm, pypi)"
+        explode: true
+        in: query
+        name: format
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package namespace/groupId (optional)
+        explode: true
+        in: query
+        name: namespace
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Package name
+        explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package version
+        explode: true
+        in: query
+        name: version
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponse"
+          description: Dependencies found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponseComponentDocument"
+          description: Invalid parameters
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponseComponentDocument"
+          description: Component not found
+      summary: Get dependencies for a component by coordinates (query parameters)
+      tags:
+      - Components
+  /components/detail:
+    get:
+      description: "Retrieves detailed information about a specific component using\
+        \ explicit coordinate parameters (format, namespace, name, version). Namespace\
+        \ is optional for some formats"
+      operationId: getComponentDetailByPurlQueryParam
+      parameters:
+      - description: "URL-encoded PURL (e.g., pkg%3Amaven%2F...)"
+        explode: true
+        in: query
+        name: purl
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: "Package format (e.g., maven, npm, pypi)"
+        explode: true
+        in: query
+        name: format
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package namespace/groupId (optional)
+        explode: true
+        in: query
+        name: namespace
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Package name
+        explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package version
+        explode: true
+        in: query
+        name: version
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ComponentDetailDocument"
+          description: Component found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ComponentDetailDocument"
+          description: Invalid parameters
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ComponentDetailDocument"
+          description: Component not found
+      summary: Get component detail by coordinates (query parameters)
+      tags:
+      - Components
+  /components/versions:
+    get:
+      description: "Retrieves all versions of a component using explicit coordinate\
+        \ parameters (format, namespace, name, version). Returns all versions EXCEPT\
+        \ the version specified. Namespace is optional for some formats"
+      operationId: getComponentVersionsByPurlQueryParam
+      parameters:
+      - description: "URL-encoded PURL (e.g., pkg%3Amaven%2F...)"
+        explode: true
+        in: query
+        name: purl
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: "Pagination offset (default: 0)"
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Pagination limit (default: 20)"
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Field to sort by (default: version)"
+        explode: true
+        in: query
+        name: sortField
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Sort order: asc or desc (default: desc)"
+        explode: true
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "CVSS severity filter (e.g., critical, high) - repeatable"
+        explode: true
+        in: query
+        name: severities
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Minimum CVSS score (0.0 to 10.0)
+        explode: true
+        in: query
+        name: minCvss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: Maximum CVSS score (0.0 to 10.0)
+        explode: true
+        in: query
+        name: maxCvss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: Minimum version score (0 to 100)
+        explode: true
+        in: query
+        name: minVersionScore
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: Maximum version score (0 to 100)
+        explode: true
+        in: query
+        name: maxVersionScore
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Filter versions by version prefix (e.g., '2.10' matches '2.10.0',\
+          \ '2.10.1', '2.10-RC1')"
+        explode: true
+        in: query
+        name: versionQuery
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Time window for published date (e.g., 7d, 30d, 60d, 90d, 6m,\
+          \ 1y, 2y)"
+        explode: true
+        in: query
+        name: publishedWindow
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Malware filter (true=has malware, false=no malware)"
+        explode: true
+        in: query
+        name: hasMalware
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Stable version filter (true=stable only, false=pre-release only,\
+          \ null=all)"
+        explode: true
+        in: query
+        name: isStable
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Package format (e.g., maven, npm, pypi)"
+        explode: true
+        in: query
+        name: format
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package namespace/groupId (optional)
+        explode: true
+        in: query
+        name: namespace
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Package name
+        explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package version to exclude from results
+        explode: true
+        in: query
+        name: version
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponse"
+          description: Component versions found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponseComponentDetailDocument"
+          description: Invalid parameters
+      summary: Get all component versions by coordinates (query parameters)
+      tags:
+      - Components
+  /components/vulnerabilities:
+    get:
+      description: "Retrieves all vulnerabilities affecting a specific component using\
+        \ explicit coordinate parameters (format, namespace, name, version). Supports\
+        \ comprehensive filtering by severity, CVSS score, CWE, and more. Namespace\
+        \ is optional for some formats"
+      operationId: getComponentVulnerabilitiesByPurlQueryParam
+      parameters:
+      - description: "URL-encoded PURL (e.g., pkg%3Amaven%2F...)"
+        explode: true
+        in: query
+        name: purl
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: "Pagination offset (default: 0)"
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Pagination limit (default: 20)"
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Field to sort by (default: cvssSeverity)"
+        explode: true
+        in: query
+        name: sortField
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Sort order: asc or desc (default: desc)"
+        explode: true
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Severity filter (e.g., critical, high) - repeatable"
+        explode: true
+        in: query
+        name: severities
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Minimum CVSS score (0.0 to 10.0)
+        explode: true
+        in: query
+        name: minCvss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: Maximum CVSS score (0.0 to 10.0)
+        explode: true
+        in: query
+        name: maxCvss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: Minimum EPSS score (0.0 to 1.0)
+        explode: true
+        in: query
+        name: minEpss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: Maximum EPSS score (0.0 to 1.0)
+        explode: true
+        in: query
+        name: maxEpss
+        required: false
+        schema:
+          format: double
+          type: number
+        style: form
+      - description: "Malware flag filter (true=has malware, false=no malware)"
+        explode: true
+        in: query
+        name: hasMalware
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Patch availability filter (true=available, false=not available)"
+        explode: true
+        in: query
+        name: patchAvailable
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Policy compliance filter (true=compliant, false=non-compliant)"
+        explode: true
+        in: query
+        name: policyCompliant
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "CWE filter (e.g., CWE-79, CWE-89) - repeatable"
+        explode: true
+        in: query
+        name: cwes
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: KEV filter - known exploited vulnerability
+        explode: true
+        in: query
+        name: exploitationKnown
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Time window for published date (e.g., 30d, 1y)"
+        explode: true
+        in: query
+        name: publishedWindow
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Package format (e.g., maven, npm, pypi)"
+        explode: true
+        in: query
+        name: format
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package namespace/groupId (optional)
+        explode: true
+        in: query
+        name: namespace
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Package name
+        explode: true
+        in: query
+        name: name
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Package version
+        explode: true
+        in: query
+        name: version
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponse"
+          description: Vulnerabilities found
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponseVulnerabilityDocument"
+          description: Invalid parameters
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponseVulnerabilityDocument"
+          description: Component not found
+      summary: Get vulnerabilities for a component by coordinates (query parameters)
+      tags:
+      - Components
+  /credits/usage/breakdown:
+    get:
+      description: "Retrieves the credit usage breakdown for the current period for\
+        \ the authenticated user. Returns total credits used and breakdown by lookup\
+        \ type (MCP, component, vulnerability)."
+      operationId: getCreditUsageBreakdown
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  current_period:
+                    component_lookups: 43
+                    mcp_lookups: 2
+                    total_credits_used: 50
+                    vulnerability_lookups: 5
+                  subject: org_123
+                type: string
+          description: Credit usage breakdown retrieved successfully
+      security:
+      - bearer-jwt: []
+      summary: Get credit usage breakdown
+      tags:
+      - Credits
+  /credits/usage/history:
+    get:
+      description: "Retrieves the daily credit usage history for the authenticated\
+        \ user. Returns a list of daily usage with breakdown by lookup type (MCP,\
+        \ component, vulnerability) for the specified billing period."
+      operationId: getCreditUsageHistory
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  history:
+                  - component_lookups: 40
+                    credits_used: 45
+                    date: 2025-10-29
+                    mcp_lookups: 2
+                    vulnerability_lookups: 3
+                  period_end: 2025-11-01
+                  period_start: 2025-10-01
+                  subject: org_123
+                type: string
+          description: Credit usage history retrieved successfully
+      security:
+      - bearer-jwt: []
+      summary: Get credit usage history
+      tags:
+      - Credits
+  /recommendations:
+    post:
+      description: "Retrieves AI-powered version upgrade recommendations for a component\
+        \ specified by PURL. Analyzes security vulnerabilities, stability metrics,\
+        \ and policy compliance to suggest optimal upgrade paths."
+      operationId: getRecommendations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecommendationRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RecommendationResponse"
+          description: Recommendations found
+        "400":
+          content:
+            '*/*':
+              schema:
+                type: object
+          description: Invalid request - PURL is required
+        "404":
+          content:
+            '*/*':
+              schema:
+                type: object
+          description: No recommendations found for the specified component
+      summary: Get version upgrade recommendations
+      tags:
+      - Recommendations
+  /usage:
+    get:
+      description: "Retrieves the current credit balance for the authenticated user.\
+        \ Returns remaining credits, used credits, monthly allotment, usage percentage,\
+        \ and billing period information."
+      operationId: getCreditBalance
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CreditBalance"
+          description: Credit balance retrieved successfully
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CreditBalance"
+          description: User or subscription not found
+        "500":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CreditBalance"
+          description: Internal server error
+      security:
+      - bearer-jwt: []
+      summary: Get credit balance
+      tags:
+      - Usage
+  /usage/billing-periods:
+    get:
+      description: Retrieves the last 6 monthly billing periods (30 days each) for
+        the authenticated user. Periods are calculated based on subscription start
+        date. Supports both FREE and PAID users.
+      operationId: getBillingPeriods
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                currentPeriod:
+                  endDate: 2025-11-09
+                  startDate: 2025-10-10
+                periods:
+                - endDate: 2025-11-09
+                  startDate: 2025-10-10
+                - endDate: 2025-10-09
+                  startDate: 2025-09-10
+          description: Billing periods retrieved successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BillingPeriodsResponse"
+          description: Subscription not found
+      security:
+      - bearer-jwt: []
+      summary: Get billing periods for user
+      tags:
+      - Usage
+  /usage/cumulative:
+    get:
+      description: "Retrieves daily credit usage with cumulative totals and statistics\
+        \ for the specified billing period. Includes total credits used, daily average,\
+        \ peak day, and credit limit. Supports both FREE and PAID users."
+      operationId: getCumulativeUsage
+      parameters:
+      - description: Start date (YYYY-MM-DD)
+        example: 2025-10-10
+        explode: true
+        in: query
+        name: startDate
+        required: true
+        schema:
+          format: date
+          type: string
+        style: form
+      - description: End date (YYYY-MM-DD)
+        example: 2025-11-09
+        explode: true
+        in: query
+        name: endDate
+        required: true
+        schema:
+          format: date
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                billingPeriod:
+                  endDate: 2025-11-09
+                  startDate: 2025-10-10
+                creditLimit: 5000
+                dailyAverage: 194
+                dailyUsage:
+                - cumulativeUsage: 178
+                  dailyUsage: 178
+                  date: 2025-10-10
+                - cumulativeUsage: 381
+                  dailyUsage: 203
+                  date: 2025-10-11
+                peakDay: 248
+                totalCreditsUsed: 6004
+          description: Credit usage retrieved successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CumulativeCreditUsage"
+          description: Invalid date format
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CumulativeCreditUsage"
+          description: Subscription not found
+      security:
+      - bearer-jwt: []
+      summary: Get cumulative credit usage for a billing period
+      tags:
+      - Usage
+  /usage/v2:
+    get:
+      description: Retrieves current credit usage and period information
+      operationId: getUsageV2
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UsageDTO"
+          description: Usage info retrieved
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UsageDTO"
+          description: Subscription not found
+      security:
+      - bearer-jwt: []
+      summary: Get usage information (v2)
+      tags:
+      - Usage
+  /usage/v2/credit-periods:
+    get:
+      description: Retrieves all monthly credit periods from subscription start
+      operationId: getCreditPeriodsV2
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/PeriodDTO"
+                type: array
+          description: Credit periods retrieved
+        "404":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/PeriodDTO"
+                type: array
+          description: Subscription not found
+      security:
+      - bearer-jwt: []
+      summary: Get credit periods (v2)
+      tags:
+      - Usage
+  /users/me/organization:
+    get:
+      description: Retrieves the organization associated with the authenticated user
+      operationId: getCurrentUserOrganization
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Organization found
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CurrentUserOrganizationResponse"
+          description: Invalid JWT token
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CurrentUserOrganizationResponse"
+          description: Organization not found
+      security:
+      - bearer-jwt: []
+      summary: Get current user's organization
+      tags:
+      - Current User Organization
+    put:
+      description: "Updates the organization's name, logo URL and URL"
+      operationId: updateOrganization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateOrganizationRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Organization updated successfully
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrganizationResponse"
+          description: Invalid JWT token
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrganizationResponse"
+          description: Organization not found
+      security:
+      - bearer-jwt: []
+      summary: Update current user's organization
+      tags:
+      - Current User Organization
+  /users/me/organization/invitations/{invitationToken}/accept:
+    post:
+      description: Accept an invitation to join an organization using the invitation
+        token from the email link
+      operationId: acceptInvitation
+      parameters:
+      - explode: false
+        in: path
+        name: invitationToken
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Invitation accepted successfully
+        "400":
+          description: "Invalid or expired invitation token, email mismatch, or user\
+            \ already in organization"
+        "401":
+          description: Invalid JWT token
+      security:
+      - bearer-jwt: []
+      summary: Accept organization invitation
+      tags:
+      - Current User Organization
+  /users/me/organization/members:
+    delete:
+      description: "Removes multiple members or pending invitations from the authenticated\
+        \ user's organization. All removals happen in a single transaction - if any\
+        \ removal fails, all are rolled back."
+      operationId: bulkRemoveMembersOrInvitations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkRemoveMembersRequest"
+        required: true
+      responses:
+        "204":
+          description: All members and invitations removed successfully
+        "400":
+          description: Invalid request or email list is empty
+        "401":
+          description: Invalid JWT token
+        "404":
+          description: "Organization not found, user is not owner, or one or more\
+            \ members/invitations not found"
+      security:
+      - bearer-jwt: []
+      summary: Bulk remove members or invitations from organization
+      tags:
+      - Current User Organization
+    get:
+      description: Retrieves members and invitees of the authenticated user's organization
+      operationId: retrieveOrganizationMembersAsCsv
+      responses:
+        "200":
+          content:
+            text/csv: {}
+          description: Organization members retrieved successfully
+        "401":
+          content:
+            text/csv:
+              schema:
+                format: byte
+                type: string
+          description: Invalid JWT token
+      security:
+      - bearer-jwt: []
+      summary: Retrieve current user's organization members and invitees
+      tags:
+      - Current User Organization
+  /users/me/organization/members/invite:
+    post:
+      description: Sends an invitation to an email list to join the organization
+      operationId: inviteUsers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InviteUsersRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Invitations sent successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: "#/components/schemas/OrganizationMembersResponse"
+                type: array
+          description: Invalid request or user already invited
+        "401":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: "#/components/schemas/OrganizationMembersResponse"
+                type: array
+          description: Invalid JWT token
+        "404":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: "#/components/schemas/OrganizationMembersResponse"
+                type: array
+          description: Organization not found or user is not owner
+      security:
+      - bearer-jwt: []
+      summary: Invite users to current user's an organization
+      tags:
+      - Current User Organization
+  /users/me/organization/members/{email}:
+    delete:
+      description: Removes a member or pending invitation from the authenticated user's
+        organization
+      operationId: removeMemberOrInvitation
+      parameters:
+      - explode: false
+        in: path
+        name: email
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Member or invitation removed successfully
+        "401":
+          description: Invalid JWT token
+        "404":
+          description: "Organization not found, user is not owner, or invitation not\
+            \ found"
+      security:
+      - bearer-jwt: []
+      summary: Remove member or invitation from organization
+      tags:
+      - Current User Organization
+  /users/me/organization/v2:
+    get:
+      description: Retrieves organization information without billing/usage details
+      operationId: getCurrentUserOrganizationV2
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Organization found
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrganizationDTOv2"
+          description: Invalid JWT token
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrganizationDTOv2"
+          description: Organization not found
+      security:
+      - bearer-jwt: []
+      summary: Get current user's organization (v2)
+      tags:
+      - Current User Organization
+  /users/me/tokens:
+    get:
+      description: "Retrieves all tokens for the authenticated user, including active\
+        \ and revoked tokens. Plaintext token values are not included."
+      operationId: listTokens
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Tokens retrieved successfully
+        "401":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: "#/components/schemas/UserTokenDTO"
+                type: array
+          description: Invalid JWT token
+      security:
+      - bearer-jwt: []
+      summary: List all Personal Access Tokens
+      tags:
+      - Current User Tokens
+    post:
+      description: Creates a new token for API authentication. The plaintext token
+        is ONLY returned in this response and cannot be retrieved again.
+      operationId: createToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTokenRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Token created successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserTokenWithPlaintextDTO"
+          description: "Invalid request (e.g., empty name)"
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserTokenWithPlaintextDTO"
+          description: Invalid JWT token
+      security:
+      - bearer-jwt: []
+      summary: Create a new Personal Access Token
+      tags:
+      - Current User Tokens
+  /users/me/tokens/{tokenId}:
+    delete:
+      description: "Revokes a token, preventing it from being used for authentication."
+      operationId: revokeToken
+      parameters:
+      - explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "204":
+          description: Token revoked successfully
+        "401":
+          description: Invalid JWT token
+        "404":
+          description: "Token not found or already revoked, or token does not belong\
+            \ to user"
+      security:
+      - bearer-jwt: []
+      summary: Revoke a Personal Access Token
+      tags:
+      - Current User Tokens
+    get:
+      description: Retrieves a specific token for the authenticated user by ID. Plaintext
+        token value is not included.
+      operationId: getTokenById
+      parameters:
+      - explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Token retrieved successfully
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserTokenDTO"
+          description: Invalid JWT token
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserTokenDTO"
+          description: Token not found or does not belong to user
+      security:
+      - bearer-jwt: []
+      summary: Get a Personal Access Token by ID
+      tags:
+      - Current User Tokens
+  /vulnerabilities/{id}:
+    get:
+      description: "Retrieves detailed information about a specific vulnerability\
+        \ including explanation, detection methods, recommendations, and references.\
+        \ Note: Large arrays (affectedComponentVersions, vulnerableMethods) are excluded\
+        \ for performance - use /{id}/components endpoint for paginated affected components."
+      operationId: getVulnerabilityByRefId
+      parameters:
+      - description: "Vulnerability ID (e.g., CVE-2021-44228, GHSA-xxxx-yyyy-zzzz)"
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/VulnerabilityDetailDocument"
+          description: Vulnerability found
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/VulnerabilityDetailDocument"
+          description: Vulnerability not found
+      summary: Get vulnerability by ID
+      tags:
+      - Vulnerabilities
+  /vulnerabilities/{id}/components:
+    get:
+      description: "Retrieves paginated list of affected component versions for a\
+        \ specific vulnerability with optional text filtering and sorting. Returns\
+        \ parsed component structures with ecosystem, namespace, packageName, version,\
+        \ and fullPackageName fields."
+      operationId: getVulnerabilityAffectedComponents
+      parameters:
+      - description: "Vulnerability ID (e.g., CVE-2021-44228, GHSA-xxxx-yyyy-zzzz)"
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Text search query (filters ecosystem, namespace, package, version\
+          \ fields)"
+        explode: true
+        in: query
+        name: query
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Pagination offset (default: 0)"
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Pagination limit (default: 50)"
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - description: "Field to sort by: ecosystem, package (fullPackageName), version\
+          \ (default: package)"
+        explode: true
+        in: query
+        name: sortField
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Sort order: asc or desc (default: asc)"
+        explode: true
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponse"
+          description: Components retrieved successfully
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ApiSearchResponseAffectedComponentVersion"
+          description: Vulnerability not found
+      summary: Get affected components for a vulnerability
+      tags:
+      - Vulnerabilities
+components:
+  schemas:
+    AffectedComponentVersion:
+      example:
+        ecosystem: ecosystem
+        fullPackageName: fullPackageName
+        namespace: namespace
+        packageName: packageName
+        version: version
+      properties:
+        ecosystem:
+          type: string
+        fullPackageName:
+          type: string
+        namespace:
+          type: string
+        packageName:
+          type: string
+        version:
+          type: string
+    ApiSearchResponse:
+      example:
+        hits:
+        - ""
+        - ""
+        total: 5
+        offset: 1
+        limit: 6
+        aggregations:
+          key:
+            key: 0
+      properties:
+        aggregations:
+          additionalProperties:
+            additionalProperties:
+              format: int64
+              type: integer
+        hits:
+          items: {}
+          type: array
+        limit:
+          format: int32
+          type: integer
+        offset:
+          format: int32
+          type: integer
+        total:
+          format: int64
+          type: integer
+    ApiSearchResponseAffectedComponentVersion:
+      example:
+        hits:
+        - ecosystem: ecosystem
+          fullPackageName: fullPackageName
+          namespace: namespace
+          packageName: packageName
+          version: version
+        - ecosystem: ecosystem
+          fullPackageName: fullPackageName
+          namespace: namespace
+          packageName: packageName
+          version: version
+        total: 5
+        offset: 1
+        limit: 6
+        aggregations:
+          key:
+            key: 0
+      properties:
+        aggregations:
+          additionalProperties:
+            additionalProperties:
+              format: int64
+              type: integer
+        hits:
+          items:
+            $ref: "#/components/schemas/AffectedComponentVersion"
+          type: array
+        limit:
+          format: int32
+          type: integer
+        offset:
+          format: int32
+          type: integer
+        total:
+          format: int64
+          type: integer
+    ApiSearchResponseComponentDetailDocument:
+      example:
+        hits:
+        - components:
+          - sha1: sha1
+            extension: extension
+            refids:
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            classifier: classifier
+            publishedDate: 2000-01-23T04:56:07.000+00:00
+          - sha1: sha1
+            extension: extension
+            refids:
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            classifier: classifier
+            publishedDate: 2000-01-23T04:56:07.000+00:00
+          isMalware: true
+          format: format
+          versionScore: 1
+          version: version
+          latestStable: true
+          licenses:
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          originId: originId
+          registryLink: registryLink
+          directDependencies:
+          - directDependencies
+          - directDependencies
+          name: name
+          namespace: namespace
+          categories:
+          - categories
+          - categories
+          publishedDate: 2000-01-23T04:56:07.000+00:00
+          maxCvss: 6.027456183070403
+        - components:
+          - sha1: sha1
+            extension: extension
+            refids:
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            classifier: classifier
+            publishedDate: 2000-01-23T04:56:07.000+00:00
+          - sha1: sha1
+            extension: extension
+            refids:
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            - severity: 0.8008281904610115
+              isMalware: true
+              refid: refid
+            classifier: classifier
+            publishedDate: 2000-01-23T04:56:07.000+00:00
+          isMalware: true
+          format: format
+          versionScore: 1
+          version: version
+          latestStable: true
+          licenses:
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          originId: originId
+          registryLink: registryLink
+          directDependencies:
+          - directDependencies
+          - directDependencies
+          name: name
+          namespace: namespace
+          categories:
+          - categories
+          - categories
+          publishedDate: 2000-01-23T04:56:07.000+00:00
+          maxCvss: 6.027456183070403
+        total: 5
+        offset: 1
+        limit: 6
+        aggregations:
+          key:
+            key: 0
+      properties:
+        aggregations:
+          additionalProperties:
+            additionalProperties:
+              format: int64
+              type: integer
+        hits:
+          items:
+            $ref: "#/components/schemas/ComponentDetailDocument"
+          type: array
+        limit:
+          format: int32
+          type: integer
+        offset:
+          format: int32
+          type: integer
+        total:
+          format: int64
+          type: integer
+    ApiSearchResponseComponentDocument:
+      example:
+        hits:
+        - isMalware: true
+          format: format
+          versionScore: 9
+          version: version
+          latestStable: true
+          licenses:
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          originId: originId
+          registryLink: registryLink
+          name: name
+          namespace: namespace
+          categories:
+          - categories
+          - categories
+          publishedDate: 2000-01-23T04:56:07.000+00:00
+          maxCvss: 7.061401241503109
+        - isMalware: true
+          format: format
+          versionScore: 9
+          version: version
+          latestStable: true
+          licenses:
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          - licenseThreatLevel: 2
+            licenseThreatGroup: licenseThreatGroup
+            licenseName: licenseName
+          originId: originId
+          registryLink: registryLink
+          name: name
+          namespace: namespace
+          categories:
+          - categories
+          - categories
+          publishedDate: 2000-01-23T04:56:07.000+00:00
+          maxCvss: 7.061401241503109
+        total: 4
+        offset: 2
+        limit: 3
+        aggregations:
+          key:
+            key: 5
+      properties:
+        aggregations:
+          additionalProperties:
+            additionalProperties:
+              format: int64
+              type: integer
+        hits:
+          items:
+            $ref: "#/components/schemas/ComponentDocument"
+          type: array
+        limit:
+          format: int32
+          type: integer
+        offset:
+          format: int32
+          type: integer
+        total:
+          format: int64
+          type: integer
+    ApiSearchResponseVulnerabilityDocument:
+      example:
+        hits:
+        - cvssSeverity: 6.027456183070403
+          summary: summary
+          aliases:
+          - aliases
+          - aliases
+          isMalware: true
+          vulnId: vulnId
+          epss: 1.4658129805029452
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+          researchType: researchType
+          source: source
+          affectedEcosystems:
+          - affectedEcosystems
+          - affectedEcosystems
+          cwes:
+          - cwes
+          - cwes
+          sonatypeCwes:
+          - sonatypeCwes
+          - sonatypeCwes
+          sonatypeCvssSeverity: 5.962133916683182
+          kev: true
+        - cvssSeverity: 6.027456183070403
+          summary: summary
+          aliases:
+          - aliases
+          - aliases
+          isMalware: true
+          vulnId: vulnId
+          epss: 1.4658129805029452
+          publishedAt: 2000-01-23T04:56:07.000+00:00
+          researchType: researchType
+          source: source
+          affectedEcosystems:
+          - affectedEcosystems
+          - affectedEcosystems
+          cwes:
+          - cwes
+          - cwes
+          sonatypeCwes:
+          - sonatypeCwes
+          - sonatypeCwes
+          sonatypeCvssSeverity: 5.962133916683182
+          kev: true
+        total: 7
+        offset: 2
+        limit: 5
+        aggregations:
+          key:
+            key: 0
+      properties:
+        aggregations:
+          additionalProperties:
+            additionalProperties:
+              format: int64
+              type: integer
+        hits:
+          items:
+            $ref: "#/components/schemas/VulnerabilityDocument"
+          type: array
+        limit:
+          format: int32
+          type: integer
+        offset:
+          format: int32
+          type: integer
+        total:
+          format: int64
+          type: integer
+    BillingDTO:
+      example:
+        billingPeriodStart: 2000-01-23
+        paymentMethod: paymentMethod
+        billingPeriodEnd: 2000-01-23
+        monthlyCost: 0.8008281904610115
+        status: FUTURE
+      properties:
+        billingPeriodEnd:
+          format: date
+          type: string
+        billingPeriodStart:
+          format: date
+          type: string
+        monthlyCost:
+          format: double
+          type: number
+        paymentMethod:
+          type: string
+        status:
+          enum:
+          - FUTURE
+          - IN_TRIAL
+          - ACTIVE
+          - NON_RENEWING
+          - PAUSED
+          - CANCELLED
+          - TRANSFERRED
+          type: string
+    BillingPeriod:
+      example:
+        endDate: 2000-01-23
+        startDate: 2000-01-23
+      properties:
+        endDate:
+          format: date
+          type: string
+        startDate:
+          format: date
+          type: string
+    BillingPeriodsResponse:
+      example:
+        periods:
+        - endDate: 2000-01-23
+          startDate: 2000-01-23
+        - endDate: 2000-01-23
+          startDate: 2000-01-23
+        currentPeriod:
+          endDate: 2000-01-23
+          startDate: 2000-01-23
+      properties:
+        currentPeriod:
+          $ref: "#/components/schemas/BillingPeriod"
+        periods:
+          items:
+            $ref: "#/components/schemas/BillingPeriod"
+          type: array
+    BulkRemoveMembersRequest:
+      example:
+        emails:
+        - emails
+        - emails
+      properties:
+        emails:
+          items:
+            format: email
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - emails
+    ComponentArtifact:
+      example:
+        sha1: sha1
+        extension: extension
+        refids:
+        - severity: 0.8008281904610115
+          isMalware: true
+          refid: refid
+        - severity: 0.8008281904610115
+          isMalware: true
+          refid: refid
+        classifier: classifier
+        publishedDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        classifier:
+          type: string
+        extension:
+          type: string
+        publishedDate:
+          format: date-time
+          type: string
+        refids:
+          items:
+            $ref: "#/components/schemas/Refid"
+          type: array
+        sha1:
+          type: string
+    ComponentDetailDocument:
+      example:
+        components:
+        - sha1: sha1
+          extension: extension
+          refids:
+          - severity: 0.8008281904610115
+            isMalware: true
+            refid: refid
+          - severity: 0.8008281904610115
+            isMalware: true
+            refid: refid
+          classifier: classifier
+          publishedDate: 2000-01-23T04:56:07.000+00:00
+        - sha1: sha1
+          extension: extension
+          refids:
+          - severity: 0.8008281904610115
+            isMalware: true
+            refid: refid
+          - severity: 0.8008281904610115
+            isMalware: true
+            refid: refid
+          classifier: classifier
+          publishedDate: 2000-01-23T04:56:07.000+00:00
+        isMalware: true
+        format: format
+        versionScore: 1
+        version: version
+        latestStable: true
+        licenses:
+        - licenseThreatLevel: 2
+          licenseThreatGroup: licenseThreatGroup
+          licenseName: licenseName
+        - licenseThreatLevel: 2
+          licenseThreatGroup: licenseThreatGroup
+          licenseName: licenseName
+        originId: originId
+        registryLink: registryLink
+        directDependencies:
+        - directDependencies
+        - directDependencies
+        name: name
+        namespace: namespace
+        categories:
+        - categories
+        - categories
+        publishedDate: 2000-01-23T04:56:07.000+00:00
+        maxCvss: 6.027456183070403
+      properties:
+        categories:
+          items:
+            type: string
+          type: array
+        components:
+          items:
+            $ref: "#/components/schemas/ComponentArtifact"
+          type: array
+        directDependencies:
+          items:
+            type: string
+          type: array
+        format:
+          type: string
+        isMalware:
+          type: boolean
+        latestStable:
+          type: boolean
+        licenses:
+          items:
+            $ref: "#/components/schemas/ComponentLicense"
+          type: array
+        maxCvss:
+          format: double
+          type: number
+        name:
+          type: string
+        namespace:
+          type: string
+        originId:
+          type: string
+        publishedDate:
+          format: date-time
+          type: string
+        registryLink:
+          type: string
+        version:
+          type: string
+        versionScore:
+          format: int32
+          type: integer
+    ComponentDocument:
+      example:
+        isMalware: true
+        format: format
+        versionScore: 9
+        version: version
+        latestStable: true
+        licenses:
+        - licenseThreatLevel: 2
+          licenseThreatGroup: licenseThreatGroup
+          licenseName: licenseName
+        - licenseThreatLevel: 2
+          licenseThreatGroup: licenseThreatGroup
+          licenseName: licenseName
+        originId: originId
+        registryLink: registryLink
+        name: name
+        namespace: namespace
+        categories:
+        - categories
+        - categories
+        publishedDate: 2000-01-23T04:56:07.000+00:00
+        maxCvss: 7.061401241503109
+      properties:
+        categories:
+          items:
+            type: string
+          type: array
+        format:
+          type: string
+        isMalware:
+          type: boolean
+        latestStable:
+          type: boolean
+        licenses:
+          items:
+            $ref: "#/components/schemas/ComponentLicense"
+          type: array
+        maxCvss:
+          format: double
+          type: number
+        name:
+          type: string
+        namespace:
+          type: string
+        originId:
+          type: string
+        publishedDate:
+          format: date-time
+          type: string
+        registryLink:
+          type: string
+        version:
+          type: string
+        versionScore:
+          format: int32
+          type: integer
+    ComponentLicense:
+      example:
+        licenseThreatLevel: 2
+        licenseThreatGroup: licenseThreatGroup
+        licenseName: licenseName
+      properties:
+        licenseName:
+          type: string
+        licenseThreatGroup:
+          type: string
+        licenseThreatLevel:
+          format: int32
+          type: integer
+    ComponentReport_Get:
+      example:
+        reference: reference
+        sonatypeOssiScore: 0.8008281904610115
+        coordinates: coordinates
+        description: description
+        vulnerabilities:
+        - cwe: cwe
+          reference: reference
+          cvssVector: cvssVector
+          externalReferences:
+          - externalReferences
+          - externalReferences
+          cve: cve
+          cvssScore: 0.8008281904610115
+          displayName: displayName
+          description: description
+          id: id
+          title: title
+        - cwe: cwe
+          reference: reference
+          cvssVector: cvssVector
+          externalReferences:
+          - externalReferences
+          - externalReferences
+          cve: cve
+          cvssScore: 0.8008281904610115
+          displayName: displayName
+          description: description
+          id: id
+          title: title
+      properties:
+        coordinates:
+          type: string
+        description:
+          type: string
+        reference:
+          type: string
+        sonatypeOssiScore:
+          format: double
+          type: number
+        vulnerabilities:
+          items:
+            $ref: "#/components/schemas/OssiVulnerability_Post"
+          type: array
+    ComponentReport_Post:
+      example:
+        reference: reference
+        coordinates: coordinates
+        description: description
+        vulnerabilities:
+        - cwe: cwe
+          reference: reference
+          cvssVector: cvssVector
+          externalReferences:
+          - externalReferences
+          - externalReferences
+          cve: cve
+          cvssScore: 0.8008281904610115
+          displayName: displayName
+          description: description
+          id: id
+          title: title
+        - cwe: cwe
+          reference: reference
+          cvssVector: cvssVector
+          externalReferences:
+          - externalReferences
+          - externalReferences
+          cve: cve
+          cvssScore: 0.8008281904610115
+          displayName: displayName
+          description: description
+          id: id
+          title: title
+      properties:
+        coordinates:
+          type: string
+        description:
+          type: string
+        reference:
+          type: string
+        vulnerabilities:
+          items:
+            $ref: "#/components/schemas/OssiVulnerability_Post"
+          type: array
+    CreateTokenRequest:
+      example:
+        name: name
+        daysUntilExpiration: 0
+      properties:
+        daysUntilExpiration:
+          format: int32
+          type: integer
+        name:
+          minLength: 1
+          type: string
+      required:
+      - daysUntilExpiration
+      - name
+    CreditBalance:
+      example:
+        totalCredits: 1
+        resetDate: 2000-01-23
+        usagePercentage: 5
+        planTier: FREE
+        periodStart: 2000-01-23
+        creditsRemaining: 0
+        creditsUsed: 6
+        periodEnd: 2000-01-23
+        status: under_limit
+      properties:
+        creditsRemaining:
+          format: int32
+          type: integer
+        creditsUsed:
+          format: int32
+          type: integer
+        periodEnd:
+          format: date
+          type: string
+        periodStart:
+          format: date
+          type: string
+        planTier:
+          enum:
+          - FREE
+          - PRO
+          - ENTERPRISE
+          - TEAM
+          type: string
+        resetDate:
+          format: date
+          type: string
+        status:
+          enum:
+          - under_limit
+          - approaching_limit
+          - over_limit
+          - abuse_limit
+          type: string
+        totalCredits:
+          format: int32
+          type: integer
+        usagePercentage:
+          format: int32
+          type: integer
+    CreditUsage:
+      example:
+        total: 6
+        percentage: 0
+        used: 1
+        periodStart: 2000-01-23
+        periodEnd: 2000-01-23
+      properties:
+        percentage:
+          format: int32
+          type: integer
+        periodEnd:
+          format: date
+          type: string
+        periodStart:
+          format: date
+          type: string
+        total:
+          format: int32
+          type: integer
+        used:
+          format: int32
+          type: integer
+    CumulativeCreditUsage:
+      example:
+        dailyUsage:
+        - dailyUsage: 5
+          date: 2000-01-23
+          cumulativeUsage: 1
+        - dailyUsage: 5
+          date: 2000-01-23
+          cumulativeUsage: 1
+        peakDay: 5
+        totalCreditsUsed: 2
+        creditLimit: 0
+        dailyAverage: 6
+      properties:
+        creditLimit:
+          format: int32
+          type: integer
+        dailyAverage:
+          format: int32
+          type: integer
+        dailyUsage:
+          items:
+            $ref: "#/components/schemas/DailyCreditUsage"
+          type: array
+        peakDay:
+          format: int32
+          type: integer
+        totalCreditsUsed:
+          format: int32
+          type: integer
+    CurrentUserOrganizationResponse:
+      example:
+        isOwner: true
+        usage: 2
+        name: name
+        logo: logo
+        people: 0
+        plan:
+          seaworthySaasSearchesLimit: 5
+          name: name
+          apiCallsLimit: 6
+          billing:
+            paymentMethod: paymentMethod
+            monthlyCost: 1.4658129805029452
+            nextBilling: nextBilling
+          mcpCallsLimit: 5
+        usageDetail:
+          seaworthySaasSearches: 3
+          apiCalls: 7
+          mcpCalls: 9
+        slug: slug
+        url: url
+      properties:
+        isOwner:
+          type: boolean
+        logo:
+          type: string
+        name:
+          type: string
+        people:
+          format: int32
+          type: integer
+        plan:
+          $ref: "#/components/schemas/OrganizationPlanDTO"
+        slug:
+          type: string
+        url:
+          type: string
+        usage:
+          format: int32
+          type: integer
+        usageDetail:
+          $ref: "#/components/schemas/OrganizationUsageDTO"
+    CustomerInfo:
+      example:
+        id: id
+        email: email
+      properties:
+        email:
+          type: string
+        id:
+          type: string
+    DailyCreditUsage:
+      example:
+        dailyUsage: 5
+        date: 2000-01-23
+        cumulativeUsage: 1
+      properties:
+        cumulativeUsage:
+          format: int32
+          type: integer
+        dailyUsage:
+          format: int32
+          type: integer
+        date:
+          format: date
+          type: string
+    FromVersion:
+      example:
+        vulnerableMethods:
+        - signature: signature
+          vulnerableParameters:
+          - 2
+          - 2
+          type: type
+        - signature: signature
+          vulnerableParameters:
+          - 2
+          - 2
+          type: type
+        breakingChangesCount: breakingChangesCount
+        transitiveVulnerabilities:
+          key: 5.637376656633329
+        developerTrustScore: 0
+        licenseThreatLevels:
+          key: 1
+        version: version
+        maxSeverity: 5.962133916683182
+        directVulnerabilities:
+          key: 6.027456183070403
+      properties:
+        breakingChangesCount:
+          type: string
+        developerTrustScore:
+          format: int32
+          type: integer
+        directVulnerabilities:
+          additionalProperties:
+            format: double
+            type: number
+        licenseThreatLevels:
+          additionalProperties:
+            format: int32
+            type: integer
+        maxSeverity:
+          format: double
+          type: number
+        transitiveVulnerabilities:
+          additionalProperties:
+            format: double
+            type: number
+        version:
+          type: string
+        vulnerableMethods:
+          items:
+            $ref: "#/components/schemas/VulnerableMethod"
+          type: array
+    InviteUsersRequest:
+      example:
+        emails:
+        - emails
+        - emails
+      properties:
+        emails:
+          items:
+            format: email
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - emails
+    Invoice:
+      example:
+        date: 2000-01-23
+        amount: 0.8008281904610115
+        pdfUrl: pdfUrl
+        totalCredits: 6.027456183070403
+        description: description
+        id: id
+        usedCredits: 1.4658129805029452
+        status: status
+      properties:
+        amount:
+          format: double
+          type: number
+        date:
+          format: date
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        pdfUrl:
+          type: string
+        status:
+          type: string
+        totalCredits:
+          format: double
+          type: number
+        usedCredits:
+          format: double
+          type: number
+    OrganizationBillingDTO:
+      example:
+        paymentMethod: paymentMethod
+        monthlyCost: 1.4658129805029452
+        nextBilling: nextBilling
+      properties:
+        monthlyCost:
+          format: double
+          type: number
+        nextBilling:
+          type: string
+        paymentMethod:
+          type: string
+    OrganizationDTOv2:
+      example:
+        isOwner: true
+        name: name
+        logo: logo
+        people: 0
+        slug: slug
+        url: url
+      properties:
+        isOwner:
+          type: boolean
+        logo:
+          type: string
+        name:
+          type: string
+        people:
+          format: int32
+          type: integer
+        slug:
+          type: string
+        url:
+          type: string
+    OrganizationMembersResponse:
+      example:
+        invitedHistory:
+        - 2000-01-23T04:56:07.000+00:00
+        - 2000-01-23T04:56:07.000+00:00
+        role: role
+        lastActive: 2000-01-23T04:56:07.000+00:00
+        joinedAt: 2000-01-23T04:56:07.000+00:00
+        name: name
+        avatar: avatar
+        email: email
+        status: ACTIVE
+      properties:
+        avatar:
+          type: string
+        email:
+          type: string
+        invitedHistory:
+          items:
+            format: date-time
+            type: string
+          type: array
+        joinedAt:
+          format: date-time
+          type: string
+        lastActive:
+          format: date-time
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+        status:
+          enum:
+          - ACTIVE
+          - INVITED
+          - EXPIRED
+          type: string
+    OrganizationPlanDTO:
+      example:
+        seaworthySaasSearchesLimit: 5
+        name: name
+        apiCallsLimit: 6
+        billing:
+          paymentMethod: paymentMethod
+          monthlyCost: 1.4658129805029452
+          nextBilling: nextBilling
+        mcpCallsLimit: 5
+      properties:
+        apiCallsLimit:
+          format: int32
+          type: integer
+        billing:
+          $ref: "#/components/schemas/OrganizationBillingDTO"
+        mcpCallsLimit:
+          format: int32
+          type: integer
+        name:
+          type: string
+        seaworthySaasSearchesLimit:
+          format: int32
+          type: integer
+    OrganizationResponse:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        name: name
+        logoUrl: logoUrl
+        slug: slug
+        url: url
+        status: status
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        logoUrl:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        status:
+          type: string
+        url:
+          type: string
+    OrganizationUsageDTO:
+      example:
+        seaworthySaasSearches: 3
+        apiCalls: 7
+        mcpCalls: 9
+      properties:
+        apiCalls:
+          format: int32
+          type: integer
+        mcpCalls:
+          format: int32
+          type: integer
+        seaworthySaasSearches:
+          format: int32
+          type: integer
+    OssiVulnerability_Post:
+      example:
+        cwe: cwe
+        reference: reference
+        cvssVector: cvssVector
+        externalReferences:
+        - externalReferences
+        - externalReferences
+        cve: cve
+        cvssScore: 0.8008281904610115
+        displayName: displayName
+        description: description
+        id: id
+        title: title
+      properties:
+        cve:
+          type: string
+        cvssScore:
+          format: double
+          type: number
+        cvssVector:
+          type: string
+        cwe:
+          type: string
+        description:
+          type: string
+        displayName:
+          type: string
+        externalReferences:
+          items:
+            type: string
+          type: array
+        id:
+          type: string
+        reference:
+          type: string
+        title:
+          type: string
+    PeriodDTO:
+      example:
+        start: 2000-01-23
+        end: 2000-01-23
+      properties:
+        end:
+          format: date
+          type: string
+        start:
+          format: date
+          type: string
+    Plan:
+      example:
+        nextBill: 2000-01-23
+        credits: 5
+        price: 5.637376656633329
+        name: name
+        isFreePlan: true
+        billing: billing
+        status: status
+      properties:
+        billing:
+          type: string
+        credits:
+          format: int32
+          type: integer
+        isFreePlan:
+          type: boolean
+        name:
+          type: string
+        nextBill:
+          format: date
+          type: string
+        price:
+          format: double
+          type: number
+        status:
+          type: string
+    PlanDTOv2:
+      example:
+        isCurrentPlan: true
+        billingPeriod: PER_MONTH
+        displayName: displayName
+        price: 6.027456183070403
+        chargebeeItemId: chargebeeItemId
+        planTier: FREE
+        monthlyCredits: 0
+      properties:
+        billingPeriod:
+          enum:
+          - PER_MONTH
+          - PER_YEAR
+          type: string
+        chargebeeItemId:
+          type: string
+        displayName:
+          type: string
+        isCurrentPlan:
+          type: boolean
+        monthlyCredits:
+          format: int32
+          type: integer
+        planTier:
+          enum:
+          - FREE
+          - PRO
+          - ENTERPRISE
+          - TEAM
+          type: string
+        price:
+          format: double
+          type: number
+    PlanInfo:
+      example:
+        isCurrentPlan: true
+        tier: tier
+        credits: 0
+        name: name
+        chargebeeItemId: chargebeeItemId
+      properties:
+        chargebeeItemId:
+          type: string
+        credits:
+          format: int32
+          type: integer
+        isCurrentPlan:
+          type: boolean
+        name:
+          type: string
+        tier:
+          type: string
+    PlansResponse:
+      example:
+        plans:
+        - isCurrentPlan: true
+          tier: tier
+          credits: 0
+          name: name
+          chargebeeItemId: chargebeeItemId
+        - isCurrentPlan: true
+          tier: tier
+          credits: 0
+          name: name
+          chargebeeItemId: chargebeeItemId
+      properties:
+        plans:
+          items:
+            $ref: "#/components/schemas/PlanInfo"
+          type: array
+    PurlRequest_Post:
+      properties:
+        coordinates:
+          items:
+            type: string
+          type: array
+      required:
+      - coordinates
+    RecommendationRequest:
+      description: Request body containing the component PURL
+      example:
+        purl: purl
+      properties:
+        purl:
+          minLength: 1
+          type: string
+      required:
+      - purl
+    RecommendationResponse:
+      example:
+        fromVersion:
+          vulnerableMethods:
+          - signature: signature
+            vulnerableParameters:
+            - 2
+            - 2
+            type: type
+          - signature: signature
+            vulnerableParameters:
+            - 2
+            - 2
+            type: type
+          breakingChangesCount: breakingChangesCount
+          transitiveVulnerabilities:
+            key: 5.637376656633329
+          developerTrustScore: 0
+          licenseThreatLevels:
+            key: 1
+          version: version
+          maxSeverity: 5.962133916683182
+          directVulnerabilities:
+            key: 6.027456183070403
+        toVersions:
+        - vulnerableMethods:
+          - signature: signature
+            vulnerableParameters:
+            - 2
+            - 2
+            type: type
+          - signature: signature
+            vulnerableParameters:
+            - 2
+            - 2
+            type: type
+          breakingChangesCount: breakingChangesCount
+          transitiveVulnerabilities:
+            key: 2.027123023002322
+          developerTrustScore: 7
+          licenseThreatLevels:
+            key: 3
+          version: version
+          directVulnerabilities:
+            key: 9.301444243932576
+        - vulnerableMethods:
+          - signature: signature
+            vulnerableParameters:
+            - 2
+            - 2
+            type: type
+          - signature: signature
+            vulnerableParameters:
+            - 2
+            - 2
+            type: type
+          breakingChangesCount: breakingChangesCount
+          transitiveVulnerabilities:
+            key: 2.027123023002322
+          developerTrustScore: 7
+          licenseThreatLevels:
+            key: 3
+          version: version
+          directVulnerabilities:
+            key: 9.301444243932576
+      properties:
+        fromVersion:
+          $ref: "#/components/schemas/FromVersion"
+        toVersions:
+          items:
+            $ref: "#/components/schemas/RecommendedVersion"
+          type: array
+    RecommendedVersion:
+      example:
+        vulnerableMethods:
+        - signature: signature
+          vulnerableParameters:
+          - 2
+          - 2
+          type: type
+        - signature: signature
+          vulnerableParameters:
+          - 2
+          - 2
+          type: type
+        breakingChangesCount: breakingChangesCount
+        transitiveVulnerabilities:
+          key: 2.027123023002322
+        developerTrustScore: 7
+        licenseThreatLevels:
+          key: 3
+        version: version
+        directVulnerabilities:
+          key: 9.301444243932576
+      properties:
+        breakingChangesCount:
+          type: string
+        developerTrustScore:
+          format: int32
+          type: integer
+        directVulnerabilities:
+          additionalProperties:
+            format: double
+            type: number
+        licenseThreatLevels:
+          additionalProperties:
+            format: int32
+            type: integer
+        transitiveVulnerabilities:
+          additionalProperties:
+            format: double
+            type: number
+        version:
+          type: string
+        vulnerableMethods:
+          items:
+            $ref: "#/components/schemas/VulnerableMethod"
+          type: array
+    Reference:
+      example:
+        link: link
+        type: type
+      properties:
+        link:
+          type: string
+        type:
+          type: string
+    Refid:
+      example:
+        severity: 0.8008281904610115
+        isMalware: true
+        refid: refid
+      properties:
+        isMalware:
+          type: boolean
+        refid:
+          type: string
+        severity:
+          format: double
+          type: number
+    SubscriptionDetailsResponse:
+      example:
+        creditUsage:
+          total: 6
+          percentage: 0
+          used: 1
+          periodStart: 2000-01-23
+          periodEnd: 2000-01-23
+        plan:
+          nextBill: 2000-01-23
+          credits: 5
+          price: 5.637376656633329
+          name: name
+          isFreePlan: true
+          billing: billing
+          status: status
+      properties:
+        creditUsage:
+          $ref: "#/components/schemas/CreditUsage"
+        plan:
+          $ref: "#/components/schemas/Plan"
+    UpdateOrganizationRequest:
+      example:
+        name: name
+        logoUrl: logoUrl
+        url: url
+      properties:
+        logoUrl:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+    UsageDTO:
+      example:
+        creditsTotal: 0
+        currentPeriod:
+          start: 2000-01-23
+          end: 2000-01-23
+        creditsUsed: 6
+      properties:
+        creditsTotal:
+          format: int32
+          type: integer
+        creditsUsed:
+          format: int32
+          type: integer
+        currentPeriod:
+          $ref: "#/components/schemas/PeriodDTO"
+    UserTokenDTO:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        lastUsedAt: 2000-01-23T04:56:07.000+00:00
+        name: name
+        id: 0
+        userId: 6
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        expiresAt:
+          format: date-time
+          type: string
+        id:
+          format: int64
+          type: integer
+        lastUsedAt:
+          format: date-time
+          type: string
+        name:
+          type: string
+        userId:
+          format: int64
+          type: integer
+    UserTokenWithPlaintextDTO:
+      example:
+        tokenDTO:
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          lastUsedAt: 2000-01-23T04:56:07.000+00:00
+          name: name
+          id: 0
+          userId: 6
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+        plaintextToken: plaintextToken
+      properties:
+        plaintextToken:
+          type: string
+        tokenDTO:
+          $ref: "#/components/schemas/UserTokenDTO"
+    VulnerabilityDetailDocument:
+      example:
+        cvssSeverity: 6.027456183070403
+        summary: summary
+        detection: detection
+        vulnerableMethods:
+        - signature: signature
+          vulnerableParameters:
+          - 2
+          - 2
+          type: type
+        - signature: signature
+          vulnerableParameters:
+          - 2
+          - 2
+          type: type
+        aliases:
+        - aliases
+        - aliases
+        isMalware: true
+        vulnId: vulnId
+        epss: 1.4658129805029452
+        references:
+        - link: link
+          type: type
+        - link: link
+          type: type
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+        researchType: researchType
+        recommendation: recommendation
+        source: source
+        affectedEcosystems:
+        - affectedEcosystems
+        - affectedEcosystems
+        cwes:
+        - cwes
+        - cwes
+        explanation: explanation
+        cvssVector: cvssVector
+        affectedComponentVersionsCount: 0
+        sonatypeCwes:
+        - sonatypeCwes
+        - sonatypeCwes
+        sonatypeCvssSeverity: 5.962133916683182
+        kev: true
+      properties:
+        affectedComponentVersionsCount:
+          format: int32
+          type: integer
+        affectedEcosystems:
+          items:
+            type: string
+          type: array
+        aliases:
+          items:
+            type: string
+          type: array
+        cvssSeverity:
+          format: double
+          type: number
+        cvssVector:
+          type: string
+        cwes:
+          items:
+            type: string
+          type: array
+        detection:
+          type: string
+        epss:
+          format: double
+          type: number
+        explanation:
+          type: string
+        isMalware:
+          type: boolean
+        kev:
+          type: boolean
+        publishedAt:
+          format: date-time
+          type: string
+        recommendation:
+          type: string
+        references:
+          items:
+            $ref: "#/components/schemas/Reference"
+          type: array
+        researchType:
+          type: string
+        sonatypeCvssSeverity:
+          format: double
+          type: number
+        sonatypeCwes:
+          items:
+            type: string
+          type: array
+        source:
+          type: string
+        summary:
+          type: string
+        vulnId:
+          type: string
+        vulnerableMethods:
+          items:
+            $ref: "#/components/schemas/VulnerableMethod"
+          type: array
+    VulnerabilityDocument:
+      example:
+        cvssSeverity: 6.027456183070403
+        summary: summary
+        aliases:
+        - aliases
+        - aliases
+        isMalware: true
+        vulnId: vulnId
+        epss: 1.4658129805029452
+        publishedAt: 2000-01-23T04:56:07.000+00:00
+        researchType: researchType
+        source: source
+        affectedEcosystems:
+        - affectedEcosystems
+        - affectedEcosystems
+        cwes:
+        - cwes
+        - cwes
+        sonatypeCwes:
+        - sonatypeCwes
+        - sonatypeCwes
+        sonatypeCvssSeverity: 5.962133916683182
+        kev: true
+      properties:
+        affectedEcosystems:
+          items:
+            type: string
+          type: array
+        aliases:
+          items:
+            type: string
+          type: array
+        cvssSeverity:
+          format: double
+          type: number
+        cwes:
+          items:
+            type: string
+          type: array
+        epss:
+          format: double
+          type: number
+        isMalware:
+          type: boolean
+        kev:
+          type: boolean
+        publishedAt:
+          format: date-time
+          type: string
+        researchType:
+          type: string
+        sonatypeCvssSeverity:
+          format: double
+          type: number
+        sonatypeCwes:
+          items:
+            type: string
+          type: array
+        source:
+          type: string
+        summary:
+          type: string
+        vulnId:
+          type: string
+    VulnerableMethod:
+      example:
+        signature: signature
+        vulnerableParameters:
+        - 2
+        - 2
+        type: type
+      properties:
+        signature:
+          type: string
+        type:
+          type: string
+        vulnerableParameters:
+          items:
+            format: int32
+            type: integer
+          type: array
+  securitySchemes:
+    bearer-jwt:
+      bearerFormat: JWT
+      description: JWT Bearer Token Authentication
+      scheme: bearer
+      type: http
