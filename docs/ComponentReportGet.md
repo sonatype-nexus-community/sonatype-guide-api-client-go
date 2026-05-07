@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **Reference** | Pointer to **string** |  | [optional] 
 **SonatypeOssiScore** | Pointer to **float64** |  | [optional] 
-**Vulnerabilities** | Pointer to [**[]OssiVulnerabilityPost**](OssiVulnerabilityPost.md) |  | [optional] 
+**Vulnerabilities** | Pointer to [**[]OssiVulnerabilityGet**](OssiVulnerabilityGet.md) |  | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasSonatypeOssiScore returns a boolean if a field has been set.
 
 ### GetVulnerabilities
 
-`func (o *ComponentReportGet) GetVulnerabilities() []OssiVulnerabilityPost`
+`func (o *ComponentReportGet) GetVulnerabilities() []OssiVulnerabilityGet`
 
 GetVulnerabilities returns the Vulnerabilities field if non-nil, zero value otherwise.
 
 ### GetVulnerabilitiesOk
 
-`func (o *ComponentReportGet) GetVulnerabilitiesOk() (*[]OssiVulnerabilityPost, bool)`
+`func (o *ComponentReportGet) GetVulnerabilitiesOk() (*[]OssiVulnerabilityGet, bool)`
 
 GetVulnerabilitiesOk returns a tuple with the Vulnerabilities field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVulnerabilities
 
-`func (o *ComponentReportGet) SetVulnerabilities(v []OssiVulnerabilityPost)`
+`func (o *ComponentReportGet) SetVulnerabilities(v []OssiVulnerabilityGet)`
 
 SetVulnerabilities sets Vulnerabilities field to given value.
 

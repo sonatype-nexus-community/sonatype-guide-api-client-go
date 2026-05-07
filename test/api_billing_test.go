@@ -22,23 +22,11 @@ func Test_v1_BillingAPIService(t *testing.T) {
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
 
-	t.Run("Test BillingAPIService GetBillingV2", func(t *testing.T) {
+	t.Run("Test BillingAPIService GetBilling", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.BillingAPI.GetBillingV2(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test BillingAPIService GetCustomerInfo", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.BillingAPI.GetCustomerInfo(context.Background()).Execute()
+		resp, httpRes, err := apiClient.BillingAPI.GetBilling(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -58,35 +46,11 @@ func Test_v1_BillingAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test BillingAPIService GetPlansV2", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.BillingAPI.GetPlansV2(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test BillingAPIService GetUserInvoiceHistory", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.BillingAPI.GetUserInvoiceHistory(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test BillingAPIService GetUserSubscription", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.BillingAPI.GetUserSubscription(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -1,23 +1,20 @@
 # \BillingAPI
 
-All URIs are relative to *http://api.guide.sonatype.com*
+All URIs are relative to *https://api.guide.sonatype.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetBillingV2**](BillingAPI.md#GetBillingV2) | **Get** /billing/v2 | Get billing information (v2)
-[**GetCustomerInfo**](BillingAPI.md#GetCustomerInfo) | **Get** /billing/customer | Get customer information
-[**GetPlans**](BillingAPI.md#GetPlans) | **Get** /billing/plans | Get all available plans with current plan marked
-[**GetPlansV2**](BillingAPI.md#GetPlansV2) | **Get** /billing/v2/plans | Get all available plans (v2)
+[**GetBilling**](BillingAPI.md#GetBilling) | **Get** /billing | Get billing information
+[**GetPlans**](BillingAPI.md#GetPlans) | **Get** /billing/plans | Get all available plans
 [**GetUserInvoiceHistory**](BillingAPI.md#GetUserInvoiceHistory) | **Get** /billing/invoices | Get user invoice history
-[**GetUserSubscription**](BillingAPI.md#GetUserSubscription) | **Get** /billing/subscription | Get user subscription details
 
 
 
-## GetBillingV2
+## GetBilling
 
-> BillingDTO GetBillingV2(ctx).Execute()
+> BillingDTO GetBilling(ctx).Execute()
 
-Get billing information (v2)
+Get billing information
 
 
 
@@ -37,13 +34,13 @@ func main() {
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetBillingV2(context.Background()).Execute()
+	resp, r, err := apiClient.BillingAPI.GetBilling(context.Background()).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBillingV2``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetBilling``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetBillingV2`: BillingDTO
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBillingV2`: %v\n", resp)
+	// response from `GetBilling`: BillingDTO
+	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetBilling`: %v\n", resp)
 }
 ```
 
@@ -53,7 +50,7 @@ This endpoint does not need any parameter.
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetBillingV2Request struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetBillingRequest struct via the builder pattern
 
 
 ### Return type
@@ -74,72 +71,11 @@ Other parameters are passed through a pointer to a apiGetBillingV2Request struct
 [[Back to README]](../README.md)
 
 
-## GetCustomerInfo
-
-> string GetCustomerInfo(ctx).Execute()
-
-Get customer information
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
-)
-
-func main() {
-
-	configuration := sonatypeguide.NewConfiguration()
-	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetCustomerInfo(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetCustomerInfo``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetCustomerInfo`: string
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetCustomerInfo`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCustomerInfoRequest struct via the builder pattern
-
-
-### Return type
-
-**string**
-
-### Authorization
-
-[bearer-jwt](../README.md#bearer-jwt)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetPlans
 
-> string GetPlans(ctx).Execute()
+> []PlanDTO GetPlans(ctx).Execute()
 
-Get all available plans with current plan marked
+Get all available plans
 
 
 
@@ -164,7 +100,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetPlans``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPlans`: string
+	// response from `GetPlans`: []PlanDTO
 	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetPlans`: %v\n", resp)
 }
 ```
@@ -180,68 +116,7 @@ Other parameters are passed through a pointer to a apiGetPlansRequest struct via
 
 ### Return type
 
-**string**
-
-### Authorization
-
-[bearer-jwt](../README.md#bearer-jwt)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetPlansV2
-
-> []PlanDTOv2 GetPlansV2(ctx).Execute()
-
-Get all available plans (v2)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
-)
-
-func main() {
-
-	configuration := sonatypeguide.NewConfiguration()
-	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetPlansV2(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetPlansV2``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetPlansV2`: []PlanDTOv2
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetPlansV2`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetPlansV2Request struct via the builder pattern
-
-
-### Return type
-
-[**[]PlanDTOv2**](PlanDTOv2.md)
+[**[]PlanDTO**](PlanDTO.md)
 
 ### Authorization
 
@@ -298,67 +173,6 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetUserInvoiceHistoryRequest struct via the builder pattern
-
-
-### Return type
-
-**string**
-
-### Authorization
-
-[bearer-jwt](../README.md#bearer-jwt)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetUserSubscription
-
-> string GetUserSubscription(ctx).Execute()
-
-Get user subscription details
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
-)
-
-func main() {
-
-	configuration := sonatypeguide.NewConfiguration()
-	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.BillingAPI.GetUserSubscription(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `BillingAPI.GetUserSubscription``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetUserSubscription`: string
-	fmt.Fprintf(os.Stdout, "Response from `BillingAPI.GetUserSubscription`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetUserSubscriptionRequest struct via the builder pattern
 
 
 ### Return type

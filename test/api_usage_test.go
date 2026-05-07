@@ -22,34 +22,11 @@ func Test_v1_UsageAPIService(t *testing.T) {
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
 
-	t.Run("Test UsageAPIService GetBillingPeriods", func(t *testing.T) {
+	t.Run("Test UsageAPIService GetCreditPeriods", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.UsageAPI.GetBillingPeriods(context.Background()).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test UsageAPIService GetCreditBalance", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.UsageAPI.GetCreditBalance(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test UsageAPIService GetCreditPeriodsV2", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.UsageAPI.GetCreditPeriodsV2(context.Background()).Execute()
+		resp, httpRes, err := apiClient.UsageAPI.GetCreditPeriods(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -68,11 +45,22 @@ func Test_v1_UsageAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test UsageAPIService GetUsageV2", func(t *testing.T) {
+	t.Run("Test UsageAPIService GetOssiUsageHistory", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.UsageAPI.GetUsageV2(context.Background()).Execute()
+		httpRes, err := apiClient.UsageAPI.GetOssiUsageHistory(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test UsageAPIService GetUsage", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.UsageAPI.GetUsage(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

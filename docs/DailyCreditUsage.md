@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CumulativeUsage** | Pointer to **int32** |  | [optional] 
-**DailyUsage** | Pointer to **int32** |  | [optional] 
+**CumulativeUsage** | Pointer to **float32** |  | [optional] 
+**DailyUsage** | Pointer to **float32** |  | [optional] 
 **Date** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCumulativeUsage
 
-`func (o *DailyCreditUsage) GetCumulativeUsage() int32`
+`func (o *DailyCreditUsage) GetCumulativeUsage() float32`
 
 GetCumulativeUsage returns the CumulativeUsage field if non-nil, zero value otherwise.
 
 ### GetCumulativeUsageOk
 
-`func (o *DailyCreditUsage) GetCumulativeUsageOk() (*int32, bool)`
+`func (o *DailyCreditUsage) GetCumulativeUsageOk() (*float32, bool)`
 
 GetCumulativeUsageOk returns a tuple with the CumulativeUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCumulativeUsage
 
-`func (o *DailyCreditUsage) SetCumulativeUsage(v int32)`
+`func (o *DailyCreditUsage) SetCumulativeUsage(v float32)`
 
 SetCumulativeUsage sets CumulativeUsage field to given value.
 
@@ -54,20 +54,20 @@ HasCumulativeUsage returns a boolean if a field has been set.
 
 ### GetDailyUsage
 
-`func (o *DailyCreditUsage) GetDailyUsage() int32`
+`func (o *DailyCreditUsage) GetDailyUsage() float32`
 
 GetDailyUsage returns the DailyUsage field if non-nil, zero value otherwise.
 
 ### GetDailyUsageOk
 
-`func (o *DailyCreditUsage) GetDailyUsageOk() (*int32, bool)`
+`func (o *DailyCreditUsage) GetDailyUsageOk() (*float32, bool)`
 
 GetDailyUsageOk returns a tuple with the DailyUsage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDailyUsage
 
-`func (o *DailyCreditUsage) SetDailyUsage(v int32)`
+`func (o *DailyCreditUsage) SetDailyUsage(v float32)`
 
 SetDailyUsage sets DailyUsage field to given value.
 

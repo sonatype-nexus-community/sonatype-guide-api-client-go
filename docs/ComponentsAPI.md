@@ -1,6 +1,6 @@
 # \ComponentsAPI
 
-All URIs are relative to *http://api.guide.sonatype.com*
+All URIs are relative to *https://api.guide.sonatype.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**GetComponentDetailByPurlQueryParam**](ComponentsAPI.md#GetComponentDetailByPurlQueryParam) | **Get** /components/detail | Get component detail by coordinates (query parameters)
 [**GetComponentVersionsByPurlQueryParam**](ComponentsAPI.md#GetComponentVersionsByPurlQueryParam) | **Get** /components/versions | Get all component versions by coordinates (query parameters)
 [**GetComponentVulnerabilitiesByPurlQueryParam**](ComponentsAPI.md#GetComponentVulnerabilitiesByPurlQueryParam) | **Get** /components/vulnerabilities | Get vulnerabilities for a component by coordinates (query parameters)
+[**GetLatestVersion**](ComponentsAPI.md#GetLatestVersion) | **Post** /components/latest-version | Get latest version of a component
 
 
 
@@ -386,6 +387,72 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetLatestVersion
+
+> ComponentDetailDocument GetLatestVersion(ctx).LatestVersionRequest(latestVersionRequest).Execute()
+
+Get latest version of a component
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
+)
+
+func main() {
+	latestVersionRequest := *sonatypeguide.NewLatestVersionRequest("Purl_example") // LatestVersionRequest | 
+
+	configuration := sonatypeguide.NewConfiguration()
+	apiClient := sonatypeguide.NewAPIClient(configuration)
+	resp, r, err := apiClient.ComponentsAPI.GetLatestVersion(context.Background()).LatestVersionRequest(latestVersionRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ComponentsAPI.GetLatestVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLatestVersion`: ComponentDetailDocument
+	fmt.Fprintf(os.Stdout, "Response from `ComponentsAPI.GetLatestVersion`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetLatestVersionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **latestVersionRequest** | [**LatestVersionRequest**](LatestVersionRequest.md) |  | 
+
+### Return type
+
+[**ComponentDetailDocument**](ComponentDetailDocument.md)
+
+### Authorization
+
+[bearer-jwt](../README.md#bearer-jwt)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

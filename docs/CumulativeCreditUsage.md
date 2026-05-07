@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreditLimit** | Pointer to **int32** |  | [optional] 
-**DailyAverage** | Pointer to **int32** |  | [optional] 
+**CreditLimit** | Pointer to **float32** |  | [optional] 
+**DailyAverage** | Pointer to **float32** |  | [optional] 
 **DailyUsage** | Pointer to [**[]DailyCreditUsage**](DailyCreditUsage.md) |  | [optional] 
-**PeakDay** | Pointer to **int32** |  | [optional] 
-**TotalCreditsUsed** | Pointer to **int32** |  | [optional] 
+**PeakDay** | Pointer to **float32** |  | [optional] 
+**TotalCreditsUsed** | Pointer to **float32** |  | [optional] 
 
 ## Methods
 
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreditLimit
 
-`func (o *CumulativeCreditUsage) GetCreditLimit() int32`
+`func (o *CumulativeCreditUsage) GetCreditLimit() float32`
 
 GetCreditLimit returns the CreditLimit field if non-nil, zero value otherwise.
 
 ### GetCreditLimitOk
 
-`func (o *CumulativeCreditUsage) GetCreditLimitOk() (*int32, bool)`
+`func (o *CumulativeCreditUsage) GetCreditLimitOk() (*float32, bool)`
 
 GetCreditLimitOk returns a tuple with the CreditLimit field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreditLimit
 
-`func (o *CumulativeCreditUsage) SetCreditLimit(v int32)`
+`func (o *CumulativeCreditUsage) SetCreditLimit(v float32)`
 
 SetCreditLimit sets CreditLimit field to given value.
 
@@ -56,20 +56,20 @@ HasCreditLimit returns a boolean if a field has been set.
 
 ### GetDailyAverage
 
-`func (o *CumulativeCreditUsage) GetDailyAverage() int32`
+`func (o *CumulativeCreditUsage) GetDailyAverage() float32`
 
 GetDailyAverage returns the DailyAverage field if non-nil, zero value otherwise.
 
 ### GetDailyAverageOk
 
-`func (o *CumulativeCreditUsage) GetDailyAverageOk() (*int32, bool)`
+`func (o *CumulativeCreditUsage) GetDailyAverageOk() (*float32, bool)`
 
 GetDailyAverageOk returns a tuple with the DailyAverage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDailyAverage
 
-`func (o *CumulativeCreditUsage) SetDailyAverage(v int32)`
+`func (o *CumulativeCreditUsage) SetDailyAverage(v float32)`
 
 SetDailyAverage sets DailyAverage field to given value.
 
@@ -106,20 +106,20 @@ HasDailyUsage returns a boolean if a field has been set.
 
 ### GetPeakDay
 
-`func (o *CumulativeCreditUsage) GetPeakDay() int32`
+`func (o *CumulativeCreditUsage) GetPeakDay() float32`
 
 GetPeakDay returns the PeakDay field if non-nil, zero value otherwise.
 
 ### GetPeakDayOk
 
-`func (o *CumulativeCreditUsage) GetPeakDayOk() (*int32, bool)`
+`func (o *CumulativeCreditUsage) GetPeakDayOk() (*float32, bool)`
 
 GetPeakDayOk returns a tuple with the PeakDay field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPeakDay
 
-`func (o *CumulativeCreditUsage) SetPeakDay(v int32)`
+`func (o *CumulativeCreditUsage) SetPeakDay(v float32)`
 
 SetPeakDay sets PeakDay field to given value.
 
@@ -131,20 +131,20 @@ HasPeakDay returns a boolean if a field has been set.
 
 ### GetTotalCreditsUsed
 
-`func (o *CumulativeCreditUsage) GetTotalCreditsUsed() int32`
+`func (o *CumulativeCreditUsage) GetTotalCreditsUsed() float32`
 
 GetTotalCreditsUsed returns the TotalCreditsUsed field if non-nil, zero value otherwise.
 
 ### GetTotalCreditsUsedOk
 
-`func (o *CumulativeCreditUsage) GetTotalCreditsUsedOk() (*int32, bool)`
+`func (o *CumulativeCreditUsage) GetTotalCreditsUsedOk() (*float32, bool)`
 
 GetTotalCreditsUsedOk returns a tuple with the TotalCreditsUsed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalCreditsUsed
 
-`func (o *CumulativeCreditUsage) SetTotalCreditsUsed(v int32)`
+`func (o *CumulativeCreditUsage) SetTotalCreditsUsed(v float32)`
 
 SetTotalCreditsUsed sets TotalCreditsUsed field to given value.
 

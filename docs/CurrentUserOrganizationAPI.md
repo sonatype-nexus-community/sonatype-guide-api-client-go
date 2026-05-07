@@ -1,14 +1,14 @@
 # \CurrentUserOrganizationAPI
 
-All URIs are relative to *http://api.guide.sonatype.com*
+All URIs are relative to *https://api.guide.sonatype.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AcceptInvitation**](CurrentUserOrganizationAPI.md#AcceptInvitation) | **Post** /users/me/organization/invitations/{invitationToken}/accept | Accept organization invitation
 [**BulkRemoveMembersOrInvitations**](CurrentUserOrganizationAPI.md#BulkRemoveMembersOrInvitations) | **Delete** /users/me/organization/members | Bulk remove members or invitations from organization
 [**GetCurrentUserOrganization**](CurrentUserOrganizationAPI.md#GetCurrentUserOrganization) | **Get** /users/me/organization | Get current user&#39;s organization
-[**GetCurrentUserOrganizationV2**](CurrentUserOrganizationAPI.md#GetCurrentUserOrganizationV2) | **Get** /users/me/organization/v2 | Get current user&#39;s organization (v2)
 [**InviteUsers**](CurrentUserOrganizationAPI.md#InviteUsers) | **Post** /users/me/organization/members/invite | Invite users to current user&#39;s an organization
+[**LeaveOrganization**](CurrentUserOrganizationAPI.md#LeaveOrganization) | **Delete** /users/me/organization/membership | Leave organization
 [**RemoveMemberOrInvitation**](CurrentUserOrganizationAPI.md#RemoveMemberOrInvitation) | **Delete** /users/me/organization/members/{email} | Remove member or invitation from organization
 [**RetrieveOrganizationMembersAsCsv**](CurrentUserOrganizationAPI.md#RetrieveOrganizationMembersAsCsv) | **Get** /users/me/organization/members | Retrieve current user&#39;s organization members and invitees
 [**UpdateOrganization**](CurrentUserOrganizationAPI.md#UpdateOrganization) | **Put** /users/me/organization | Update current user&#39;s organization
@@ -206,65 +206,6 @@ Other parameters are passed through a pointer to a apiGetCurrentUserOrganization
 [[Back to README]](../README.md)
 
 
-## GetCurrentUserOrganizationV2
-
-> GetCurrentUserOrganizationV2(ctx).Execute()
-
-Get current user's organization (v2)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
-)
-
-func main() {
-
-	configuration := sonatypeguide.NewConfiguration()
-	apiClient := sonatypeguide.NewAPIClient(configuration)
-	r, err := apiClient.CurrentUserOrganizationAPI.GetCurrentUserOrganizationV2(context.Background()).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CurrentUserOrganizationAPI.GetCurrentUserOrganizationV2``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetCurrentUserOrganizationV2Request struct via the builder pattern
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[bearer-jwt](../README.md#bearer-jwt)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, */*
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## InviteUsers
 
 > InviteUsers(ctx).InviteUsersRequest(inviteUsersRequest).Execute()
@@ -323,6 +264,65 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## LeaveOrganization
+
+> LeaveOrganization(ctx).Execute()
+
+Leave organization
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
+)
+
+func main() {
+
+	configuration := sonatypeguide.NewConfiguration()
+	apiClient := sonatypeguide.NewAPIClient(configuration)
+	r, err := apiClient.CurrentUserOrganizationAPI.LeaveOrganization(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CurrentUserOrganizationAPI.LeaveOrganization``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiLeaveOrganizationRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer-jwt](../README.md#bearer-jwt)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

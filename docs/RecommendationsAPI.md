@@ -1,6 +1,6 @@
 # \RecommendationsAPI
 
-All URIs are relative to *http://api.guide.sonatype.com*
+All URIs are relative to *https://api.guide.sonatype.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

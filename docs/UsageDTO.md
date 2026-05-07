@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreditsTotal** | Pointer to **int32** |  | [optional] 
-**CreditsUsed** | Pointer to **int32** |  | [optional] 
+**CreditsTotal** | Pointer to **float32** |  | [optional] 
+**CreditsUsed** | Pointer to **float32** |  | [optional] 
 **CurrentPeriod** | Pointer to [**PeriodDTO**](PeriodDTO.md) |  | [optional] 
+**IsOssiOrigin** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -29,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCreditsTotal
 
-`func (o *UsageDTO) GetCreditsTotal() int32`
+`func (o *UsageDTO) GetCreditsTotal() float32`
 
 GetCreditsTotal returns the CreditsTotal field if non-nil, zero value otherwise.
 
 ### GetCreditsTotalOk
 
-`func (o *UsageDTO) GetCreditsTotalOk() (*int32, bool)`
+`func (o *UsageDTO) GetCreditsTotalOk() (*float32, bool)`
 
 GetCreditsTotalOk returns a tuple with the CreditsTotal field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreditsTotal
 
-`func (o *UsageDTO) SetCreditsTotal(v int32)`
+`func (o *UsageDTO) SetCreditsTotal(v float32)`
 
 SetCreditsTotal sets CreditsTotal field to given value.
 
@@ -54,20 +55,20 @@ HasCreditsTotal returns a boolean if a field has been set.
 
 ### GetCreditsUsed
 
-`func (o *UsageDTO) GetCreditsUsed() int32`
+`func (o *UsageDTO) GetCreditsUsed() float32`
 
 GetCreditsUsed returns the CreditsUsed field if non-nil, zero value otherwise.
 
 ### GetCreditsUsedOk
 
-`func (o *UsageDTO) GetCreditsUsedOk() (*int32, bool)`
+`func (o *UsageDTO) GetCreditsUsedOk() (*float32, bool)`
 
 GetCreditsUsedOk returns a tuple with the CreditsUsed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreditsUsed
 
-`func (o *UsageDTO) SetCreditsUsed(v int32)`
+`func (o *UsageDTO) SetCreditsUsed(v float32)`
 
 SetCreditsUsed sets CreditsUsed field to given value.
 
@@ -101,6 +102,31 @@ SetCurrentPeriod sets CurrentPeriod field to given value.
 `func (o *UsageDTO) HasCurrentPeriod() bool`
 
 HasCurrentPeriod returns a boolean if a field has been set.
+
+### GetIsOssiOrigin
+
+`func (o *UsageDTO) GetIsOssiOrigin() bool`
+
+GetIsOssiOrigin returns the IsOssiOrigin field if non-nil, zero value otherwise.
+
+### GetIsOssiOriginOk
+
+`func (o *UsageDTO) GetIsOssiOriginOk() (*bool, bool)`
+
+GetIsOssiOriginOk returns a tuple with the IsOssiOrigin field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsOssiOrigin
+
+`func (o *UsageDTO) SetIsOssiOrigin(v bool)`
+
+SetIsOssiOrigin sets IsOssiOrigin field to given value.
+
+### HasIsOssiOrigin
+
+`func (o *UsageDTO) HasIsOssiOrigin() bool`
+
+HasIsOssiOrigin returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

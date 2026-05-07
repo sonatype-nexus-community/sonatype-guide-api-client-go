@@ -57,22 +57,22 @@ func Test_v1_CurrentUserOrganizationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test CurrentUserOrganizationAPIService GetCurrentUserOrganizationV2", func(t *testing.T) {
+	t.Run("Test CurrentUserOrganizationAPIService InviteUsers", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.CurrentUserOrganizationAPI.GetCurrentUserOrganizationV2(context.Background()).Execute()
+		httpRes, err := apiClient.CurrentUserOrganizationAPI.InviteUsers(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test CurrentUserOrganizationAPIService InviteUsers", func(t *testing.T) {
+	t.Run("Test CurrentUserOrganizationAPIService LeaveOrganization", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		httpRes, err := apiClient.CurrentUserOrganizationAPI.InviteUsers(context.Background()).Execute()
+		httpRes, err := apiClient.CurrentUserOrganizationAPI.LeaveOrganization(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

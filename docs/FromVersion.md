@@ -7,11 +7,12 @@ Name | Type | Description | Notes
 **BreakingChangesCount** | Pointer to **string** |  | [optional] 
 **DeveloperTrustScore** | Pointer to **int32** |  | [optional] 
 **DirectVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
+**DtsDimensions** | Pointer to [**DtsDimensions**](DtsDimensions.md) |  | [optional] 
 **LicenseThreatLevels** | Pointer to **map[string]int32** |  | [optional] 
 **MaxSeverity** | Pointer to **float64** |  | [optional] 
 **TransitiveVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
-**VulnerableMethods** | Pointer to [**[]VulnerableMethod**](VulnerableMethod.md) |  | [optional] 
+**VulnerableMethods** | Pointer to [**[]RecommendationVulnerableMethod**](RecommendationVulnerableMethod.md) |  | [optional] 
 
 ## Methods
 
@@ -106,6 +107,31 @@ SetDirectVulnerabilities sets DirectVulnerabilities field to given value.
 `func (o *FromVersion) HasDirectVulnerabilities() bool`
 
 HasDirectVulnerabilities returns a boolean if a field has been set.
+
+### GetDtsDimensions
+
+`func (o *FromVersion) GetDtsDimensions() DtsDimensions`
+
+GetDtsDimensions returns the DtsDimensions field if non-nil, zero value otherwise.
+
+### GetDtsDimensionsOk
+
+`func (o *FromVersion) GetDtsDimensionsOk() (*DtsDimensions, bool)`
+
+GetDtsDimensionsOk returns a tuple with the DtsDimensions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDtsDimensions
+
+`func (o *FromVersion) SetDtsDimensions(v DtsDimensions)`
+
+SetDtsDimensions sets DtsDimensions field to given value.
+
+### HasDtsDimensions
+
+`func (o *FromVersion) HasDtsDimensions() bool`
+
+HasDtsDimensions returns a boolean if a field has been set.
 
 ### GetLicenseThreatLevels
 
@@ -209,20 +235,20 @@ HasVersion returns a boolean if a field has been set.
 
 ### GetVulnerableMethods
 
-`func (o *FromVersion) GetVulnerableMethods() []VulnerableMethod`
+`func (o *FromVersion) GetVulnerableMethods() []RecommendationVulnerableMethod`
 
 GetVulnerableMethods returns the VulnerableMethods field if non-nil, zero value otherwise.
 
 ### GetVulnerableMethodsOk
 
-`func (o *FromVersion) GetVulnerableMethodsOk() (*[]VulnerableMethod, bool)`
+`func (o *FromVersion) GetVulnerableMethodsOk() (*[]RecommendationVulnerableMethod, bool)`
 
 GetVulnerableMethodsOk returns a tuple with the VulnerableMethods field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVulnerableMethods
 
-`func (o *FromVersion) SetVulnerableMethods(v []VulnerableMethod)`
+`func (o *FromVersion) SetVulnerableMethods(v []RecommendationVulnerableMethod)`
 
 SetVulnerableMethods sets VulnerableMethods field to given value.
 

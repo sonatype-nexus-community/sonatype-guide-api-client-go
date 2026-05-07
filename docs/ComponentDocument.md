@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Categories** | Pointer to **[]string** |  | [optional] 
+**Dts** | Pointer to [**DtsDimensions**](DtsDimensions.md) |  | [optional] 
 **Format** | Pointer to **string** |  | [optional] 
 **IsMalware** | Pointer to **bool** |  | [optional] 
 **LatestStable** | Pointer to **bool** |  | [optional] 
@@ -13,6 +14,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Namespace** | Pointer to **string** |  | [optional] 
 **OriginId** | Pointer to **string** |  | [optional] 
+**PolicyCompliance** | Pointer to [**PolicyComplianceResult**](PolicyComplianceResult.md) |  | [optional] 
 **PublishedDate** | Pointer to **time.Time** |  | [optional] 
 **RegistryLink** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
@@ -61,6 +63,31 @@ SetCategories sets Categories field to given value.
 `func (o *ComponentDocument) HasCategories() bool`
 
 HasCategories returns a boolean if a field has been set.
+
+### GetDts
+
+`func (o *ComponentDocument) GetDts() DtsDimensions`
+
+GetDts returns the Dts field if non-nil, zero value otherwise.
+
+### GetDtsOk
+
+`func (o *ComponentDocument) GetDtsOk() (*DtsDimensions, bool)`
+
+GetDtsOk returns a tuple with the Dts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDts
+
+`func (o *ComponentDocument) SetDts(v DtsDimensions)`
+
+SetDts sets Dts field to given value.
+
+### HasDts
+
+`func (o *ComponentDocument) HasDts() bool`
+
+HasDts returns a boolean if a field has been set.
 
 ### GetFormat
 
@@ -261,6 +288,31 @@ SetOriginId sets OriginId field to given value.
 `func (o *ComponentDocument) HasOriginId() bool`
 
 HasOriginId returns a boolean if a field has been set.
+
+### GetPolicyCompliance
+
+`func (o *ComponentDocument) GetPolicyCompliance() PolicyComplianceResult`
+
+GetPolicyCompliance returns the PolicyCompliance field if non-nil, zero value otherwise.
+
+### GetPolicyComplianceOk
+
+`func (o *ComponentDocument) GetPolicyComplianceOk() (*PolicyComplianceResult, bool)`
+
+GetPolicyComplianceOk returns a tuple with the PolicyCompliance field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicyCompliance
+
+`func (o *ComponentDocument) SetPolicyCompliance(v PolicyComplianceResult)`
+
+SetPolicyCompliance sets PolicyCompliance field to given value.
+
+### HasPolicyCompliance
+
+`func (o *ComponentDocument) HasPolicyCompliance() bool`
+
+HasPolicyCompliance returns a boolean if a field has been set.
 
 ### GetPublishedDate
 
