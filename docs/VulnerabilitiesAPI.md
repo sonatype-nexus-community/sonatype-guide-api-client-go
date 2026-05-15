@@ -26,7 +26,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/sonatypeguide"
 )
 
 func main() {
@@ -106,7 +106,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/sonatypeguide"
 )
 
 func main() {

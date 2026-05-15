@@ -1,4 +1,4 @@
-# Go API client for v1
+# Go API client for sonatypeguide
 
 REST API into [Sonatype Guide](https://guide.sonatype.com).
 
@@ -23,7 +23,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```go
-import v1 "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/v1"
+import sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/sonatypeguide"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -38,18 +38,18 @@ Default configuration comes with `Servers` field that contains server objects as
 
 ### Select Server Configuration
 
-For using other server than the one defined on index 0 set context value `v1.ContextServerIndex` of type `int`.
+For using other server than the one defined on index 0 set context value `sonatypeguide.ContextServerIndex` of type `int`.
 
 ```go
-ctx := context.WithValue(context.Background(), v1.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), sonatypeguide.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
 
-Templated server URL is formatted using default variables from configuration or from context value `v1.ContextServerVariables` of type `map[string]string`.
+Templated server URL is formatted using default variables from configuration or from context value `sonatypeguide.ContextServerVariables` of type `map[string]string`.
 
 ```go
-ctx := context.WithValue(context.Background(), v1.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), sonatypeguide.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -60,13 +60,13 @@ Note, enum values are always validated and all unused variables are silently ign
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
 An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `v1.ContextOperationServerIndices` and `v1.ContextOperationServerVariables` context maps.
+Similar rules for overriding default operation server index and variables applies by using `sonatypeguide.ContextOperationServerIndices` and `sonatypeguide.ContextOperationServerVariables` context maps.
 
 ```go
-ctx := context.WithValue(context.Background(), v1.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), sonatypeguide.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), v1.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), sonatypeguide.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -178,7 +178,7 @@ Authentication schemes defined for the API:
 Example
 
 ```go
-auth := context.WithValue(context.Background(), v1.ContextAccessToken, "BEARER_TOKEN_STRING")
+auth := context.WithValue(context.Background(), sonatypeguide.ContextAccessToken, "BEARER_TOKEN_STRING")
 r, err := client.Service.Operation(auth, args)
 ```
 
@@ -189,7 +189,7 @@ r, err := client.Service.Operation(auth, args)
 Example
 
 ```go
-auth := context.WithValue(context.Background(), v1.ContextBasicAuth, v1.BasicAuth{
+auth := context.WithValue(context.Background(), sonatypeguide.ContextBasicAuth, sonatypeguide.BasicAuth{
 	UserName: "username",
 	Password: "password",
 })
@@ -203,7 +203,7 @@ r, err := client.Service.Operation(auth, args)
 Example
 
 ```go
-auth := context.WithValue(context.Background(), v1.ContextAccessToken, "BEARER_TOKEN_STRING")
+auth := context.WithValue(context.Background(), sonatypeguide.ContextAccessToken, "BEARER_TOKEN_STRING")
 r, err := client.Service.Operation(auth, args)
 ```
 
