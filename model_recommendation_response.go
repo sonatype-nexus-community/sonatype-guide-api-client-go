@@ -20,6 +20,7 @@ var _ MappedNullable = &RecommendationResponse{}
 // RecommendationResponse struct for RecommendationResponse
 type RecommendationResponse struct {
 	FromVersion *FromVersion `json:"fromVersion,omitempty"`
+	Outcome *string `json:"outcome,omitempty"`
 	ToVersions []RecommendedVersion `json:"toVersions,omitempty"`
 }
 
@@ -72,6 +73,38 @@ func (o *RecommendationResponse) SetFromVersion(v FromVersion) {
 	o.FromVersion = &v
 }
 
+// GetOutcome returns the Outcome field value if set, zero value otherwise.
+func (o *RecommendationResponse) GetOutcome() string {
+	if o == nil || IsNil(o.Outcome) {
+		var ret string
+		return ret
+	}
+	return *o.Outcome
+}
+
+// GetOutcomeOk returns a tuple with the Outcome field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendationResponse) GetOutcomeOk() (*string, bool) {
+	if o == nil || IsNil(o.Outcome) {
+		return nil, false
+	}
+	return o.Outcome, true
+}
+
+// HasOutcome returns a boolean if a field has been set.
+func (o *RecommendationResponse) HasOutcome() bool {
+	if o != nil && !IsNil(o.Outcome) {
+		return true
+	}
+
+	return false
+}
+
+// SetOutcome gets a reference to the given string and assigns it to the Outcome field.
+func (o *RecommendationResponse) SetOutcome(v string) {
+	o.Outcome = &v
+}
+
 // GetToVersions returns the ToVersions field value if set, zero value otherwise.
 func (o *RecommendationResponse) GetToVersions() []RecommendedVersion {
 	if o == nil || IsNil(o.ToVersions) {
@@ -116,6 +149,9 @@ func (o RecommendationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.FromVersion) {
 		toSerialize["fromVersion"] = o.FromVersion
+	}
+	if !IsNil(o.Outcome) {
+		toSerialize["outcome"] = o.Outcome
 	}
 	if !IsNil(o.ToVersions) {
 		toSerialize["toVersions"] = o.ToVersions

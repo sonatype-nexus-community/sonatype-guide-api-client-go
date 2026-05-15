@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FromVersion** | Pointer to [**FromVersion**](FromVersion.md) |  | [optional] 
+**Outcome** | Pointer to **string** |  | [optional] 
 **ToVersions** | Pointer to [**[]RecommendedVersion**](RecommendedVersion.md) |  | [optional] 
 
 ## Methods
@@ -50,6 +51,31 @@ SetFromVersion sets FromVersion field to given value.
 `func (o *RecommendationResponse) HasFromVersion() bool`
 
 HasFromVersion returns a boolean if a field has been set.
+
+### GetOutcome
+
+`func (o *RecommendationResponse) GetOutcome() string`
+
+GetOutcome returns the Outcome field if non-nil, zero value otherwise.
+
+### GetOutcomeOk
+
+`func (o *RecommendationResponse) GetOutcomeOk() (*string, bool)`
+
+GetOutcomeOk returns a tuple with the Outcome field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutcome
+
+`func (o *RecommendationResponse) SetOutcome(v string)`
+
+SetOutcome sets Outcome field to given value.
+
+### HasOutcome
+
+`func (o *RecommendationResponse) HasOutcome() bool`
+
+HasOutcome returns a boolean if a field has been set.
 
 ### GetToVersions
 

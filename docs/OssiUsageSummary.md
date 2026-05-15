@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DataRange** | Pointer to [**OssiUsageDataRange**](OssiUsageDataRange.md) |  | [optional] 
+**MaxCredits** | Pointer to **float32** |  | [optional] 
 **MonthlyAverage** | Pointer to **float32** |  | [optional] 
 **TotalCredits** | Pointer to **float32** |  | [optional] 
 
@@ -51,6 +52,31 @@ SetDataRange sets DataRange field to given value.
 `func (o *OssiUsageSummary) HasDataRange() bool`
 
 HasDataRange returns a boolean if a field has been set.
+
+### GetMaxCredits
+
+`func (o *OssiUsageSummary) GetMaxCredits() float32`
+
+GetMaxCredits returns the MaxCredits field if non-nil, zero value otherwise.
+
+### GetMaxCreditsOk
+
+`func (o *OssiUsageSummary) GetMaxCreditsOk() (*float32, bool)`
+
+GetMaxCreditsOk returns a tuple with the MaxCredits field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxCredits
+
+`func (o *OssiUsageSummary) SetMaxCredits(v float32)`
+
+SetMaxCredits sets MaxCredits field to given value.
+
+### HasMaxCredits
+
+`func (o *OssiUsageSummary) HasMaxCredits() bool`
+
+HasMaxCredits returns a boolean if a field has been set.
 
 ### GetMonthlyAverage
 

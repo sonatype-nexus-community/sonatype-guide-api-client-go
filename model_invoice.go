@@ -25,6 +25,7 @@ type Invoice struct {
 	Id *string `json:"id,omitempty"`
 	PdfUrl *string `json:"pdfUrl,omitempty"`
 	Status *string `json:"status,omitempty"`
+	SubscriptionId *string `json:"subscriptionId,omitempty"`
 	TotalCredits *float64 `json:"totalCredits,omitempty"`
 	UsedCredits *float64 `json:"usedCredits,omitempty"`
 }
@@ -238,6 +239,38 @@ func (o *Invoice) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise.
+func (o *Invoice) GetSubscriptionId() string {
+	if o == nil || IsNil(o.SubscriptionId) {
+		var ret string
+		return ret
+	}
+	return *o.SubscriptionId
+}
+
+// GetSubscriptionIdOk returns a tuple with the SubscriptionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Invoice) GetSubscriptionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.SubscriptionId) {
+		return nil, false
+	}
+	return o.SubscriptionId, true
+}
+
+// HasSubscriptionId returns a boolean if a field has been set.
+func (o *Invoice) HasSubscriptionId() bool {
+	if o != nil && !IsNil(o.SubscriptionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscriptionId gets a reference to the given string and assigns it to the SubscriptionId field.
+func (o *Invoice) SetSubscriptionId(v string) {
+	o.SubscriptionId = &v
+}
+
 // GetTotalCredits returns the TotalCredits field value if set, zero value otherwise.
 func (o *Invoice) GetTotalCredits() float64 {
 	if o == nil || IsNil(o.TotalCredits) {
@@ -329,6 +362,9 @@ func (o Invoice) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.SubscriptionId) {
+		toSerialize["subscriptionId"] = o.SubscriptionId
 	}
 	if !IsNil(o.TotalCredits) {
 		toSerialize["totalCredits"] = o.TotalCredits

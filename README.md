@@ -80,6 +80,7 @@ All URIs are relative to *https://api.guide.sonatype.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *BillingAPI* | [**GetBilling**](docs/BillingAPI.md#getbilling) | **Get** /billing | Get billing information
+*BillingAPI* | [**GetInvoicePdf**](docs/BillingAPI.md#getinvoicepdf) | **Get** /billing/invoices/{invoiceId}/pdf | Download invoice PDF
 *BillingAPI* | [**GetPlans**](docs/BillingAPI.md#getplans) | **Get** /billing/plans | Get all available plans
 *BillingAPI* | [**GetUserInvoiceHistory**](docs/BillingAPI.md#getuserinvoicehistory) | **Get** /billing/invoices | Get user invoice history
 *ComponentsAPI* | [**GetComponentDependenciesByPurlQueryParam**](docs/ComponentsAPI.md#getcomponentdependenciesbypurlqueryparam) | **Get** /components/dependencies | Get dependencies for a component by coordinates (query parameters)

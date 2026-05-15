@@ -477,6 +477,29 @@ paths:
       summary: Get user invoice history
       tags:
       - Billing
+  /billing/invoices/{invoiceId}/pdf:
+    get:
+      description: Redirects to a temporary Chargebee download URL for the invoice
+        PDF. The URL is short-lived and should be consumed immediately.
+      operationId: getInvoicePdf
+      parameters:
+      - explode: false
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "302":
+          description: Redirect to PDF download URL
+        "403":
+          description: User is not an organization owner
+        "404":
+          description: Invoice not found or PDF unavailable
+      summary: Download invoice PDF
+      tags:
+      - Billing
   /billing/plans:
     get:
       description: "Retrieves all active subscription plans with dynamic Chargebee\
@@ -2764,6 +2787,7 @@ components:
         totalCredits: 6.027456183070403
         description: description
         id: id
+        subscriptionId: subscriptionId
         usedCredits: 1.4658129805029452
         status: status
       properties:
@@ -2780,6 +2804,8 @@ components:
         pdfUrl:
           type: string
         status:
+          type: string
+        subscriptionId:
           type: string
         totalCredits:
           format: double
@@ -2905,11 +2931,12 @@ components:
     OssiUsageHistoryDTO:
       example:
         summary:
-          totalCredits: 5.962133916683182
+          totalCredits: 5.637376656633329
           dataRange:
             start: start
             end: end
-          monthlyAverage: 1.4658129805029452
+          monthlyAverage: 5.962133916683182
+          maxCredits: 1.4658129805029452
         months:
         - estimatedCredits: 0.8008281904610115
           month: month
@@ -2929,14 +2956,17 @@ components:
           $ref: "#/components/schemas/OssiUsageSummary"
     OssiUsageSummary:
       example:
-        totalCredits: 5.962133916683182
+        totalCredits: 5.637376656633329
         dataRange:
           start: start
           end: end
-        monthlyAverage: 1.4658129805029452
+        monthlyAverage: 5.962133916683182
+        maxCredits: 1.4658129805029452
       properties:
         dataRange:
           $ref: "#/components/schemas/OssiUsageDataRange"
+        maxCredits:
+          type: number
         monthlyAverage:
           type: number
         totalCredits:
@@ -3242,9 +3272,16 @@ components:
           version: version
           directVulnerabilities:
             key: 9.301444243932576
+        outcome: FOUND_RECOMMENDATIONS
       properties:
         fromVersion:
           $ref: "#/components/schemas/FromVersion"
+        outcome:
+          enum:
+          - FOUND_RECOMMENDATIONS
+          - NO_UPGRADE_NEEDED
+          - NO_DATA_FOR_VERSION
+          type: string
         toVersions:
           items:
             $ref: "#/components/schemas/RecommendedVersion"

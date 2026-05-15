@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **PdfUrl** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
+**SubscriptionId** | Pointer to **string** |  | [optional] 
 **TotalCredits** | Pointer to **float64** |  | [optional] 
 **UsedCredits** | Pointer to **float64** |  | [optional] 
 
@@ -181,6 +182,31 @@ SetStatus sets Status field to given value.
 `func (o *Invoice) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetSubscriptionId
+
+`func (o *Invoice) GetSubscriptionId() string`
+
+GetSubscriptionId returns the SubscriptionId field if non-nil, zero value otherwise.
+
+### GetSubscriptionIdOk
+
+`func (o *Invoice) GetSubscriptionIdOk() (*string, bool)`
+
+GetSubscriptionIdOk returns a tuple with the SubscriptionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubscriptionId
+
+`func (o *Invoice) SetSubscriptionId(v string)`
+
+SetSubscriptionId sets SubscriptionId field to given value.
+
+### HasSubscriptionId
+
+`func (o *Invoice) HasSubscriptionId() bool`
+
+HasSubscriptionId returns a boolean if a field has been set.
 
 ### GetTotalCredits
 

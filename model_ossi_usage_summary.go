@@ -20,6 +20,7 @@ var _ MappedNullable = &OssiUsageSummary{}
 // OssiUsageSummary struct for OssiUsageSummary
 type OssiUsageSummary struct {
 	DataRange *OssiUsageDataRange `json:"dataRange,omitempty"`
+	MaxCredits *float32 `json:"maxCredits,omitempty"`
 	MonthlyAverage *float32 `json:"monthlyAverage,omitempty"`
 	TotalCredits *float32 `json:"totalCredits,omitempty"`
 }
@@ -71,6 +72,38 @@ func (o *OssiUsageSummary) HasDataRange() bool {
 // SetDataRange gets a reference to the given OssiUsageDataRange and assigns it to the DataRange field.
 func (o *OssiUsageSummary) SetDataRange(v OssiUsageDataRange) {
 	o.DataRange = &v
+}
+
+// GetMaxCredits returns the MaxCredits field value if set, zero value otherwise.
+func (o *OssiUsageSummary) GetMaxCredits() float32 {
+	if o == nil || IsNil(o.MaxCredits) {
+		var ret float32
+		return ret
+	}
+	return *o.MaxCredits
+}
+
+// GetMaxCreditsOk returns a tuple with the MaxCredits field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OssiUsageSummary) GetMaxCreditsOk() (*float32, bool) {
+	if o == nil || IsNil(o.MaxCredits) {
+		return nil, false
+	}
+	return o.MaxCredits, true
+}
+
+// HasMaxCredits returns a boolean if a field has been set.
+func (o *OssiUsageSummary) HasMaxCredits() bool {
+	if o != nil && !IsNil(o.MaxCredits) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxCredits gets a reference to the given float32 and assigns it to the MaxCredits field.
+func (o *OssiUsageSummary) SetMaxCredits(v float32) {
+	o.MaxCredits = &v
 }
 
 // GetMonthlyAverage returns the MonthlyAverage field value if set, zero value otherwise.
@@ -149,6 +182,9 @@ func (o OssiUsageSummary) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.DataRange) {
 		toSerialize["dataRange"] = o.DataRange
+	}
+	if !IsNil(o.MaxCredits) {
+		toSerialize["maxCredits"] = o.MaxCredits
 	}
 	if !IsNil(o.MonthlyAverage) {
 		toSerialize["monthlyAverage"] = o.MonthlyAverage
