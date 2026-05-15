@@ -14,7 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"testing"
-	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go/sonatypeguide"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go"
 )
 
 func Test_sonatypeguide_BillingAPIService(t *testing.T) {

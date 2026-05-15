@@ -1,4 +1,4 @@
-module github.com/sonatype-nexus-community/sonatype-guide-api-client-go/sonatypeguide
+module github.com/sonatype-nexus-community/sonatype-guide-api-client-go
 
 go 1.23
 
