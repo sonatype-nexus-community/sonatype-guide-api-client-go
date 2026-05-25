@@ -149,6 +149,7 @@ Class | Method | HTTP request | Description
  - [OssiVulnerabilityPost](docs/OssiVulnerabilityPost.md)
  - [PeriodDTO](docs/PeriodDTO.md)
  - [PlanDTO](docs/PlanDTO.md)
+ - [PolicyCompliance](docs/PolicyCompliance.md)
  - [PolicyComplianceResult](docs/PolicyComplianceResult.md)
  - [PolicyConditionResult](docs/PolicyConditionResult.md)
  - [PurlRequestPost](docs/PurlRequestPost.md)

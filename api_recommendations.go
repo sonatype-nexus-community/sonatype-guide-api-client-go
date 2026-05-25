@@ -40,7 +40,7 @@ func (r ApiGetRecommendationsRequest) Execute() (*RecommendationResponse, *http.
 /*
 GetRecommendations Get version upgrade recommendations
 
-Retrieves AI-powered version upgrade recommendations for a component specified by PURL. Analyzes security vulnerabilities, stability metrics, and policy compliance to suggest optimal upgrade paths.
+Retrieves version upgrade recommendations for a component specified by PURL. Analyzes security vulnerabilities, stability metrics, and policy compliance to suggest optimal upgrade paths. Only policy-compliant versions are returned. If a PURL cannot be parsed or policy evaluation fails, the response is BLOCKED_BY_POLICY (fail-closed).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetRecommendationsRequest

@@ -25,6 +25,7 @@ type FromVersion struct {
 	DtsDimensions *DtsDimensions `json:"dtsDimensions,omitempty"`
 	LicenseThreatLevels map[string]int32 `json:"licenseThreatLevels,omitempty"`
 	MaxSeverity *float64 `json:"maxSeverity,omitempty"`
+	PolicyCompliance *PolicyCompliance `json:"policyCompliance,omitempty"`
 	TransitiveVulnerabilities map[string]float64 `json:"transitiveVulnerabilities,omitempty"`
 	Version *string `json:"version,omitempty"`
 	VulnerableMethods []RecommendationVulnerableMethod `json:"vulnerableMethods,omitempty"`
@@ -239,6 +240,38 @@ func (o *FromVersion) SetMaxSeverity(v float64) {
 	o.MaxSeverity = &v
 }
 
+// GetPolicyCompliance returns the PolicyCompliance field value if set, zero value otherwise.
+func (o *FromVersion) GetPolicyCompliance() PolicyCompliance {
+	if o == nil || IsNil(o.PolicyCompliance) {
+		var ret PolicyCompliance
+		return ret
+	}
+	return *o.PolicyCompliance
+}
+
+// GetPolicyComplianceOk returns a tuple with the PolicyCompliance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FromVersion) GetPolicyComplianceOk() (*PolicyCompliance, bool) {
+	if o == nil || IsNil(o.PolicyCompliance) {
+		return nil, false
+	}
+	return o.PolicyCompliance, true
+}
+
+// HasPolicyCompliance returns a boolean if a field has been set.
+func (o *FromVersion) HasPolicyCompliance() bool {
+	if o != nil && !IsNil(o.PolicyCompliance) {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyCompliance gets a reference to the given PolicyCompliance and assigns it to the PolicyCompliance field.
+func (o *FromVersion) SetPolicyCompliance(v PolicyCompliance) {
+	o.PolicyCompliance = &v
+}
+
 // GetTransitiveVulnerabilities returns the TransitiveVulnerabilities field value if set, zero value otherwise.
 func (o *FromVersion) GetTransitiveVulnerabilities() map[string]float64 {
 	if o == nil || IsNil(o.TransitiveVulnerabilities) {
@@ -362,6 +395,9 @@ func (o FromVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.MaxSeverity) {
 		toSerialize["maxSeverity"] = o.MaxSeverity
+	}
+	if !IsNil(o.PolicyCompliance) {
+		toSerialize["policyCompliance"] = o.PolicyCompliance
 	}
 	if !IsNil(o.TransitiveVulnerabilities) {
 		toSerialize["transitiveVulnerabilities"] = o.TransitiveVulnerabilities

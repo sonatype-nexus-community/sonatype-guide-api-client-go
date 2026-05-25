@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **DirectVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
 **DtsDimensions** | Pointer to [**DtsDimensions**](DtsDimensions.md) |  | [optional] 
 **LicenseThreatLevels** | Pointer to **map[string]int32** |  | [optional] 
+**PolicyCompliance** | Pointer to [**PolicyCompliance**](PolicyCompliance.md) |  | [optional] 
 **TransitiveVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
 **VulnerableMethods** | Pointer to [**[]RecommendationVulnerableMethod**](RecommendationVulnerableMethod.md) |  | [optional] 
@@ -156,6 +157,31 @@ SetLicenseThreatLevels sets LicenseThreatLevels field to given value.
 `func (o *RecommendedVersion) HasLicenseThreatLevels() bool`
 
 HasLicenseThreatLevels returns a boolean if a field has been set.
+
+### GetPolicyCompliance
+
+`func (o *RecommendedVersion) GetPolicyCompliance() PolicyCompliance`
+
+GetPolicyCompliance returns the PolicyCompliance field if non-nil, zero value otherwise.
+
+### GetPolicyComplianceOk
+
+`func (o *RecommendedVersion) GetPolicyComplianceOk() (*PolicyCompliance, bool)`
+
+GetPolicyComplianceOk returns a tuple with the PolicyCompliance field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicyCompliance
+
+`func (o *RecommendedVersion) SetPolicyCompliance(v PolicyCompliance)`
+
+SetPolicyCompliance sets PolicyCompliance field to given value.
+
+### HasPolicyCompliance
+
+`func (o *RecommendedVersion) HasPolicyCompliance() bool`
+
+HasPolicyCompliance returns a boolean if a field has been set.
 
 ### GetTransitiveVulnerabilities
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **DtsDimensions** | Pointer to [**DtsDimensions**](DtsDimensions.md) |  | [optional] 
 **LicenseThreatLevels** | Pointer to **map[string]int32** |  | [optional] 
 **MaxSeverity** | Pointer to **float64** |  | [optional] 
+**PolicyCompliance** | Pointer to [**PolicyCompliance**](PolicyCompliance.md) |  | [optional] 
 **TransitiveVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
 **VulnerableMethods** | Pointer to [**[]RecommendationVulnerableMethod**](RecommendationVulnerableMethod.md) |  | [optional] 
@@ -182,6 +183,31 @@ SetMaxSeverity sets MaxSeverity field to given value.
 `func (o *FromVersion) HasMaxSeverity() bool`
 
 HasMaxSeverity returns a boolean if a field has been set.
+
+### GetPolicyCompliance
+
+`func (o *FromVersion) GetPolicyCompliance() PolicyCompliance`
+
+GetPolicyCompliance returns the PolicyCompliance field if non-nil, zero value otherwise.
+
+### GetPolicyComplianceOk
+
+`func (o *FromVersion) GetPolicyComplianceOk() (*PolicyCompliance, bool)`
+
+GetPolicyComplianceOk returns a tuple with the PolicyCompliance field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicyCompliance
+
+`func (o *FromVersion) SetPolicyCompliance(v PolicyCompliance)`
+
+SetPolicyCompliance sets PolicyCompliance field to given value.
+
+### HasPolicyCompliance
+
+`func (o *FromVersion) HasPolicyCompliance() bool`
+
+HasPolicyCompliance returns a boolean if a field has been set.
 
 ### GetTransitiveVulnerabilities
 
