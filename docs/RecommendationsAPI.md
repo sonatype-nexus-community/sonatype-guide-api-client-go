@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	recommendationRequest := *sonatypeguide.NewRecommendationRequest("Purl_example") // RecommendationRequest | 
+	recommendationRequest := *sonatypeguide.NewRecommendationRequest() // RecommendationRequest | 
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)

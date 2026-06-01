@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Sonatype Guide API
-  version: "202605"
+  version: "202606"
 servers:
 - description: Production
   url: https://api.guide.sonatype.com
@@ -1211,8 +1211,8 @@ paths:
       description: "Retrieves version upgrade recommendations for a component specified\
         \ by PURL. Analyzes security vulnerabilities, stability metrics, and policy\
         \ compliance to suggest optimal upgrade paths. Only policy-compliant versions\
-        \ are returned. If a PURL cannot be parsed or policy evaluation fails, the\
-        \ response is BLOCKED_BY_POLICY (fail-closed)."
+        \ are returned. If policy evaluation fails, the response is BLOCKED_BY_POLICY\
+        \ (fail-closed)."
       operationId: getRecommendations
       requestBody:
         content:
@@ -1232,13 +1232,13 @@ paths:
           content:
             '*/*':
               schema:
-                type: object
+                $ref: "#/components/schemas/RecommendationResponse"
           description: Invalid request - malformed PURL or missing required parameters
         "404":
           content:
             '*/*':
               schema:
-                type: object
+                $ref: "#/components/schemas/RecommendationResponse"
           description: Component not found or no recommendations available
       summary: Get version upgrade recommendations
       tags:
@@ -2834,10 +2834,7 @@ components:
         purl: purl
       properties:
         purl:
-          minLength: 1
           type: string
-      required:
-      - purl
     MethodSignature:
       example:
         signature: signature
@@ -3174,10 +3171,7 @@ components:
         purl: purl
       properties:
         purl:
-          minLength: 1
           type: string
-      required:
-      - purl
     RecommendationResponse:
       example:
         fromVersion:

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Purl** | **string** |  | 
+**Purl** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewLatestVersionRequest
 
-`func NewLatestVersionRequest(purl string, ) *LatestVersionRequest`
+`func NewLatestVersionRequest() *LatestVersionRequest`
 
 NewLatestVersionRequest instantiates a new LatestVersionRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetPurl sets Purl field to given value.
 
+### HasPurl
+
+`func (o *LatestVersionRequest) HasPurl() bool`
+
+HasPurl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

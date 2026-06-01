@@ -415,7 +415,7 @@ import (
 )
 
 func main() {
-	latestVersionRequest := *sonatypeguide.NewLatestVersionRequest("Purl_example") // LatestVersionRequest | 
+	latestVersionRequest := *sonatypeguide.NewLatestVersionRequest() // LatestVersionRequest | 
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
