@@ -24,6 +24,7 @@ type RecommendedVersion struct {
 	DirectVulnerabilities map[string]float64 `json:"directVulnerabilities,omitempty"`
 	DtsDimensions *DtsDimensions `json:"dtsDimensions,omitempty"`
 	LicenseThreatLevels map[string]int32 `json:"licenseThreatLevels,omitempty"`
+	MaxSeverity *float64 `json:"maxSeverity,omitempty"`
 	PolicyCompliance *PolicyCompliance `json:"policyCompliance,omitempty"`
 	TransitiveVulnerabilities map[string]float64 `json:"transitiveVulnerabilities,omitempty"`
 	Version *string `json:"version,omitempty"`
@@ -207,6 +208,38 @@ func (o *RecommendedVersion) SetLicenseThreatLevels(v map[string]int32) {
 	o.LicenseThreatLevels = v
 }
 
+// GetMaxSeverity returns the MaxSeverity field value if set, zero value otherwise.
+func (o *RecommendedVersion) GetMaxSeverity() float64 {
+	if o == nil || IsNil(o.MaxSeverity) {
+		var ret float64
+		return ret
+	}
+	return *o.MaxSeverity
+}
+
+// GetMaxSeverityOk returns a tuple with the MaxSeverity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendedVersion) GetMaxSeverityOk() (*float64, bool) {
+	if o == nil || IsNil(o.MaxSeverity) {
+		return nil, false
+	}
+	return o.MaxSeverity, true
+}
+
+// HasMaxSeverity returns a boolean if a field has been set.
+func (o *RecommendedVersion) HasMaxSeverity() bool {
+	if o != nil && !IsNil(o.MaxSeverity) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxSeverity gets a reference to the given float64 and assigns it to the MaxSeverity field.
+func (o *RecommendedVersion) SetMaxSeverity(v float64) {
+	o.MaxSeverity = &v
+}
+
 // GetPolicyCompliance returns the PolicyCompliance field value if set, zero value otherwise.
 func (o *RecommendedVersion) GetPolicyCompliance() PolicyCompliance {
 	if o == nil || IsNil(o.PolicyCompliance) {
@@ -359,6 +392,9 @@ func (o RecommendedVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LicenseThreatLevels) {
 		toSerialize["licenseThreatLevels"] = o.LicenseThreatLevels
+	}
+	if !IsNil(o.MaxSeverity) {
+		toSerialize["maxSeverity"] = o.MaxSeverity
 	}
 	if !IsNil(o.PolicyCompliance) {
 		toSerialize["policyCompliance"] = o.PolicyCompliance

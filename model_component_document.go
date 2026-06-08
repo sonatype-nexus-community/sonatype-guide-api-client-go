@@ -12,7 +12,6 @@ package sonatypeguide
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // checks if the ComponentDocument type satisfies the MappedNullable interface at compile time
@@ -20,21 +19,7 @@ var _ MappedNullable = &ComponentDocument{}
 
 // ComponentDocument struct for ComponentDocument
 type ComponentDocument struct {
-	Categories []string `json:"categories,omitempty"`
-	Dts *DtsDimensions `json:"dts,omitempty"`
-	Format *string `json:"format,omitempty"`
-	IsMalware *bool `json:"isMalware,omitempty"`
-	LatestStable *bool `json:"latestStable,omitempty"`
-	Licenses []ComponentLicense `json:"licenses,omitempty"`
-	MaxCvss *float64 `json:"maxCvss,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Namespace *string `json:"namespace,omitempty"`
-	OriginId *string `json:"originId,omitempty"`
-	PolicyCompliance *PolicyComplianceResult `json:"policyCompliance,omitempty"`
-	PublishedDate *time.Time `json:"publishedDate,omitempty"`
-	RegistryLink *string `json:"registryLink,omitempty"`
-	Version *string `json:"version,omitempty"`
-	VersionScore *int32 `json:"versionScore,omitempty"`
+	Malware *bool `json:"malware,omitempty"`
 }
 
 // NewComponentDocument instantiates a new ComponentDocument object
@@ -54,484 +39,36 @@ func NewComponentDocumentWithDefaults() *ComponentDocument {
 	return &this
 }
 
-// GetCategories returns the Categories field value if set, zero value otherwise.
-func (o *ComponentDocument) GetCategories() []string {
-	if o == nil || IsNil(o.Categories) {
-		var ret []string
-		return ret
-	}
-	return o.Categories
-}
-
-// GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetCategoriesOk() ([]string, bool) {
-	if o == nil || IsNil(o.Categories) {
-		return nil, false
-	}
-	return o.Categories, true
-}
-
-// HasCategories returns a boolean if a field has been set.
-func (o *ComponentDocument) HasCategories() bool {
-	if o != nil && !IsNil(o.Categories) {
-		return true
-	}
-
-	return false
-}
-
-// SetCategories gets a reference to the given []string and assigns it to the Categories field.
-func (o *ComponentDocument) SetCategories(v []string) {
-	o.Categories = v
-}
-
-// GetDts returns the Dts field value if set, zero value otherwise.
-func (o *ComponentDocument) GetDts() DtsDimensions {
-	if o == nil || IsNil(o.Dts) {
-		var ret DtsDimensions
-		return ret
-	}
-	return *o.Dts
-}
-
-// GetDtsOk returns a tuple with the Dts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetDtsOk() (*DtsDimensions, bool) {
-	if o == nil || IsNil(o.Dts) {
-		return nil, false
-	}
-	return o.Dts, true
-}
-
-// HasDts returns a boolean if a field has been set.
-func (o *ComponentDocument) HasDts() bool {
-	if o != nil && !IsNil(o.Dts) {
-		return true
-	}
-
-	return false
-}
-
-// SetDts gets a reference to the given DtsDimensions and assigns it to the Dts field.
-func (o *ComponentDocument) SetDts(v DtsDimensions) {
-	o.Dts = &v
-}
-
-// GetFormat returns the Format field value if set, zero value otherwise.
-func (o *ComponentDocument) GetFormat() string {
-	if o == nil || IsNil(o.Format) {
-		var ret string
-		return ret
-	}
-	return *o.Format
-}
-
-// GetFormatOk returns a tuple with the Format field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetFormatOk() (*string, bool) {
-	if o == nil || IsNil(o.Format) {
-		return nil, false
-	}
-	return o.Format, true
-}
-
-// HasFormat returns a boolean if a field has been set.
-func (o *ComponentDocument) HasFormat() bool {
-	if o != nil && !IsNil(o.Format) {
-		return true
-	}
-
-	return false
-}
-
-// SetFormat gets a reference to the given string and assigns it to the Format field.
-func (o *ComponentDocument) SetFormat(v string) {
-	o.Format = &v
-}
-
-// GetIsMalware returns the IsMalware field value if set, zero value otherwise.
-func (o *ComponentDocument) GetIsMalware() bool {
-	if o == nil || IsNil(o.IsMalware) {
+// GetMalware returns the Malware field value if set, zero value otherwise.
+func (o *ComponentDocument) GetMalware() bool {
+	if o == nil || IsNil(o.Malware) {
 		var ret bool
 		return ret
 	}
-	return *o.IsMalware
+	return *o.Malware
 }
 
-// GetIsMalwareOk returns a tuple with the IsMalware field value if set, nil otherwise
+// GetMalwareOk returns a tuple with the Malware field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetIsMalwareOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsMalware) {
+func (o *ComponentDocument) GetMalwareOk() (*bool, bool) {
+	if o == nil || IsNil(o.Malware) {
 		return nil, false
 	}
-	return o.IsMalware, true
+	return o.Malware, true
 }
 
-// HasIsMalware returns a boolean if a field has been set.
-func (o *ComponentDocument) HasIsMalware() bool {
-	if o != nil && !IsNil(o.IsMalware) {
+// HasMalware returns a boolean if a field has been set.
+func (o *ComponentDocument) HasMalware() bool {
+	if o != nil && !IsNil(o.Malware) {
 		return true
 	}
 
 	return false
 }
 
-// SetIsMalware gets a reference to the given bool and assigns it to the IsMalware field.
-func (o *ComponentDocument) SetIsMalware(v bool) {
-	o.IsMalware = &v
-}
-
-// GetLatestStable returns the LatestStable field value if set, zero value otherwise.
-func (o *ComponentDocument) GetLatestStable() bool {
-	if o == nil || IsNil(o.LatestStable) {
-		var ret bool
-		return ret
-	}
-	return *o.LatestStable
-}
-
-// GetLatestStableOk returns a tuple with the LatestStable field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetLatestStableOk() (*bool, bool) {
-	if o == nil || IsNil(o.LatestStable) {
-		return nil, false
-	}
-	return o.LatestStable, true
-}
-
-// HasLatestStable returns a boolean if a field has been set.
-func (o *ComponentDocument) HasLatestStable() bool {
-	if o != nil && !IsNil(o.LatestStable) {
-		return true
-	}
-
-	return false
-}
-
-// SetLatestStable gets a reference to the given bool and assigns it to the LatestStable field.
-func (o *ComponentDocument) SetLatestStable(v bool) {
-	o.LatestStable = &v
-}
-
-// GetLicenses returns the Licenses field value if set, zero value otherwise.
-func (o *ComponentDocument) GetLicenses() []ComponentLicense {
-	if o == nil || IsNil(o.Licenses) {
-		var ret []ComponentLicense
-		return ret
-	}
-	return o.Licenses
-}
-
-// GetLicensesOk returns a tuple with the Licenses field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetLicensesOk() ([]ComponentLicense, bool) {
-	if o == nil || IsNil(o.Licenses) {
-		return nil, false
-	}
-	return o.Licenses, true
-}
-
-// HasLicenses returns a boolean if a field has been set.
-func (o *ComponentDocument) HasLicenses() bool {
-	if o != nil && !IsNil(o.Licenses) {
-		return true
-	}
-
-	return false
-}
-
-// SetLicenses gets a reference to the given []ComponentLicense and assigns it to the Licenses field.
-func (o *ComponentDocument) SetLicenses(v []ComponentLicense) {
-	o.Licenses = v
-}
-
-// GetMaxCvss returns the MaxCvss field value if set, zero value otherwise.
-func (o *ComponentDocument) GetMaxCvss() float64 {
-	if o == nil || IsNil(o.MaxCvss) {
-		var ret float64
-		return ret
-	}
-	return *o.MaxCvss
-}
-
-// GetMaxCvssOk returns a tuple with the MaxCvss field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetMaxCvssOk() (*float64, bool) {
-	if o == nil || IsNil(o.MaxCvss) {
-		return nil, false
-	}
-	return o.MaxCvss, true
-}
-
-// HasMaxCvss returns a boolean if a field has been set.
-func (o *ComponentDocument) HasMaxCvss() bool {
-	if o != nil && !IsNil(o.MaxCvss) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxCvss gets a reference to the given float64 and assigns it to the MaxCvss field.
-func (o *ComponentDocument) SetMaxCvss(v float64) {
-	o.MaxCvss = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *ComponentDocument) GetName() string {
-	if o == nil || IsNil(o.Name) {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *ComponentDocument) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *ComponentDocument) SetName(v string) {
-	o.Name = &v
-}
-
-// GetNamespace returns the Namespace field value if set, zero value otherwise.
-func (o *ComponentDocument) GetNamespace() string {
-	if o == nil || IsNil(o.Namespace) {
-		var ret string
-		return ret
-	}
-	return *o.Namespace
-}
-
-// GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetNamespaceOk() (*string, bool) {
-	if o == nil || IsNil(o.Namespace) {
-		return nil, false
-	}
-	return o.Namespace, true
-}
-
-// HasNamespace returns a boolean if a field has been set.
-func (o *ComponentDocument) HasNamespace() bool {
-	if o != nil && !IsNil(o.Namespace) {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespace gets a reference to the given string and assigns it to the Namespace field.
-func (o *ComponentDocument) SetNamespace(v string) {
-	o.Namespace = &v
-}
-
-// GetOriginId returns the OriginId field value if set, zero value otherwise.
-func (o *ComponentDocument) GetOriginId() string {
-	if o == nil || IsNil(o.OriginId) {
-		var ret string
-		return ret
-	}
-	return *o.OriginId
-}
-
-// GetOriginIdOk returns a tuple with the OriginId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetOriginIdOk() (*string, bool) {
-	if o == nil || IsNil(o.OriginId) {
-		return nil, false
-	}
-	return o.OriginId, true
-}
-
-// HasOriginId returns a boolean if a field has been set.
-func (o *ComponentDocument) HasOriginId() bool {
-	if o != nil && !IsNil(o.OriginId) {
-		return true
-	}
-
-	return false
-}
-
-// SetOriginId gets a reference to the given string and assigns it to the OriginId field.
-func (o *ComponentDocument) SetOriginId(v string) {
-	o.OriginId = &v
-}
-
-// GetPolicyCompliance returns the PolicyCompliance field value if set, zero value otherwise.
-func (o *ComponentDocument) GetPolicyCompliance() PolicyComplianceResult {
-	if o == nil || IsNil(o.PolicyCompliance) {
-		var ret PolicyComplianceResult
-		return ret
-	}
-	return *o.PolicyCompliance
-}
-
-// GetPolicyComplianceOk returns a tuple with the PolicyCompliance field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetPolicyComplianceOk() (*PolicyComplianceResult, bool) {
-	if o == nil || IsNil(o.PolicyCompliance) {
-		return nil, false
-	}
-	return o.PolicyCompliance, true
-}
-
-// HasPolicyCompliance returns a boolean if a field has been set.
-func (o *ComponentDocument) HasPolicyCompliance() bool {
-	if o != nil && !IsNil(o.PolicyCompliance) {
-		return true
-	}
-
-	return false
-}
-
-// SetPolicyCompliance gets a reference to the given PolicyComplianceResult and assigns it to the PolicyCompliance field.
-func (o *ComponentDocument) SetPolicyCompliance(v PolicyComplianceResult) {
-	o.PolicyCompliance = &v
-}
-
-// GetPublishedDate returns the PublishedDate field value if set, zero value otherwise.
-func (o *ComponentDocument) GetPublishedDate() time.Time {
-	if o == nil || IsNil(o.PublishedDate) {
-		var ret time.Time
-		return ret
-	}
-	return *o.PublishedDate
-}
-
-// GetPublishedDateOk returns a tuple with the PublishedDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetPublishedDateOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.PublishedDate) {
-		return nil, false
-	}
-	return o.PublishedDate, true
-}
-
-// HasPublishedDate returns a boolean if a field has been set.
-func (o *ComponentDocument) HasPublishedDate() bool {
-	if o != nil && !IsNil(o.PublishedDate) {
-		return true
-	}
-
-	return false
-}
-
-// SetPublishedDate gets a reference to the given time.Time and assigns it to the PublishedDate field.
-func (o *ComponentDocument) SetPublishedDate(v time.Time) {
-	o.PublishedDate = &v
-}
-
-// GetRegistryLink returns the RegistryLink field value if set, zero value otherwise.
-func (o *ComponentDocument) GetRegistryLink() string {
-	if o == nil || IsNil(o.RegistryLink) {
-		var ret string
-		return ret
-	}
-	return *o.RegistryLink
-}
-
-// GetRegistryLinkOk returns a tuple with the RegistryLink field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetRegistryLinkOk() (*string, bool) {
-	if o == nil || IsNil(o.RegistryLink) {
-		return nil, false
-	}
-	return o.RegistryLink, true
-}
-
-// HasRegistryLink returns a boolean if a field has been set.
-func (o *ComponentDocument) HasRegistryLink() bool {
-	if o != nil && !IsNil(o.RegistryLink) {
-		return true
-	}
-
-	return false
-}
-
-// SetRegistryLink gets a reference to the given string and assigns it to the RegistryLink field.
-func (o *ComponentDocument) SetRegistryLink(v string) {
-	o.RegistryLink = &v
-}
-
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *ComponentDocument) GetVersion() string {
-	if o == nil || IsNil(o.Version) {
-		var ret string
-		return ret
-	}
-	return *o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetVersionOk() (*string, bool) {
-	if o == nil || IsNil(o.Version) {
-		return nil, false
-	}
-	return o.Version, true
-}
-
-// HasVersion returns a boolean if a field has been set.
-func (o *ComponentDocument) HasVersion() bool {
-	if o != nil && !IsNil(o.Version) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
-func (o *ComponentDocument) SetVersion(v string) {
-	o.Version = &v
-}
-
-// GetVersionScore returns the VersionScore field value if set, zero value otherwise.
-func (o *ComponentDocument) GetVersionScore() int32 {
-	if o == nil || IsNil(o.VersionScore) {
-		var ret int32
-		return ret
-	}
-	return *o.VersionScore
-}
-
-// GetVersionScoreOk returns a tuple with the VersionScore field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ComponentDocument) GetVersionScoreOk() (*int32, bool) {
-	if o == nil || IsNil(o.VersionScore) {
-		return nil, false
-	}
-	return o.VersionScore, true
-}
-
-// HasVersionScore returns a boolean if a field has been set.
-func (o *ComponentDocument) HasVersionScore() bool {
-	if o != nil && !IsNil(o.VersionScore) {
-		return true
-	}
-
-	return false
-}
-
-// SetVersionScore gets a reference to the given int32 and assigns it to the VersionScore field.
-func (o *ComponentDocument) SetVersionScore(v int32) {
-	o.VersionScore = &v
+// SetMalware gets a reference to the given bool and assigns it to the Malware field.
+func (o *ComponentDocument) SetMalware(v bool) {
+	o.Malware = &v
 }
 
 func (o ComponentDocument) MarshalJSON() ([]byte, error) {
@@ -544,50 +81,8 @@ func (o ComponentDocument) MarshalJSON() ([]byte, error) {
 
 func (o ComponentDocument) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Categories) {
-		toSerialize["categories"] = o.Categories
-	}
-	if !IsNil(o.Dts) {
-		toSerialize["dts"] = o.Dts
-	}
-	if !IsNil(o.Format) {
-		toSerialize["format"] = o.Format
-	}
-	if !IsNil(o.IsMalware) {
-		toSerialize["isMalware"] = o.IsMalware
-	}
-	if !IsNil(o.LatestStable) {
-		toSerialize["latestStable"] = o.LatestStable
-	}
-	if !IsNil(o.Licenses) {
-		toSerialize["licenses"] = o.Licenses
-	}
-	if !IsNil(o.MaxCvss) {
-		toSerialize["maxCvss"] = o.MaxCvss
-	}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Namespace) {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if !IsNil(o.OriginId) {
-		toSerialize["originId"] = o.OriginId
-	}
-	if !IsNil(o.PolicyCompliance) {
-		toSerialize["policyCompliance"] = o.PolicyCompliance
-	}
-	if !IsNil(o.PublishedDate) {
-		toSerialize["publishedDate"] = o.PublishedDate
-	}
-	if !IsNil(o.RegistryLink) {
-		toSerialize["registryLink"] = o.RegistryLink
-	}
-	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
-	}
-	if !IsNil(o.VersionScore) {
-		toSerialize["versionScore"] = o.VersionScore
+	if !IsNil(o.Malware) {
+		toSerialize["malware"] = o.Malware
 	}
 	return toSerialize, nil
 }

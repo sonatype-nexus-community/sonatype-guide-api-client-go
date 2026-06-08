@@ -90,7 +90,9 @@ Class | Method | HTTP request | Description
 *ComponentsAPI* | [**GetLatestVersion**](docs/ComponentsAPI.md#getlatestversion) | **Post** /components/latest-version | Get latest version of a component
 *CurrentUserOrganizationAPI* | [**AcceptInvitation**](docs/CurrentUserOrganizationAPI.md#acceptinvitation) | **Post** /users/me/organization/invitations/{invitationToken}/accept | Accept organization invitation
 *CurrentUserOrganizationAPI* | [**BulkRemoveMembersOrInvitations**](docs/CurrentUserOrganizationAPI.md#bulkremovemembersorinvitations) | **Delete** /users/me/organization/members | Bulk remove members or invitations from organization
+*CurrentUserOrganizationAPI* | [**DismissOnboardingBanner**](docs/CurrentUserOrganizationAPI.md#dismissonboardingbanner) | **Delete** /users/me/organization/onboarding-banner | Dismiss onboarding banner
 *CurrentUserOrganizationAPI* | [**GetCurrentUserOrganization**](docs/CurrentUserOrganizationAPI.md#getcurrentuserorganization) | **Get** /users/me/organization | Get current user&#39;s organization
+*CurrentUserOrganizationAPI* | [**GetOnboardingBannerStatus**](docs/CurrentUserOrganizationAPI.md#getonboardingbannerstatus) | **Get** /users/me/organization/onboarding-banner | Get onboarding banner status
 *CurrentUserOrganizationAPI* | [**InviteUsers**](docs/CurrentUserOrganizationAPI.md#inviteusers) | **Post** /users/me/organization/members/invite | Invite users to current user&#39;s an organization
 *CurrentUserOrganizationAPI* | [**LeaveOrganization**](docs/CurrentUserOrganizationAPI.md#leaveorganization) | **Delete** /users/me/organization/membership | Leave organization
 *CurrentUserOrganizationAPI* | [**RemoveMemberOrInvitation**](docs/CurrentUserOrganizationAPI.md#removememberorinvitation) | **Delete** /users/me/organization/members/{email} | Remove member or invitation from organization
@@ -116,7 +118,6 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AffectedComponentVersion](docs/AffectedComponentVersion.md)
  - [ApiSearchResponse](docs/ApiSearchResponse.md)
  - [ApiSearchResponseAffectedComponentVersion](docs/ApiSearchResponseAffectedComponentVersion.md)
  - [ApiSearchResponseComponentDetailDocument](docs/ApiSearchResponseComponentDetailDocument.md)
@@ -124,10 +125,8 @@ Class | Method | HTTP request | Description
  - [ApiSearchResponseVulnerabilityDocument](docs/ApiSearchResponseVulnerabilityDocument.md)
  - [BillingDTO](docs/BillingDTO.md)
  - [BulkRemoveMembersRequest](docs/BulkRemoveMembersRequest.md)
- - [ComponentArtifact](docs/ComponentArtifact.md)
  - [ComponentDetailDocument](docs/ComponentDetailDocument.md)
  - [ComponentDocument](docs/ComponentDocument.md)
- - [ComponentLicense](docs/ComponentLicense.md)
  - [ComponentReportGet](docs/ComponentReportGet.md)
  - [ComponentReportPost](docs/ComponentReportPost.md)
  - [CreateTokenRequest](docs/CreateTokenRequest.md)
@@ -139,6 +138,7 @@ Class | Method | HTTP request | Description
  - [Invoice](docs/Invoice.md)
  - [LatestVersionRequest](docs/LatestVersionRequest.md)
  - [MethodSignature](docs/MethodSignature.md)
+ - [OnboardingBannerStatusDTO](docs/OnboardingBannerStatusDTO.md)
  - [OrganizationDTO](docs/OrganizationDTO.md)
  - [OrganizationMembersResponse](docs/OrganizationMembersResponse.md)
  - [OssiMonthlyUsage](docs/OssiMonthlyUsage.md)
@@ -150,7 +150,6 @@ Class | Method | HTTP request | Description
  - [PeriodDTO](docs/PeriodDTO.md)
  - [PlanDTO](docs/PlanDTO.md)
  - [PolicyCompliance](docs/PolicyCompliance.md)
- - [PolicyComplianceResult](docs/PolicyComplianceResult.md)
  - [PolicyConditionResult](docs/PolicyConditionResult.md)
  - [PurlRequestPost](docs/PurlRequestPost.md)
  - [RecommendationRequest](docs/RecommendationRequest.md)
@@ -158,7 +157,6 @@ Class | Method | HTTP request | Description
  - [RecommendationVulnerableMethod](docs/RecommendationVulnerableMethod.md)
  - [RecommendedVersion](docs/RecommendedVersion.md)
  - [Reference](docs/Reference.md)
- - [Refid](docs/Refid.md)
  - [UpdateOrganizationRequest](docs/UpdateOrganizationRequest.md)
  - [UsageDTO](docs/UsageDTO.md)
  - [UserTokenDTO](docs/UserTokenDTO.md)

@@ -1607,6 +1607,45 @@ paths:
       summary: Leave organization
       tags:
       - Current User Organization
+  /users/me/organization/onboarding-banner:
+    delete:
+      description: Marks the onboarding banner as dismissed for the organization.
+        The banner will not reappear for any member of the organization across sessions
+        or devices.
+      operationId: dismissOnboardingBanner
+      responses:
+        "204":
+          description: Banner dismissed successfully
+        "401":
+          description: Invalid JWT token
+        "404":
+          description: Organization not found
+      security:
+      - bearer-jwt: []
+      summary: Dismiss onboarding banner
+      tags:
+      - Current User Organization
+    get:
+      description: "Retrieves the onboarding banner visibility status based on organization\
+        \ plan, member count, and dismiss state. Returns showBanner=false when user\
+        \ has no organization."
+      operationId: getOnboardingBannerStatus
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Banner status retrieved successfully
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OnboardingBannerStatusDTO"
+          description: Invalid JWT token
+      security:
+      - bearer-jwt: []
+      summary: Get onboarding banner status
+      tags:
+      - Current User Organization
   /users/me/tokens:
     get:
       description: "Retrieves all tokens for the authenticated user, including active\
@@ -1833,24 +1872,7 @@ paths:
       - Vulnerabilities
 components:
   schemas:
-    AffectedComponentVersion:
-      example:
-        ecosystem: ecosystem
-        fullPackageName: fullPackageName
-        namespace: namespace
-        packageName: packageName
-        version: version
-      properties:
-        ecosystem:
-          type: string
-        fullPackageName:
-          type: string
-        namespace:
-          type: string
-        packageName:
-          type: string
-        version:
-          type: string
+    AffectedComponentVersion: {}
     ApiSearchResponse:
       example:
         hits:
@@ -1883,16 +1905,8 @@ components:
     ApiSearchResponseAffectedComponentVersion:
       example:
         hits:
-        - ecosystem: ecosystem
-          fullPackageName: fullPackageName
-          namespace: namespace
-          packageName: packageName
-          version: version
-        - ecosystem: ecosystem
-          fullPackageName: fullPackageName
-          namespace: namespace
-          packageName: packageName
-          version: version
+        - null
+        - null
         total: 5
         offset: 1
         limit: 6
@@ -1921,136 +1935,8 @@ components:
     ApiSearchResponseComponentDetailDocument:
       example:
         hits:
-        - policyCompliance:
-            compliant: true
-            conditions:
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-          components:
-          - sha1: sha1
-            extension: extension
-            refids:
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            classifier: classifier
-            publishedDate: 2000-01-23T04:56:07.000+00:00
-          - sha1: sha1
-            extension: extension
-            refids:
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            classifier: classifier
-            publishedDate: 2000-01-23T04:56:07.000+00:00
-          dts:
-            license: 7
-            security: 4
-            releaseStability: 2
-            popularity: 3
-            overall: 9
-            age: 2
-          isMalware: true
-          format: format
-          versionScore: 1
-          version: version
-          latestStable: true
-          licenses:
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          originId: originId
-          registryLink: registryLink
-          directDependencies:
-          - directDependencies
-          - directDependencies
-          name: name
-          namespace: namespace
-          categories:
-          - categories
-          - categories
-          publishedDate: 2000-01-23T04:56:07.000+00:00
-          maxCvss: 6.027456183070403
-        - policyCompliance:
-            compliant: true
-            conditions:
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-          components:
-          - sha1: sha1
-            extension: extension
-            refids:
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            classifier: classifier
-            publishedDate: 2000-01-23T04:56:07.000+00:00
-          - sha1: sha1
-            extension: extension
-            refids:
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            - severity: 0.8008281904610115
-              isMalware: true
-              refid: refid
-            classifier: classifier
-            publishedDate: 2000-01-23T04:56:07.000+00:00
-          dts:
-            license: 7
-            security: 4
-            releaseStability: 2
-            popularity: 3
-            overall: 9
-            age: 2
-          isMalware: true
-          format: format
-          versionScore: 1
-          version: version
-          latestStable: true
-          licenses:
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          originId: originId
-          registryLink: registryLink
-          directDependencies:
-          - directDependencies
-          - directDependencies
-          name: name
-          namespace: namespace
-          categories:
-          - categories
-          - categories
-          publishedDate: 2000-01-23T04:56:07.000+00:00
-          maxCvss: 6.027456183070403
+        - malware: true
+        - malware: true
         total: 5
         offset: 1
         limit: 6
@@ -2079,87 +1965,11 @@ components:
     ApiSearchResponseComponentDocument:
       example:
         hits:
-        - policyCompliance:
-            compliant: true
-            conditions:
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-          dts:
-            license: 7
-            security: 4
-            releaseStability: 2
-            popularity: 3
-            overall: 9
-            age: 2
-          isMalware: true
-          format: format
-          versionScore: 1
-          version: version
-          latestStable: true
-          licenses:
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          originId: originId
-          registryLink: registryLink
-          name: name
-          namespace: namespace
-          categories:
-          - categories
-          - categories
-          publishedDate: 2000-01-23T04:56:07.000+00:00
-          maxCvss: 1.2315135367772556
-        - policyCompliance:
-            compliant: true
-            conditions:
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-            - reason: reason
-              conditionId: conditionId
-              conditionName: conditionName
-              passing: true
-          dts:
-            license: 7
-            security: 4
-            releaseStability: 2
-            popularity: 3
-            overall: 9
-            age: 2
-          isMalware: true
-          format: format
-          versionScore: 1
-          version: version
-          latestStable: true
-          licenses:
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          - licenseThreatLevel: 7
-            licenseThreatGroup: licenseThreatGroup
-            licenseName: licenseName
-          originId: originId
-          registryLink: registryLink
-          name: name
-          namespace: namespace
-          categories:
-          - categories
-          - categories
-          publishedDate: 2000-01-23T04:56:07.000+00:00
-          maxCvss: 1.2315135367772556
-        total: 7
-        offset: 6
-        limit: 1
+        - malware: true
+        - malware: true
+        total: 9
+        offset: 7
+        limit: 2
         aggregations:
           key:
             key: 5
@@ -2185,53 +1995,11 @@ components:
     ApiSearchResponseVulnerabilityDocument:
       example:
         hits:
-        - cvssSeverity: 6.027456183070403
-          summary: summary
-          aliases:
-          - aliases
-          - aliases
-          isMalware: true
-          vulnId: vulnId
-          epss: 1.4658129805029452
-          publishedAt: 2000-01-23T04:56:07.000+00:00
-          researchType: researchType
-          source: source
-          affectedEcosystems:
-          - affectedEcosystems
-          - affectedEcosystems
-          cwes:
-          - cwes
-          - cwes
-          sonatypeCwes:
-          - sonatypeCwes
-          - sonatypeCwes
-          sonatypeCvssSeverity: 5.962133916683182
-          kev: true
-        - cvssSeverity: 6.027456183070403
-          summary: summary
-          aliases:
-          - aliases
-          - aliases
-          isMalware: true
-          vulnId: vulnId
-          epss: 1.4658129805029452
-          publishedAt: 2000-01-23T04:56:07.000+00:00
-          researchType: researchType
-          source: source
-          affectedEcosystems:
-          - affectedEcosystems
-          - affectedEcosystems
-          cwes:
-          - cwes
-          - cwes
-          sonatypeCwes:
-          - sonatypeCwes
-          - sonatypeCwes
-          sonatypeCvssSeverity: 5.962133916683182
-          kev: true
-        total: 7
-        offset: 2
-        limit: 5
+        - malware: true
+        - malware: true
+        total: 5
+        offset: 1
+        limit: 6
         aggregations:
           key:
             key: 0
@@ -2297,238 +2065,18 @@ components:
           type: array
       required:
       - emails
-    ComponentArtifact:
-      example:
-        sha1: sha1
-        extension: extension
-        refids:
-        - severity: 0.8008281904610115
-          isMalware: true
-          refid: refid
-        - severity: 0.8008281904610115
-          isMalware: true
-          refid: refid
-        classifier: classifier
-        publishedDate: 2000-01-23T04:56:07.000+00:00
-      properties:
-        classifier:
-          type: string
-        extension:
-          type: string
-        publishedDate:
-          format: date-time
-          type: string
-        refids:
-          items:
-            $ref: "#/components/schemas/Refid"
-          type: array
-        sha1:
-          type: string
     ComponentDetailDocument:
       example:
-        policyCompliance:
-          compliant: true
-          conditions:
-          - reason: reason
-            conditionId: conditionId
-            conditionName: conditionName
-            passing: true
-          - reason: reason
-            conditionId: conditionId
-            conditionName: conditionName
-            passing: true
-        components:
-        - sha1: sha1
-          extension: extension
-          refids:
-          - severity: 0.8008281904610115
-            isMalware: true
-            refid: refid
-          - severity: 0.8008281904610115
-            isMalware: true
-            refid: refid
-          classifier: classifier
-          publishedDate: 2000-01-23T04:56:07.000+00:00
-        - sha1: sha1
-          extension: extension
-          refids:
-          - severity: 0.8008281904610115
-            isMalware: true
-            refid: refid
-          - severity: 0.8008281904610115
-            isMalware: true
-            refid: refid
-          classifier: classifier
-          publishedDate: 2000-01-23T04:56:07.000+00:00
-        dts:
-          license: 7
-          security: 4
-          releaseStability: 2
-          popularity: 3
-          overall: 9
-          age: 2
-        isMalware: true
-        format: format
-        versionScore: 1
-        version: version
-        latestStable: true
-        licenses:
-        - licenseThreatLevel: 7
-          licenseThreatGroup: licenseThreatGroup
-          licenseName: licenseName
-        - licenseThreatLevel: 7
-          licenseThreatGroup: licenseThreatGroup
-          licenseName: licenseName
-        originId: originId
-        registryLink: registryLink
-        directDependencies:
-        - directDependencies
-        - directDependencies
-        name: name
-        namespace: namespace
-        categories:
-        - categories
-        - categories
-        publishedDate: 2000-01-23T04:56:07.000+00:00
-        maxCvss: 6.027456183070403
+        malware: true
       properties:
-        categories:
-          items:
-            type: string
-          type: array
-        components:
-          items:
-            $ref: "#/components/schemas/ComponentArtifact"
-          type: array
-        directDependencies:
-          items:
-            type: string
-          type: array
-        dts:
-          $ref: "#/components/schemas/DtsDimensions"
-        format:
-          type: string
-        isMalware:
+        malware:
           type: boolean
-        latestStable:
-          type: boolean
-        licenses:
-          items:
-            $ref: "#/components/schemas/ComponentLicense"
-          type: array
-        maxCvss:
-          format: double
-          type: number
-        name:
-          type: string
-        namespace:
-          type: string
-        originId:
-          type: string
-        policyCompliance:
-          $ref: "#/components/schemas/PolicyComplianceResult"
-        publishedDate:
-          format: date-time
-          type: string
-        registryLink:
-          type: string
-        version:
-          type: string
-        versionScore:
-          format: int32
-          type: integer
     ComponentDocument:
       example:
-        policyCompliance:
-          compliant: true
-          conditions:
-          - reason: reason
-            conditionId: conditionId
-            conditionName: conditionName
-            passing: true
-          - reason: reason
-            conditionId: conditionId
-            conditionName: conditionName
-            passing: true
-        dts:
-          license: 7
-          security: 4
-          releaseStability: 2
-          popularity: 3
-          overall: 9
-          age: 2
-        isMalware: true
-        format: format
-        versionScore: 1
-        version: version
-        latestStable: true
-        licenses:
-        - licenseThreatLevel: 7
-          licenseThreatGroup: licenseThreatGroup
-          licenseName: licenseName
-        - licenseThreatLevel: 7
-          licenseThreatGroup: licenseThreatGroup
-          licenseName: licenseName
-        originId: originId
-        registryLink: registryLink
-        name: name
-        namespace: namespace
-        categories:
-        - categories
-        - categories
-        publishedDate: 2000-01-23T04:56:07.000+00:00
-        maxCvss: 1.2315135367772556
+        malware: true
       properties:
-        categories:
-          items:
-            type: string
-          type: array
-        dts:
-          $ref: "#/components/schemas/DtsDimensions"
-        format:
-          type: string
-        isMalware:
+        malware:
           type: boolean
-        latestStable:
-          type: boolean
-        licenses:
-          items:
-            $ref: "#/components/schemas/ComponentLicense"
-          type: array
-        maxCvss:
-          format: double
-          type: number
-        name:
-          type: string
-        namespace:
-          type: string
-        originId:
-          type: string
-        policyCompliance:
-          $ref: "#/components/schemas/PolicyComplianceResult"
-        publishedDate:
-          format: date-time
-          type: string
-        registryLink:
-          type: string
-        version:
-          type: string
-        versionScore:
-          format: int32
-          type: integer
-    ComponentLicense:
-      example:
-        licenseThreatLevel: 7
-        licenseThreatGroup: licenseThreatGroup
-        licenseName: licenseName
-      properties:
-        licenseName:
-          type: string
-        licenseThreatGroup:
-          type: string
-        licenseThreatLevel:
-          format: int32
-          type: integer
     ComponentReport_Get:
       example:
         reference: reference
@@ -2670,12 +2218,12 @@ components:
           type: string
     DtsDimensions:
       example:
-        license: 7
-        security: 4
-        releaseStability: 2
-        popularity: 3
-        overall: 9
-        age: 2
+        license: 5
+        security: 9
+        releaseStability: 7
+        popularity: 2
+        overall: 5
+        age: 1
       properties:
         age:
           format: int32
@@ -2712,42 +2260,42 @@ components:
         - methodSignatures:
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           refid: refid
         - methodSignatures:
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           refid: refid
         breakingChangesCount: breakingChangesCount
         transitiveVulnerabilities:
-          key: 5.637376656633329
+          key: 4.145608029883936
         developerTrustScore: 0
         licenseThreatLevels:
-          key: 1
+          key: 3
         dtsDimensions:
-          license: 7
-          security: 4
-          releaseStability: 2
-          popularity: 3
-          overall: 9
-          age: 2
+          license: 5
+          security: 9
+          releaseStability: 7
+          popularity: 2
+          overall: 5
+          age: 1
         version: version
-        maxSeverity: 5.962133916683182
+        maxSeverity: 2.027123023002322
         directVulnerabilities:
           key: 6.027456183070403
       properties:
@@ -2839,8 +2387,8 @@ components:
       example:
         signature: signature
         vulnerableParameters:
-        - 2
-        - 2
+        - 7
+        - 7
         type: type
       properties:
         signature:
@@ -2852,6 +2400,15 @@ components:
             format: int32
             type: integer
           type: array
+    OnboardingBannerStatusDTO:
+      example:
+        reason: reason
+        showBanner: true
+      properties:
+        reason:
+          type: string
+        showBanner:
+          type: boolean
     OrganizationDTO:
       example:
         auth0OrgId: auth0OrgId
@@ -3123,25 +2680,6 @@ components:
           items:
             $ref: "#/components/schemas/PolicyConditionResult"
           type: array
-    PolicyComplianceResult:
-      example:
-        compliant: true
-        conditions:
-        - reason: reason
-          conditionId: conditionId
-          conditionName: conditionName
-          passing: true
-        - reason: reason
-          conditionId: conditionId
-          conditionName: conditionName
-          passing: true
-      properties:
-        compliant:
-          type: boolean
-        conditions:
-          items:
-            $ref: "#/components/schemas/PolicyConditionResult"
-          type: array
     PolicyConditionResult:
       example:
         reason: reason
@@ -3190,42 +2728,42 @@ components:
           - methodSignatures:
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             refid: refid
           - methodSignatures:
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             refid: refid
           breakingChangesCount: breakingChangesCount
           transitiveVulnerabilities:
-            key: 5.637376656633329
+            key: 4.145608029883936
           developerTrustScore: 0
           licenseThreatLevels:
-            key: 1
+            key: 3
           dtsDimensions:
-            license: 7
-            security: 4
-            releaseStability: 2
-            popularity: 3
-            overall: 9
-            age: 2
+            license: 5
+            security: 9
+            releaseStability: 7
+            popularity: 2
+            overall: 5
+            age: 1
           version: version
-          maxSeverity: 5.962133916683182
+          maxSeverity: 2.027123023002322
           directVulnerabilities:
             key: 6.027456183070403
         toVersions:
@@ -3244,43 +2782,44 @@ components:
           - methodSignatures:
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             refid: refid
           - methodSignatures:
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             refid: refid
           breakingChangesCount: breakingChangesCount
           transitiveVulnerabilities:
-            key: 2.027123023002322
-          developerTrustScore: 7
+            key: 4.145608029883936
+          developerTrustScore: 0
           licenseThreatLevels:
             key: 3
           dtsDimensions:
-            license: 7
-            security: 4
-            releaseStability: 2
-            popularity: 3
-            overall: 9
-            age: 2
+            license: 5
+            security: 9
+            releaseStability: 7
+            popularity: 2
+            overall: 5
+            age: 1
           version: version
+          maxSeverity: 2.027123023002322
           directVulnerabilities:
-            key: 9.301444243932576
+            key: 6.027456183070403
         - policyCompliance:
             compliant: true
             conditions:
@@ -3296,43 +2835,44 @@ components:
           - methodSignatures:
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             refid: refid
           - methodSignatures:
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             - signature: signature
               vulnerableParameters:
-              - 2
-              - 2
+              - 7
+              - 7
               type: type
             refid: refid
           breakingChangesCount: breakingChangesCount
           transitiveVulnerabilities:
-            key: 2.027123023002322
-          developerTrustScore: 7
+            key: 4.145608029883936
+          developerTrustScore: 0
           licenseThreatLevels:
             key: 3
           dtsDimensions:
-            license: 7
-            security: 4
-            releaseStability: 2
-            popularity: 3
-            overall: 9
-            age: 2
+            license: 5
+            security: 9
+            releaseStability: 7
+            popularity: 2
+            overall: 5
+            age: 1
           version: version
+          maxSeverity: 2.027123023002322
           directVulnerabilities:
-            key: 9.301444243932576
+            key: 6.027456183070403
         outcome: FOUND_RECOMMENDATIONS
       properties:
         fromVersion:
@@ -3353,13 +2893,13 @@ components:
         methodSignatures:
         - signature: signature
           vulnerableParameters:
-          - 2
-          - 2
+          - 7
+          - 7
           type: type
         - signature: signature
           vulnerableParameters:
-          - 2
-          - 2
+          - 7
+          - 7
           type: type
         refid: refid
       properties:
@@ -3386,43 +2926,44 @@ components:
         - methodSignatures:
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           refid: refid
         - methodSignatures:
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           - signature: signature
             vulnerableParameters:
-            - 2
-            - 2
+            - 7
+            - 7
             type: type
           refid: refid
         breakingChangesCount: breakingChangesCount
         transitiveVulnerabilities:
-          key: 2.027123023002322
-        developerTrustScore: 7
+          key: 4.145608029883936
+        developerTrustScore: 0
         licenseThreatLevels:
           key: 3
         dtsDimensions:
-          license: 7
-          security: 4
-          releaseStability: 2
-          popularity: 3
-          overall: 9
-          age: 2
+          license: 5
+          security: 9
+          releaseStability: 7
+          popularity: 2
+          overall: 5
+          age: 1
         version: version
+        maxSeverity: 2.027123023002322
         directVulnerabilities:
-          key: 9.301444243932576
+          key: 6.027456183070403
       properties:
         breakingChangesCount:
           type: string
@@ -3439,6 +2980,9 @@ components:
           additionalProperties:
             format: int32
             type: integer
+        maxSeverity:
+          format: double
+          type: number
         policyCompliance:
           $ref: "#/components/schemas/PolicyCompliance"
         transitiveVulnerabilities:
@@ -3460,19 +3004,6 @@ components:
           type: string
         type:
           type: string
-    Refid:
-      example:
-        severity: 0.8008281904610115
-        isMalware: true
-        refid: refid
-      properties:
-        isMalware:
-          type: boolean
-        refid:
-          type: string
-        severity:
-          format: double
-          type: number
     UpdateOrganizationRequest:
       example:
         name: name
@@ -3551,13 +3082,13 @@ components:
         vulnerableMethods:
         - signature: signature
           vulnerableParameters:
-          - 2
-          - 2
+          - 7
+          - 7
           type: type
         - signature: signature
           vulnerableParameters:
-          - 2
-          - 2
+          - 7
+          - 7
           type: type
         aliases:
         - aliases
@@ -3650,75 +3181,16 @@ components:
           type: array
     VulnerabilityDocument:
       example:
-        cvssSeverity: 6.027456183070403
-        summary: summary
-        aliases:
-        - aliases
-        - aliases
-        isMalware: true
-        vulnId: vulnId
-        epss: 1.4658129805029452
-        publishedAt: 2000-01-23T04:56:07.000+00:00
-        researchType: researchType
-        source: source
-        affectedEcosystems:
-        - affectedEcosystems
-        - affectedEcosystems
-        cwes:
-        - cwes
-        - cwes
-        sonatypeCwes:
-        - sonatypeCwes
-        - sonatypeCwes
-        sonatypeCvssSeverity: 5.962133916683182
-        kev: true
+        malware: true
       properties:
-        affectedEcosystems:
-          items:
-            type: string
-          type: array
-        aliases:
-          items:
-            type: string
-          type: array
-        cvssSeverity:
-          format: double
-          type: number
-        cwes:
-          items:
-            type: string
-          type: array
-        epss:
-          format: double
-          type: number
-        isMalware:
+        malware:
           type: boolean
-        kev:
-          type: boolean
-        publishedAt:
-          format: date-time
-          type: string
-        researchType:
-          type: string
-        sonatypeCvssSeverity:
-          format: double
-          type: number
-        sonatypeCwes:
-          items:
-            type: string
-          type: array
-        source:
-          type: string
-        summary:
-          type: string
-        vulnId:
-          type: string
     VulnerableMethod:
       example:
         signature: signature
         vulnerableParameters:
-        - 2
-        - 2
+        - 7
+        - 7
         type: type
       properties:
         signature:

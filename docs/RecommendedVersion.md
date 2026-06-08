@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **DirectVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
 **DtsDimensions** | Pointer to [**DtsDimensions**](DtsDimensions.md) |  | [optional] 
 **LicenseThreatLevels** | Pointer to **map[string]int32** |  | [optional] 
+**MaxSeverity** | Pointer to **float64** |  | [optional] 
 **PolicyCompliance** | Pointer to [**PolicyCompliance**](PolicyCompliance.md) |  | [optional] 
 **TransitiveVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
@@ -157,6 +158,31 @@ SetLicenseThreatLevels sets LicenseThreatLevels field to given value.
 `func (o *RecommendedVersion) HasLicenseThreatLevels() bool`
 
 HasLicenseThreatLevels returns a boolean if a field has been set.
+
+### GetMaxSeverity
+
+`func (o *RecommendedVersion) GetMaxSeverity() float64`
+
+GetMaxSeverity returns the MaxSeverity field if non-nil, zero value otherwise.
+
+### GetMaxSeverityOk
+
+`func (o *RecommendedVersion) GetMaxSeverityOk() (*float64, bool)`
+
+GetMaxSeverityOk returns a tuple with the MaxSeverity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxSeverity
+
+`func (o *RecommendedVersion) SetMaxSeverity(v float64)`
+
+SetMaxSeverity sets MaxSeverity field to given value.
+
+### HasMaxSeverity
+
+`func (o *RecommendedVersion) HasMaxSeverity() bool`
+
+HasMaxSeverity returns a boolean if a field has been set.
 
 ### GetPolicyCompliance
 

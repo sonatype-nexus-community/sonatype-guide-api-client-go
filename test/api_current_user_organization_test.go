@@ -46,11 +46,33 @@ func Test_sonatypeguide_CurrentUserOrganizationAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test CurrentUserOrganizationAPIService DismissOnboardingBanner", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		httpRes, err := apiClient.CurrentUserOrganizationAPI.DismissOnboardingBanner(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test CurrentUserOrganizationAPIService GetCurrentUserOrganization", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		httpRes, err := apiClient.CurrentUserOrganizationAPI.GetCurrentUserOrganization(context.Background()).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test CurrentUserOrganizationAPIService GetOnboardingBannerStatus", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		httpRes, err := apiClient.CurrentUserOrganizationAPI.GetOnboardingBannerStatus(context.Background()).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

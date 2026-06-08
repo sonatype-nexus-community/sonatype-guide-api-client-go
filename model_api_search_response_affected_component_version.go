@@ -20,7 +20,7 @@ var _ MappedNullable = &ApiSearchResponseAffectedComponentVersion{}
 // ApiSearchResponseAffectedComponentVersion struct for ApiSearchResponseAffectedComponentVersion
 type ApiSearchResponseAffectedComponentVersion struct {
 	Aggregations map[string]map[string]int64 `json:"aggregations,omitempty"`
-	Hits []AffectedComponentVersion `json:"hits,omitempty"`
+	Hits []interface{} `json:"hits,omitempty"`
 	Limit *int32 `json:"limit,omitempty"`
 	Offset *int32 `json:"offset,omitempty"`
 	Total *int64 `json:"total,omitempty"`
@@ -76,9 +76,9 @@ func (o *ApiSearchResponseAffectedComponentVersion) SetAggregations(v map[string
 }
 
 // GetHits returns the Hits field value if set, zero value otherwise.
-func (o *ApiSearchResponseAffectedComponentVersion) GetHits() []AffectedComponentVersion {
+func (o *ApiSearchResponseAffectedComponentVersion) GetHits() []interface{} {
 	if o == nil || IsNil(o.Hits) {
-		var ret []AffectedComponentVersion
+		var ret []interface{}
 		return ret
 	}
 	return o.Hits
@@ -86,7 +86,7 @@ func (o *ApiSearchResponseAffectedComponentVersion) GetHits() []AffectedComponen
 
 // GetHitsOk returns a tuple with the Hits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiSearchResponseAffectedComponentVersion) GetHitsOk() ([]AffectedComponentVersion, bool) {
+func (o *ApiSearchResponseAffectedComponentVersion) GetHitsOk() ([]interface{}, bool) {
 	if o == nil || IsNil(o.Hits) {
 		return nil, false
 	}
@@ -102,8 +102,8 @@ func (o *ApiSearchResponseAffectedComponentVersion) HasHits() bool {
 	return false
 }
 
-// SetHits gets a reference to the given []AffectedComponentVersion and assigns it to the Hits field.
-func (o *ApiSearchResponseAffectedComponentVersion) SetHits(v []AffectedComponentVersion) {
+// SetHits gets a reference to the given []interface{} and assigns it to the Hits field.
+func (o *ApiSearchResponseAffectedComponentVersion) SetHits(v []interface{}) {
 	o.Hits = v
 }
 

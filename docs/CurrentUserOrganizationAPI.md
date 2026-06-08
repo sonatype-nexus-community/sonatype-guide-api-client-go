@@ -6,7 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AcceptInvitation**](CurrentUserOrganizationAPI.md#AcceptInvitation) | **Post** /users/me/organization/invitations/{invitationToken}/accept | Accept organization invitation
 [**BulkRemoveMembersOrInvitations**](CurrentUserOrganizationAPI.md#BulkRemoveMembersOrInvitations) | **Delete** /users/me/organization/members | Bulk remove members or invitations from organization
+[**DismissOnboardingBanner**](CurrentUserOrganizationAPI.md#DismissOnboardingBanner) | **Delete** /users/me/organization/onboarding-banner | Dismiss onboarding banner
 [**GetCurrentUserOrganization**](CurrentUserOrganizationAPI.md#GetCurrentUserOrganization) | **Get** /users/me/organization | Get current user&#39;s organization
+[**GetOnboardingBannerStatus**](CurrentUserOrganizationAPI.md#GetOnboardingBannerStatus) | **Get** /users/me/organization/onboarding-banner | Get onboarding banner status
 [**InviteUsers**](CurrentUserOrganizationAPI.md#InviteUsers) | **Post** /users/me/organization/members/invite | Invite users to current user&#39;s an organization
 [**LeaveOrganization**](CurrentUserOrganizationAPI.md#LeaveOrganization) | **Delete** /users/me/organization/membership | Leave organization
 [**RemoveMemberOrInvitation**](CurrentUserOrganizationAPI.md#RemoveMemberOrInvitation) | **Delete** /users/me/organization/members/{email} | Remove member or invitation from organization
@@ -147,6 +149,65 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DismissOnboardingBanner
+
+> DismissOnboardingBanner(ctx).Execute()
+
+Dismiss onboarding banner
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go"
+)
+
+func main() {
+
+	configuration := sonatypeguide.NewConfiguration()
+	apiClient := sonatypeguide.NewAPIClient(configuration)
+	r, err := apiClient.CurrentUserOrganizationAPI.DismissOnboardingBanner(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CurrentUserOrganizationAPI.DismissOnboardingBanner``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDismissOnboardingBannerRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer-jwt](../README.md#bearer-jwt)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetCurrentUserOrganization
 
 > GetCurrentUserOrganization(ctx).Execute()
@@ -186,6 +247,65 @@ This endpoint does not need any parameter.
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetCurrentUserOrganizationRequest struct via the builder pattern
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[bearer-jwt](../README.md#bearer-jwt)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetOnboardingBannerStatus
+
+> GetOnboardingBannerStatus(ctx).Execute()
+
+Get onboarding banner status
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go"
+)
+
+func main() {
+
+	configuration := sonatypeguide.NewConfiguration()
+	apiClient := sonatypeguide.NewAPIClient(configuration)
+	r, err := apiClient.CurrentUserOrganizationAPI.GetOnboardingBannerStatus(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CurrentUserOrganizationAPI.GetOnboardingBannerStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOnboardingBannerStatusRequest struct via the builder pattern
 
 
 ### Return type

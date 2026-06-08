@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Aggregations** | Pointer to **map[string]map[string]int64** |  | [optional] 
-**Hits** | Pointer to [**[]AffectedComponentVersion**](AffectedComponentVersion.md) |  | [optional] 
+**Hits** | Pointer to **[]interface{}** |  | [optional] 
 **Limit** | Pointer to **int32** |  | [optional] 
 **Offset** | Pointer to **int32** |  | [optional] 
 **Total** | Pointer to **int64** |  | [optional] 
@@ -56,20 +56,20 @@ HasAggregations returns a boolean if a field has been set.
 
 ### GetHits
 
-`func (o *ApiSearchResponseAffectedComponentVersion) GetHits() []AffectedComponentVersion`
+`func (o *ApiSearchResponseAffectedComponentVersion) GetHits() []interface{}`
 
 GetHits returns the Hits field if non-nil, zero value otherwise.
 
 ### GetHitsOk
 
-`func (o *ApiSearchResponseAffectedComponentVersion) GetHitsOk() (*[]AffectedComponentVersion, bool)`
+`func (o *ApiSearchResponseAffectedComponentVersion) GetHitsOk() (*[]interface{}, bool)`
 
 GetHitsOk returns a tuple with the Hits field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHits
 
-`func (o *ApiSearchResponseAffectedComponentVersion) SetHits(v []AffectedComponentVersion)`
+`func (o *ApiSearchResponseAffectedComponentVersion) SetHits(v []interface{})`
 
 SetHits sets Hits field to given value.
 
