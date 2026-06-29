@@ -550,6 +550,7 @@ paths:
         required: false
         schema:
           format: int32
+          minimum: 0
           type: integer
         style: form
       - description: "Pagination limit (default: 20)"
@@ -850,6 +851,7 @@ paths:
         required: false
         schema:
           format: int32
+          minimum: 0
           type: integer
         style: form
       - description: "Pagination limit (default: 20)"
@@ -1029,6 +1031,7 @@ paths:
         required: false
         schema:
           format: int32
+          minimum: 0
           type: integer
         style: form
       - description: "Pagination limit (default: 20)"
@@ -1826,6 +1829,7 @@ paths:
         required: false
         schema:
           format: int32
+          minimum: 0
           type: integer
         style: form
       - description: "Pagination limit (default: 50)"
