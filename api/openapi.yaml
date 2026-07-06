@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Sonatype Guide API
-  version: "202606"
+  version: "202607"
 servers:
 - description: Production
   url: https://api.guide.sonatype.com
@@ -19,6 +19,13 @@ tags:
   name: Usage
 - description: Vulnerability search and filtering API
   name: Vulnerabilities
+- description: "Connected repository status with search, filter & paging"
+  name: AGP Dashboard
+- description: Onboard multiple repositories in one operation
+  name: AGP Bulk Onboarding
+- description: "AgentP feature governance: org-level Default Configuration is Owner-only;\
+    \ per-repo config and lifecycle actions are available to any org member"
+  name: AGP Governance
 - description: Personal Access Token management APIs
   name: Current User Tokens
 - description: Component search and filtering API
@@ -35,6 +42,392 @@ tags:
 - description: Version upgrade recommendation API
   name: Recommendations
 paths:
+  /api/agp/dashboard:
+    get:
+      operationId: dashboard
+      parameters:
+      - description: Name filter (canonical). Takes precedence over the deprecated
+          `search`.
+        explode: true
+        in: query
+        name: q
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: true
+        description: Deprecated alias for `q`; ignored when `q` is also provided.
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: asc
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 25
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DashboardPageResponse"
+          description: OK
+      summary: "List connected repositories with status (search, filter & paging)"
+      tags:
+      - AGP Dashboard
+  /api/agp/dashboard/candidate-ids:
+    get:
+      operationId: candidateIds
+      parameters:
+      - explode: true
+        in: query
+        name: q
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  format: int64
+                  type: integer
+                type: array
+          description: OK
+      summary: Ids of all onboarding-candidate repositories matching the name filter
+      tags:
+      - AGP Dashboard
+  /api/agp/dashboard/onboarding-access:
+    get:
+      operationId: onboardingAccess
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OnboardingAccessResponse"
+          description: OK
+      summary: Whether the caller may onboard repositories
+      tags:
+      - AGP Dashboard
+  /api/agp/onboarding/bulk:
+    post:
+      operationId: start
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkOnboardRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/BulkOnboardResponse"
+          description: OK
+      summary: Start bulk onboarding for selected repositories
+      tags:
+      - AGP Bulk Onboarding
+  /api/agp/onboarding/bulk/active:
+    get:
+      operationId: active
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobProgress"
+          description: OK
+      summary: "Get the caller's currently-running bulk onboarding job, if any"
+      tags:
+      - AGP Bulk Onboarding
+  /api/agp/onboarding/bulk/org-activity:
+    get:
+      operationId: orgActivity
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrgOnboardingActivity"
+          description: OK
+      summary: Whether another org member currently has a bulk onboarding job in flight
+      tags:
+      - AGP Bulk Onboarding
+  /api/agp/onboarding/bulk/{jobId}:
+    get:
+      operationId: progress
+      parameters:
+      - explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobProgress"
+          description: OK
+      summary: Get bulk onboarding job progress
+      tags:
+      - AGP Bulk Onboarding
+  /api/agp/org/config:
+    get:
+      operationId: getOrgConfig
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/OrgGovernanceView"
+          description: OK
+      summary: "Get the AgentP Default Configuration (read: any org member)"
+      tags:
+      - AGP Governance
+    put:
+      operationId: updateOrgConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrgConfigRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/GovernanceWriteResponse"
+          description: OK
+      summary: Set the AgentP Default Configuration + developer-access flag (Owner-only)
+      tags:
+      - AGP Governance
+  /api/agp/org/effective-config:
+    get:
+      operationId: getOrgEffectiveConfig
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EffectiveConfigYamlResponse"
+          description: OK
+      summary: Get the rendered Default Configuration agp.yml (defaults + org) (Owner-only)
+      tags:
+      - AGP Governance
+  /api/agp/repos/{installationRepoId}/config:
+    delete:
+      operationId: deleteRepoConfig
+      parameters:
+      - explode: false
+        in: path
+        name: installationRepoId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      - explode: true
+        in: query
+        name: expectedVersion
+        required: false
+        schema:
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          description: OK
+      summary: Reset a repo to the Default Configuration by clearing its config overrides
+        (any org member)
+      tags:
+      - AGP Governance
+    get:
+      operationId: getRepoConfig
+      parameters:
+      - explode: false
+        in: path
+        name: installationRepoId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RepoGovernanceView"
+          description: OK
+      summary: Get a repo's AgentP config overrides + inherited Default Configuration
+        + version (any org member)
+      tags:
+      - AGP Governance
+    put:
+      operationId: updateRepoConfig
+      parameters:
+      - explode: false
+        in: path
+        name: installationRepoId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RepoConfigRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/GovernanceWriteResponse"
+          description: OK
+      summary: Set per-repo AgentP config overrides (any org member)
+      tags:
+      - AGP Governance
+  /api/agp/repos/{installationRepoId}/effective-config:
+    get:
+      operationId: getRepoEffectiveConfig
+      parameters:
+      - explode: false
+        in: path
+        name: installationRepoId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EffectiveConfigYamlResponse"
+          description: OK
+      summary: Get the rendered effective agp.yml for a repo (defaults + org + overrides)
+        (any org member)
+      tags:
+      - AGP Governance
+  /api/agp/repos/{installationRepoId}/pause:
+    post:
+      operationId: pause
+      parameters:
+      - explode: false
+        in: path
+        name: installationRepoId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Pause AgentP for a repository (any org member)
+      tags:
+      - AGP Governance
+  /api/agp/repos/{installationRepoId}/removal-pr:
+    post:
+      operationId: openRemovalPr
+      parameters:
+      - explode: false
+        in: path
+        name: installationRepoId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      - explode: true
+        in: query
+        name: merge
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RemovalPrResult"
+          description: OK
+      summary: Open (and optionally merge) a PR removing the AgentP workflow file
+        from a repository (any org member)
+      tags:
+      - AGP Governance
+  /api/agp/repos/{installationRepoId}/resume:
+    post:
+      operationId: resume
+      parameters:
+      - explode: false
+        in: path
+        name: installationRepoId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: OK
+      summary: Resume AgentP for a repository (any org member)
+      tags:
+      - AGP Governance
   /api/v3/authorized/component-report:
     post:
       description: |
@@ -2055,6 +2448,34 @@ components:
           - CANCELLED
           - TRANSFERRED
           type: string
+    BulkOnboardRequest:
+      example:
+        merge: true
+        installationRepoIds:
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+      properties:
+        installationRepoIds:
+          items:
+            format: int64
+            type: integer
+          maxItems: 500
+          minItems: 0
+          type: array
+        merge:
+          type: boolean
+      required:
+      - installationRepoIds
+    BulkOnboardResponse:
+      example:
+        jobId: 0
+      properties:
+        jobId:
+          format: int64
+          type: integer
     BulkRemoveMembersRequest:
       example:
         emails:
@@ -2220,6 +2641,79 @@ components:
         date:
           format: date
           type: string
+    DashboardPageResponse:
+      example:
+        total: 5
+        rows:
+        - archived: true
+          lastRunAt: lastRunAt
+          repoId: 6
+          lastRunStatus: lastRunStatus
+          workflowPresent: true
+          setupPrUrl: setupPrUrl
+          runCount: 1
+          repoFullName: repoFullName
+          installationRepoId: 0
+          statusLabel: statusLabel
+          status: status
+        - archived: true
+          lastRunAt: lastRunAt
+          repoId: 6
+          lastRunStatus: lastRunStatus
+          workflowPresent: true
+          setupPrUrl: setupPrUrl
+          runCount: 1
+          repoFullName: repoFullName
+          installationRepoId: 0
+          statusLabel: statusLabel
+          status: status
+      properties:
+        rows:
+          items:
+            $ref: "#/components/schemas/DashboardRowResponse"
+          type: array
+        total:
+          format: int32
+          type: integer
+    DashboardRowResponse:
+      example:
+        archived: true
+        lastRunAt: lastRunAt
+        repoId: 6
+        lastRunStatus: lastRunStatus
+        workflowPresent: true
+        setupPrUrl: setupPrUrl
+        runCount: 1
+        repoFullName: repoFullName
+        installationRepoId: 0
+        statusLabel: statusLabel
+        status: status
+      properties:
+        archived:
+          type: boolean
+        installationRepoId:
+          format: int64
+          type: integer
+        lastRunAt:
+          type: string
+        lastRunStatus:
+          type: string
+        repoFullName:
+          type: string
+        repoId:
+          format: int64
+          type: integer
+        runCount:
+          format: int32
+          type: integer
+        setupPrUrl:
+          type: string
+        status:
+          type: string
+        statusLabel:
+          type: string
+        workflowPresent:
+          type: boolean
     DtsDimensions:
       example:
         license: 5
@@ -2247,6 +2741,12 @@ components:
         security:
           format: int32
           type: integer
+    EffectiveConfigYamlResponse:
+      example:
+        yaml: yaml
+      properties:
+        yaml:
+          type: string
     FromVersion:
       example:
         policyCompliance:
@@ -2333,6 +2833,13 @@ components:
           items:
             $ref: "#/components/schemas/RecommendationVulnerableMethod"
           type: array
+    GovernanceWriteResponse:
+      example:
+        configVersion: 0
+      properties:
+        configVersion:
+          format: int64
+          type: integer
     InviteUsersRequest:
       example:
         emails:
@@ -2380,6 +2887,66 @@ components:
         usedCredits:
           format: double
           type: number
+    ItemProgress:
+      example:
+        reason: reason
+        setupPrUrl: setupPrUrl
+        repoFullName: repoFullName
+        installationRepoId: 1
+        status: status
+      properties:
+        installationRepoId:
+          format: int64
+          type: integer
+        reason:
+          type: string
+        repoFullName:
+          type: string
+        setupPrUrl:
+          type: string
+        status:
+          type: string
+    JobProgress:
+      example:
+        jobId: 5
+        total: 2
+        delivered: 0
+        failed: 6
+        items:
+        - reason: reason
+          setupPrUrl: setupPrUrl
+          repoFullName: repoFullName
+          installationRepoId: 1
+          status: status
+        - reason: reason
+          setupPrUrl: setupPrUrl
+          repoFullName: repoFullName
+          installationRepoId: 1
+          status: status
+        skipped: 5
+        status: status
+      properties:
+        delivered:
+          format: int32
+          type: integer
+        failed:
+          format: int32
+          type: integer
+        items:
+          items:
+            $ref: "#/components/schemas/ItemProgress"
+          type: array
+        jobId:
+          format: int64
+          type: integer
+        skipped:
+          format: int32
+          type: integer
+        status:
+          type: string
+        total:
+          format: int32
+          type: integer
     LatestVersionRequest:
       description: Request body containing the component PURL
       example:
@@ -2404,6 +2971,12 @@ components:
             format: int32
             type: integer
           type: array
+    OnboardingAccessResponse:
+      example:
+        canOnboard: true
+      properties:
+        canOnboard:
+          type: boolean
     OnboardingBannerStatusDTO:
       example:
         reason: reason
@@ -2412,6 +2985,42 @@ components:
         reason:
           type: string
         showBanner:
+          type: boolean
+    OrgConfigRequest:
+      example:
+        expectedVersion: 0
+        developerAccessEnabled: true
+        config:
+          key: ""
+      properties:
+        config:
+          additionalProperties: {}
+        developerAccessEnabled:
+          type: boolean
+        expectedVersion:
+          format: int64
+          type: integer
+      required:
+      - config
+    OrgGovernanceView:
+      example:
+        configVersion: 0
+        developerAccessEnabled: true
+        config:
+          key: ""
+      properties:
+        config:
+          additionalProperties: {}
+        configVersion:
+          format: int64
+          type: integer
+        developerAccessEnabled:
+          type: boolean
+    OrgOnboardingActivity:
+      example:
+        othersOnboarding: true
+      properties:
+        othersOnboarding:
           type: boolean
     OrganizationDTO:
       example:
@@ -3007,6 +3616,52 @@ components:
         link:
           type: string
         type:
+          type: string
+    RemovalPrResult:
+      example:
+        prUrl: prUrl
+        merged: true
+        message: message
+        outcome: outcome
+      properties:
+        merged:
+          type: boolean
+        message:
+          type: string
+        outcome:
+          type: string
+        prUrl:
+          type: string
+    RepoConfigRequest:
+      example:
+        expectedVersion: 0
+        overrides:
+          key: ""
+      properties:
+        expectedVersion:
+          format: int64
+          type: integer
+        overrides:
+          additionalProperties: {}
+      required:
+      - overrides
+    RepoGovernanceView:
+      example:
+        configVersion: 0
+        overrides:
+          key: ""
+        repoFullName: repoFullName
+        orgConfig:
+          key: ""
+      properties:
+        configVersion:
+          format: int64
+          type: integer
+        orgConfig:
+          additionalProperties: {}
+        overrides:
+          additionalProperties: {}
+        repoFullName:
           type: string
     UpdateOrganizationRequest:
       example:
