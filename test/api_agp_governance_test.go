@@ -22,6 +22,18 @@ func Test_sonatypeguide_AGPGovernanceAPIService(t *testing.T) {
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
 
+	t.Run("Test AGPGovernanceAPIService AgenticModeAccess", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.AGPGovernanceAPI.AgenticModeAccess(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AGPGovernanceAPIService DeleteRepoConfig", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

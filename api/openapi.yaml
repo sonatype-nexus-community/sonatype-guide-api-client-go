@@ -42,6 +42,20 @@ tags:
 - description: Version upgrade recommendation API
   name: Recommendations
 paths:
+  /api/agp/agentic-mode-access:
+    get:
+      operationId: agenticModeAccess
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AgenticModeAccessResponse"
+          description: OK
+      summary: Whether the caller's org is registered for AgentP agentic mode (org-scoped;
+        gates the AI Fix toggle + AI agent config in the UI)
+      tags:
+      - AGP Governance
   /api/agp/dashboard:
     get:
       operationId: dashboard
@@ -2270,6 +2284,12 @@ paths:
 components:
   schemas:
     AffectedComponentVersion: {}
+    AgenticModeAccessResponse:
+      example:
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
     ApiSearchResponse:
       example:
         hits:

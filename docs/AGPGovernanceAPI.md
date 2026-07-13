@@ -4,6 +4,7 @@ All URIs are relative to *https://api.guide.sonatype.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AgenticModeAccess**](AGPGovernanceAPI.md#AgenticModeAccess) | **Get** /api/agp/agentic-mode-access | Whether the caller&#39;s org is registered for AgentP agentic mode (org-scoped; gates the AI Fix toggle + AI agent config in the UI)
 [**DeleteRepoConfig**](AGPGovernanceAPI.md#DeleteRepoConfig) | **Delete** /api/agp/repos/{installationRepoId}/config | Reset a repo to the Default Configuration by clearing its config overrides (any org member)
 [**GetOrgConfig**](AGPGovernanceAPI.md#GetOrgConfig) | **Get** /api/agp/org/config | Get the AgentP Default Configuration (read: any org member)
 [**GetOrgEffectiveConfig**](AGPGovernanceAPI.md#GetOrgEffectiveConfig) | **Get** /api/agp/org/effective-config | Get the rendered Default Configuration agp.yml (defaults + org) (Owner-only)
@@ -15,6 +16,65 @@ Method | HTTP request | Description
 [**UpdateOrgConfig**](AGPGovernanceAPI.md#UpdateOrgConfig) | **Put** /api/agp/org/config | Set the AgentP Default Configuration + developer-access flag (Owner-only)
 [**UpdateRepoConfig**](AGPGovernanceAPI.md#UpdateRepoConfig) | **Put** /api/agp/repos/{installationRepoId}/config | Set per-repo AgentP config overrides (any org member)
 
+
+
+## AgenticModeAccess
+
+> AgenticModeAccessResponse AgenticModeAccess(ctx).Execute()
+
+Whether the caller's org is registered for AgentP agentic mode (org-scoped; gates the AI Fix toggle + AI agent config in the UI)
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	sonatypeguide "github.com/sonatype-nexus-community/sonatype-guide-api-client-go"
+)
+
+func main() {
+
+	configuration := sonatypeguide.NewConfiguration()
+	apiClient := sonatypeguide.NewAPIClient(configuration)
+	resp, r, err := apiClient.AGPGovernanceAPI.AgenticModeAccess(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AGPGovernanceAPI.AgenticModeAccess``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AgenticModeAccess`: AgenticModeAccessResponse
+	fmt.Fprintf(os.Stdout, "Response from `AGPGovernanceAPI.AgenticModeAccess`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAgenticModeAccessRequest struct via the builder pattern
+
+
+### Return type
+
+[**AgenticModeAccessResponse**](AgenticModeAccessResponse.md)
+
+### Authorization
+
+[bearer-jwt](../README.md#bearer-jwt)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: */*
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteRepoConfig

@@ -86,6 +86,7 @@ Class | Method | HTTP request | Description
 *AGPDashboardAPI* | [**CandidateIds**](docs/AGPDashboardAPI.md#candidateids) | **Get** /api/agp/dashboard/candidate-ids | Ids of all onboarding-candidate repositories matching the name filter
 *AGPDashboardAPI* | [**Dashboard**](docs/AGPDashboardAPI.md#dashboard) | **Get** /api/agp/dashboard | List connected repositories with status (search, filter &amp; paging)
 *AGPDashboardAPI* | [**OnboardingAccess**](docs/AGPDashboardAPI.md#onboardingaccess) | **Get** /api/agp/dashboard/onboarding-access | Whether the caller may onboard repositories
+*AGPGovernanceAPI* | [**AgenticModeAccess**](docs/AGPGovernanceAPI.md#agenticmodeaccess) | **Get** /api/agp/agentic-mode-access | Whether the caller&#39;s org is registered for AgentP agentic mode (org-scoped; gates the AI Fix toggle + AI agent config in the UI)
 *AGPGovernanceAPI* | [**DeleteRepoConfig**](docs/AGPGovernanceAPI.md#deleterepoconfig) | **Delete** /api/agp/repos/{installationRepoId}/config | Reset a repo to the Default Configuration by clearing its config overrides (any org member)
 *AGPGovernanceAPI* | [**GetOrgConfig**](docs/AGPGovernanceAPI.md#getorgconfig) | **Get** /api/agp/org/config | Get the AgentP Default Configuration (read: any org member)
 *AGPGovernanceAPI* | [**GetOrgEffectiveConfig**](docs/AGPGovernanceAPI.md#getorgeffectiveconfig) | **Get** /api/agp/org/effective-config | Get the rendered Default Configuration agp.yml (defaults + org) (Owner-only)
@@ -135,6 +136,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AgenticModeAccessResponse](docs/AgenticModeAccessResponse.md)
  - [ApiSearchResponse](docs/ApiSearchResponse.md)
  - [ApiSearchResponseAffectedComponentVersion](docs/ApiSearchResponseAffectedComponentVersion.md)
  - [ApiSearchResponseComponentDetailDocument](docs/ApiSearchResponseComponentDetailDocument.md)
