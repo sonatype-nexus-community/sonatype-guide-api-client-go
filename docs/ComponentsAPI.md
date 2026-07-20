@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## GetComponentDependenciesByPurlQueryParam
 
-> ApiSearchResponse GetComponentDependenciesByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Query(query).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Formats(formats).Categories(categories).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).LicenseFamilies(licenseFamilies).Licenses(licenses).LatestStable(latestStable).Namespace(namespace).Execute()
+> ApiSearchResponse GetComponentDependenciesByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Query(query).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Formats(formats).Categories(categories).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).LicenseFamilies(licenseFamilies).Licenses(licenses).LatestStable(latestStable).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 
 Get dependencies for a component by coordinates (query parameters)
 
@@ -53,10 +53,12 @@ func main() {
 	licenses := []string{"Inner_example"} // []string | Licence name filter (e.g., MIT, Apache-2.0, GPL-3.0+) - repeatable (optional)
 	latestStable := "latestStable_example" // string | Filter by latest stable versions: 'true' for stable only, 'false' for non-stable only, 'all' for no filter (optional)
 	namespace := "namespace_example" // string | Package namespace/groupId (optional) (optional)
+	extension := "extension_example" // string | Artifact extension (e.g., jar, war, pom) (optional)
+	classifier := "classifier_example" // string | Artifact classifier (e.g., sources, javadoc) (optional)
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComponentsAPI.GetComponentDependenciesByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Query(query).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Formats(formats).Categories(categories).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).LicenseFamilies(licenseFamilies).Licenses(licenses).LatestStable(latestStable).Namespace(namespace).Execute()
+	resp, r, err := apiClient.ComponentsAPI.GetComponentDependenciesByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Query(query).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Formats(formats).Categories(categories).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).LicenseFamilies(licenseFamilies).Licenses(licenses).LatestStable(latestStable).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComponentsAPI.GetComponentDependenciesByPurlQueryParam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -97,6 +99,8 @@ Name | Type | Description  | Notes
  **licenses** | **[]string** | Licence name filter (e.g., MIT, Apache-2.0, GPL-3.0+) - repeatable | 
  **latestStable** | **string** | Filter by latest stable versions: &#39;true&#39; for stable only, &#39;false&#39; for non-stable only, &#39;all&#39; for no filter | 
  **namespace** | **string** | Package namespace/groupId (optional) | 
+ **extension** | **string** | Artifact extension (e.g., jar, war, pom) | 
+ **classifier** | **string** | Artifact classifier (e.g., sources, javadoc) | 
 
 ### Return type
 
@@ -118,7 +122,7 @@ Name | Type | Description  | Notes
 
 ## GetComponentDetailByPurlQueryParam
 
-> ComponentDetailDocument GetComponentDetailByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Namespace(namespace).Execute()
+> ComponentDetailDocument GetComponentDetailByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 
 Get component detail by coordinates (query parameters)
 
@@ -142,10 +146,12 @@ func main() {
 	name := "name_example" // string | Package name
 	version := "version_example" // string | Package version
 	namespace := "namespace_example" // string | Package namespace/groupId (optional) (optional)
+	extension := "extension_example" // string | Artifact extension (e.g., jar, war, pom) (optional)
+	classifier := "classifier_example" // string | Artifact classifier (e.g., sources, javadoc) (optional)
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComponentsAPI.GetComponentDetailByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Namespace(namespace).Execute()
+	resp, r, err := apiClient.ComponentsAPI.GetComponentDetailByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComponentsAPI.GetComponentDetailByPurlQueryParam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -171,6 +177,8 @@ Name | Type | Description  | Notes
  **name** | **string** | Package name | 
  **version** | **string** | Package version | 
  **namespace** | **string** | Package namespace/groupId (optional) | 
+ **extension** | **string** | Artifact extension (e.g., jar, war, pom) | 
+ **classifier** | **string** | Artifact classifier (e.g., sources, javadoc) | 
 
 ### Return type
 
@@ -192,7 +200,7 @@ Name | Type | Description  | Notes
 
 ## GetComponentVersionsByPurlQueryParam
 
-> ApiSearchResponse GetComponentVersionsByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).VersionQuery(versionQuery).PublishedWindow(publishedWindow).HasMalware(hasMalware).IsStable(isStable).Namespace(namespace).Execute()
+> ApiSearchResponse GetComponentVersionsByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).VersionQuery(versionQuery).PublishedWindow(publishedWindow).HasMalware(hasMalware).IsStable(isStable).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 
 Get all component versions by coordinates (query parameters)
 
@@ -229,10 +237,12 @@ func main() {
 	hasMalware := true // bool | Malware filter (true=has malware, false=no malware) (optional)
 	isStable := true // bool | Stable version filter (true=stable only, false=pre-release only, null=all) (optional)
 	namespace := "namespace_example" // string | Package namespace/groupId (optional) (optional)
+	extension := "extension_example" // string | Artifact extension (e.g., jar, war, pom) (optional)
+	classifier := "classifier_example" // string | Artifact classifier (e.g., sources, javadoc) (optional)
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComponentsAPI.GetComponentVersionsByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).VersionQuery(versionQuery).PublishedWindow(publishedWindow).HasMalware(hasMalware).IsStable(isStable).Namespace(namespace).Execute()
+	resp, r, err := apiClient.ComponentsAPI.GetComponentVersionsByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinVersionScore(minVersionScore).MaxVersionScore(maxVersionScore).VersionQuery(versionQuery).PublishedWindow(publishedWindow).HasMalware(hasMalware).IsStable(isStable).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComponentsAPI.GetComponentVersionsByPurlQueryParam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -271,6 +281,8 @@ Name | Type | Description  | Notes
  **hasMalware** | **bool** | Malware filter (true&#x3D;has malware, false&#x3D;no malware) | 
  **isStable** | **bool** | Stable version filter (true&#x3D;stable only, false&#x3D;pre-release only, null&#x3D;all) | 
  **namespace** | **string** | Package namespace/groupId (optional) | 
+ **extension** | **string** | Artifact extension (e.g., jar, war, pom) | 
+ **classifier** | **string** | Artifact classifier (e.g., sources, javadoc) | 
 
 ### Return type
 
@@ -292,7 +304,7 @@ Name | Type | Description  | Notes
 
 ## GetComponentVulnerabilitiesByPurlQueryParam
 
-> ApiSearchResponse GetComponentVulnerabilitiesByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinEpss(minEpss).MaxEpss(maxEpss).HasMalware(hasMalware).PatchAvailable(patchAvailable).PolicyCompliant(policyCompliant).Cwes(cwes).ExploitationKnown(exploitationKnown).PublishedWindow(publishedWindow).Namespace(namespace).Execute()
+> ApiSearchResponse GetComponentVulnerabilitiesByPurlQueryParam(ctx).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinEpss(minEpss).MaxEpss(maxEpss).HasMalware(hasMalware).PatchAvailable(patchAvailable).PolicyCompliant(policyCompliant).Cwes(cwes).ExploitationKnown(exploitationKnown).PublishedWindow(publishedWindow).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 
 Get vulnerabilities for a component by coordinates (query parameters)
 
@@ -331,10 +343,12 @@ func main() {
 	exploitationKnown := true // bool | KEV filter - known exploited vulnerability (optional)
 	publishedWindow := "publishedWindow_example" // string | Time window for published date (e.g., 30d, 1y) (optional)
 	namespace := "namespace_example" // string | Package namespace/groupId (optional) (optional)
+	extension := "extension_example" // string | Artifact extension (e.g., jar, war, pom) (optional)
+	classifier := "classifier_example" // string | Artifact classifier (e.g., sources, javadoc) (optional)
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.ComponentsAPI.GetComponentVulnerabilitiesByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinEpss(minEpss).MaxEpss(maxEpss).HasMalware(hasMalware).PatchAvailable(patchAvailable).PolicyCompliant(policyCompliant).Cwes(cwes).ExploitationKnown(exploitationKnown).PublishedWindow(publishedWindow).Namespace(namespace).Execute()
+	resp, r, err := apiClient.ComponentsAPI.GetComponentVulnerabilitiesByPurlQueryParam(context.Background()).Purl(purl).Format(format).Name(name).Version(version).Offset(offset).Limit(limit).SortField(sortField).SortOrder(sortOrder).Severities(severities).MinCvss(minCvss).MaxCvss(maxCvss).MinEpss(minEpss).MaxEpss(maxEpss).HasMalware(hasMalware).PatchAvailable(patchAvailable).PolicyCompliant(policyCompliant).Cwes(cwes).ExploitationKnown(exploitationKnown).PublishedWindow(publishedWindow).Namespace(namespace).Extension(extension).Classifier(classifier).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ComponentsAPI.GetComponentVulnerabilitiesByPurlQueryParam``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -375,6 +389,8 @@ Name | Type | Description  | Notes
  **exploitationKnown** | **bool** | KEV filter - known exploited vulnerability | 
  **publishedWindow** | **string** | Time window for published date (e.g., 30d, 1y) | 
  **namespace** | **string** | Package namespace/groupId (optional) | 
+ **extension** | **string** | Artifact extension (e.g., jar, war, pom) | 
+ **classifier** | **string** | Artifact classifier (e.g., sources, javadoc) | 
 
 ### Return type
 

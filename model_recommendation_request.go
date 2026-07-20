@@ -19,6 +19,8 @@ var _ MappedNullable = &RecommendationRequest{}
 
 // RecommendationRequest Request body containing the component PURL
 type RecommendationRequest struct {
+	Classifier *string `json:"classifier,omitempty"`
+	Extension *string `json:"extension,omitempty"`
 	Purl *string `json:"purl,omitempty"`
 }
 
@@ -37,6 +39,70 @@ func NewRecommendationRequest() *RecommendationRequest {
 func NewRecommendationRequestWithDefaults() *RecommendationRequest {
 	this := RecommendationRequest{}
 	return &this
+}
+
+// GetClassifier returns the Classifier field value if set, zero value otherwise.
+func (o *RecommendationRequest) GetClassifier() string {
+	if o == nil || IsNil(o.Classifier) {
+		var ret string
+		return ret
+	}
+	return *o.Classifier
+}
+
+// GetClassifierOk returns a tuple with the Classifier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendationRequest) GetClassifierOk() (*string, bool) {
+	if o == nil || IsNil(o.Classifier) {
+		return nil, false
+	}
+	return o.Classifier, true
+}
+
+// HasClassifier returns a boolean if a field has been set.
+func (o *RecommendationRequest) HasClassifier() bool {
+	if o != nil && !IsNil(o.Classifier) {
+		return true
+	}
+
+	return false
+}
+
+// SetClassifier gets a reference to the given string and assigns it to the Classifier field.
+func (o *RecommendationRequest) SetClassifier(v string) {
+	o.Classifier = &v
+}
+
+// GetExtension returns the Extension field value if set, zero value otherwise.
+func (o *RecommendationRequest) GetExtension() string {
+	if o == nil || IsNil(o.Extension) {
+		var ret string
+		return ret
+	}
+	return *o.Extension
+}
+
+// GetExtensionOk returns a tuple with the Extension field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecommendationRequest) GetExtensionOk() (*string, bool) {
+	if o == nil || IsNil(o.Extension) {
+		return nil, false
+	}
+	return o.Extension, true
+}
+
+// HasExtension returns a boolean if a field has been set.
+func (o *RecommendationRequest) HasExtension() bool {
+	if o != nil && !IsNil(o.Extension) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtension gets a reference to the given string and assigns it to the Extension field.
+func (o *RecommendationRequest) SetExtension(v string) {
+	o.Extension = &v
 }
 
 // GetPurl returns the Purl field value if set, zero value otherwise.
@@ -81,6 +147,12 @@ func (o RecommendationRequest) MarshalJSON() ([]byte, error) {
 
 func (o RecommendationRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Classifier) {
+		toSerialize["classifier"] = o.Classifier
+	}
+	if !IsNil(o.Extension) {
+		toSerialize["extension"] = o.Extension
+	}
 	if !IsNil(o.Purl) {
 		toSerialize["purl"] = o.Purl
 	}

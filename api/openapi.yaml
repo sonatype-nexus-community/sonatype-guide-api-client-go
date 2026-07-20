@@ -21,6 +21,8 @@ tags:
   name: Vulnerabilities
 - description: "Connected repository status with search, filter & paging"
   name: AGP Dashboard
+- description: Organization activity log APIs
+  name: Activity Log
 - description: Onboard multiple repositories in one operation
   name: AGP Bulk Onboarding
 - description: "AgentP feature governance: org-level Default Configuration is Owner-only;\
@@ -1112,6 +1114,22 @@ paths:
         schema:
           type: string
         style: form
+      - description: "Artifact extension (e.g., jar, war, pom)"
+        explode: true
+        in: query
+        name: extension
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Artifact classifier (e.g., sources, javadoc)"
+        explode: true
+        in: query
+        name: classifier
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -1178,6 +1196,22 @@ paths:
         in: query
         name: version
         required: true
+        schema:
+          type: string
+        style: form
+      - description: "Artifact extension (e.g., jar, war, pom)"
+        explode: true
+        in: query
+        name: extension
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Artifact classifier (e.g., sources, javadoc)"
+        explode: true
+        in: query
+        name: classifier
+        required: false
         schema:
           type: string
         style: form
@@ -1399,6 +1433,22 @@ paths:
         schema:
           type: string
         style: form
+      - description: "Artifact extension (e.g., jar, war, pom)"
+        explode: true
+        in: query
+        name: extension
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Artifact classifier (e.g., sources, javadoc)"
+        explode: true
+        in: query
+        name: classifier
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -1591,6 +1641,22 @@ paths:
         in: query
         name: version
         required: true
+        schema:
+          type: string
+        style: form
+      - description: "Artifact extension (e.g., jar, war, pom)"
+        explode: true
+        in: query
+        name: extension
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Artifact classifier (e.g., sources, javadoc)"
+        explode: true
+        in: query
+        name: classifier
+        required: false
         schema:
           type: string
         style: form
@@ -1856,6 +1922,91 @@ paths:
       summary: Update current user's organization
       tags:
       - Current User Organization
+  /users/me/organization/activity-log:
+    get:
+      description: Returns a paginated list of activity events for the caller's organization.
+        Only accessible by organization owners.
+      operationId: getActivityLog
+      parameters:
+      - description: "Filter by category (TOKEN, ORGANIZATION, BILLING, SUPPORT)"
+        explode: true
+        in: query
+        name: category
+        required: false
+        schema:
+          enum:
+          - TOKEN
+          - ORGANIZATION
+          - BILLING
+          - SUPPORT
+          type: string
+        style: form
+      - description: Start date (YYYY-MM-DD)
+        example: 2026-06-01
+        explode: true
+        in: query
+        name: fromDate
+        required: false
+        schema:
+          format: date
+          type: string
+        style: form
+      - description: End date (YYYY-MM-DD)
+        example: 2026-06-30
+        explode: true
+        in: query
+        name: toDate
+        required: false
+        schema:
+          format: date
+          type: string
+        style: form
+      - description: Page number (0-indexed)
+        example: 0
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - description: Page size (max 100)
+        example: 50
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 50
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgActivityLogResponse"
+          description: Activity log retrieved successfully
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgActivityLogResponse"
+          description: Not authenticated
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrgActivityLogResponse"
+          description: Caller is not an organization owner
+      security:
+      - bearer-jwt: []
+      summary: Get organization activity log
+      tags:
+      - Activity Log
   /users/me/organization/invitations/{invitationToken}/accept:
     post:
       description: Accept an invitation to join an organization using the invitation
@@ -2170,6 +2321,56 @@ paths:
       security:
       - bearer-jwt: []
       summary: Get a Personal Access Token by ID
+      tags:
+      - Current User Tokens
+  /users/me/tokens/{tokenId}/rotate:
+    post:
+      description: Revokes the specified token and creates a new one in a single atomic
+        operation. The plaintext token is ONLY returned in this response and cannot
+        be retrieved again.
+      operationId: rotateToken
+      parameters:
+      - explode: false
+        in: path
+        name: tokenId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RotateTokenRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json: {}
+          description: Token rotated successfully
+        "400":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserTokenWithPlaintextDTO"
+          description: Invalid request
+        "401":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserTokenWithPlaintextDTO"
+          description: Invalid JWT token
+        "404":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserTokenWithPlaintextDTO"
+          description: "Token not found or already revoked, or token does not belong\
+            \ to user"
+      security:
+      - bearer-jwt: []
+      summary: Rotate a Personal Access Token
       tags:
       - Current User Tokens
   /vulnerabilities/{id}:
@@ -3006,6 +3207,90 @@ components:
           type: string
         showBanner:
           type: boolean
+    OrgActivityLogEntry:
+      example:
+        actorChannel: actorChannel
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        eventCategory: TOKEN
+        actorName: actorName
+        details:
+          key: ""
+        eventType: TOKEN_CREATED
+        eventLabel: eventLabel
+      properties:
+        actorChannel:
+          type: string
+        actorName:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        details:
+          additionalProperties: {}
+        eventCategory:
+          enum:
+          - TOKEN
+          - ORGANIZATION
+          - BILLING
+          - SUPPORT
+          type: string
+        eventLabel:
+          type: string
+        eventType:
+          enum:
+          - TOKEN_CREATED
+          - TOKEN_ROTATED
+          - TOKEN_REVOKED
+          - MEMBER_INVITED
+          - INVITATION_CANCELLED
+          - MEMBER_REMOVED
+          - ORG_NAME_CHANGED
+          - ORG_URL_CHANGED
+          - SUBSCRIPTION_CREATED
+          - SUBSCRIPTION_CHANGED
+          - SUBSCRIPTION_CANCELED
+          - SUPPORT_TICKET_CREATED
+          type: string
+    OrgActivityLogResponse:
+      example:
+        totalPages: 5
+        pageSize: 6
+        page: 0
+        totalCount: 1
+        events:
+        - actorChannel: actorChannel
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          eventCategory: TOKEN
+          actorName: actorName
+          details:
+            key: ""
+          eventType: TOKEN_CREATED
+          eventLabel: eventLabel
+        - actorChannel: actorChannel
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          eventCategory: TOKEN
+          actorName: actorName
+          details:
+            key: ""
+          eventType: TOKEN_CREATED
+          eventLabel: eventLabel
+      properties:
+        events:
+          items:
+            $ref: "#/components/schemas/OrgActivityLogEntry"
+          type: array
+        page:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+        totalCount:
+          format: int64
+          type: integer
+        totalPages:
+          format: int32
+          type: integer
     OrgConfigRequest:
       example:
         expectedVersion: 0
@@ -3339,8 +3624,14 @@ components:
     RecommendationRequest:
       description: Request body containing the component PURL
       example:
+        extension: extension
+        classifier: classifier
         purl: purl
       properties:
+        classifier:
+          type: string
+        extension:
+          type: string
         purl:
           type: string
     RecommendationResponse:
@@ -3683,6 +3974,20 @@ components:
           additionalProperties: {}
         repoFullName:
           type: string
+    RotateTokenRequest:
+      example:
+        name: name
+        daysUntilExpiration: 0
+      properties:
+        daysUntilExpiration:
+          format: int32
+          type: integer
+        name:
+          minLength: 1
+          type: string
+      required:
+      - daysUntilExpiration
+      - name
     UpdateOrganizationRequest:
       example:
         name: name

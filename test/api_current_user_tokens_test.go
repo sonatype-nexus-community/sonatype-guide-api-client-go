@@ -70,4 +70,17 @@ func Test_sonatypeguide_CurrentUserTokensAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test CurrentUserTokensAPIService RotateToken", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var tokenId int64
+
+		httpRes, err := apiClient.CurrentUserTokensAPI.RotateToken(context.Background(), tokenId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

@@ -55,6 +55,8 @@ type APIClient struct {
 
 	AGPGovernanceAPI *AGPGovernanceAPIService
 
+	ActivityLogAPI *ActivityLogAPIService
+
 	BillingAPI *BillingAPIService
 
 	ComponentsAPI *ComponentsAPIService
@@ -91,6 +93,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AGPBulkOnboardingAPI = (*AGPBulkOnboardingAPIService)(&c.common)
 	c.AGPDashboardAPI = (*AGPDashboardAPIService)(&c.common)
 	c.AGPGovernanceAPI = (*AGPGovernanceAPIService)(&c.common)
+	c.ActivityLogAPI = (*ActivityLogAPIService)(&c.common)
 	c.BillingAPI = (*BillingAPIService)(&c.common)
 	c.ComponentsAPI = (*ComponentsAPIService)(&c.common)
 	c.CurrentUserOrganizationAPI = (*CurrentUserOrganizationAPIService)(&c.common)

@@ -46,6 +46,8 @@ type ApiGetComponentDependenciesByPurlQueryParamRequest struct {
 	licenses *[]string
 	latestStable *string
 	namespace *string
+	extension *string
+	classifier *string
 }
 
 // URL-encoded PURL (e.g., pkg%3Amaven%2F...)
@@ -165,6 +167,18 @@ func (r ApiGetComponentDependenciesByPurlQueryParamRequest) LatestStable(latestS
 // Package namespace/groupId (optional)
 func (r ApiGetComponentDependenciesByPurlQueryParamRequest) Namespace(namespace string) ApiGetComponentDependenciesByPurlQueryParamRequest {
 	r.namespace = &namespace
+	return r
+}
+
+// Artifact extension (e.g., jar, war, pom)
+func (r ApiGetComponentDependenciesByPurlQueryParamRequest) Extension(extension string) ApiGetComponentDependenciesByPurlQueryParamRequest {
+	r.extension = &extension
+	return r
+}
+
+// Artifact classifier (e.g., sources, javadoc)
+func (r ApiGetComponentDependenciesByPurlQueryParamRequest) Classifier(classifier string) ApiGetComponentDependenciesByPurlQueryParamRequest {
+	r.classifier = &classifier
 	return r
 }
 
@@ -312,6 +326,12 @@ func (a *ComponentsAPIService) GetComponentDependenciesByPurlQueryParamExecute(r
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
+	if r.extension != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "extension", r.extension, "form", "")
+	}
+	if r.classifier != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "classifier", r.classifier, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -395,6 +415,8 @@ type ApiGetComponentDetailByPurlQueryParamRequest struct {
 	name *string
 	version *string
 	namespace *string
+	extension *string
+	classifier *string
 }
 
 // URL-encoded PURL (e.g., pkg%3Amaven%2F...)
@@ -424,6 +446,18 @@ func (r ApiGetComponentDetailByPurlQueryParamRequest) Version(version string) Ap
 // Package namespace/groupId (optional)
 func (r ApiGetComponentDetailByPurlQueryParamRequest) Namespace(namespace string) ApiGetComponentDetailByPurlQueryParamRequest {
 	r.namespace = &namespace
+	return r
+}
+
+// Artifact extension (e.g., jar, war, pom)
+func (r ApiGetComponentDetailByPurlQueryParamRequest) Extension(extension string) ApiGetComponentDetailByPurlQueryParamRequest {
+	r.extension = &extension
+	return r
+}
+
+// Artifact classifier (e.g., sources, javadoc)
+func (r ApiGetComponentDetailByPurlQueryParamRequest) Classifier(classifier string) ApiGetComponentDetailByPurlQueryParamRequest {
+	r.classifier = &classifier
 	return r
 }
 
@@ -486,6 +520,12 @@ func (a *ComponentsAPIService) GetComponentDetailByPurlQueryParamExecute(r ApiGe
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
+	if r.extension != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "extension", r.extension, "form", "")
+	}
+	if r.classifier != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "classifier", r.classifier, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -582,6 +622,8 @@ type ApiGetComponentVersionsByPurlQueryParamRequest struct {
 	hasMalware *bool
 	isStable *bool
 	namespace *string
+	extension *string
+	classifier *string
 }
 
 // URL-encoded PURL (e.g., pkg%3Amaven%2F...)
@@ -692,6 +734,18 @@ func (r ApiGetComponentVersionsByPurlQueryParamRequest) Namespace(namespace stri
 	return r
 }
 
+// Artifact extension (e.g., jar, war, pom)
+func (r ApiGetComponentVersionsByPurlQueryParamRequest) Extension(extension string) ApiGetComponentVersionsByPurlQueryParamRequest {
+	r.extension = &extension
+	return r
+}
+
+// Artifact classifier (e.g., sources, javadoc)
+func (r ApiGetComponentVersionsByPurlQueryParamRequest) Classifier(classifier string) ApiGetComponentVersionsByPurlQueryParamRequest {
+	r.classifier = &classifier
+	return r
+}
+
 func (r ApiGetComponentVersionsByPurlQueryParamRequest) Execute() (*ApiSearchResponse, *http.Response, error) {
 	return r.ApiService.GetComponentVersionsByPurlQueryParamExecute(r)
 }
@@ -798,6 +852,12 @@ func (a *ComponentsAPIService) GetComponentVersionsByPurlQueryParamExecute(r Api
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
+	if r.extension != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "extension", r.extension, "form", "")
+	}
+	if r.classifier != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "classifier", r.classifier, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -885,6 +945,8 @@ type ApiGetComponentVulnerabilitiesByPurlQueryParamRequest struct {
 	exploitationKnown *bool
 	publishedWindow *string
 	namespace *string
+	extension *string
+	classifier *string
 }
 
 // URL-encoded PURL (e.g., pkg%3Amaven%2F...)
@@ -1004,6 +1066,18 @@ func (r ApiGetComponentVulnerabilitiesByPurlQueryParamRequest) PublishedWindow(p
 // Package namespace/groupId (optional)
 func (r ApiGetComponentVulnerabilitiesByPurlQueryParamRequest) Namespace(namespace string) ApiGetComponentVulnerabilitiesByPurlQueryParamRequest {
 	r.namespace = &namespace
+	return r
+}
+
+// Artifact extension (e.g., jar, war, pom)
+func (r ApiGetComponentVulnerabilitiesByPurlQueryParamRequest) Extension(extension string) ApiGetComponentVulnerabilitiesByPurlQueryParamRequest {
+	r.extension = &extension
+	return r
+}
+
+// Artifact classifier (e.g., sources, javadoc)
+func (r ApiGetComponentVulnerabilitiesByPurlQueryParamRequest) Classifier(classifier string) ApiGetComponentVulnerabilitiesByPurlQueryParamRequest {
+	r.classifier = &classifier
 	return r
 }
 
@@ -1127,6 +1201,12 @@ func (a *ComponentsAPIService) GetComponentVulnerabilitiesByPurlQueryParamExecut
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
+	if r.extension != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "extension", r.extension, "form", "")
+	}
+	if r.classifier != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "classifier", r.classifier, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 *AGPGovernanceAPI* | [**Resume**](docs/AGPGovernanceAPI.md#resume) | **Post** /api/agp/repos/{installationRepoId}/resume | Resume AgentP for a repository (any org member)
 *AGPGovernanceAPI* | [**UpdateOrgConfig**](docs/AGPGovernanceAPI.md#updateorgconfig) | **Put** /api/agp/org/config | Set the AgentP Default Configuration + developer-access flag (Owner-only)
 *AGPGovernanceAPI* | [**UpdateRepoConfig**](docs/AGPGovernanceAPI.md#updaterepoconfig) | **Put** /api/agp/repos/{installationRepoId}/config | Set per-repo AgentP config overrides (any org member)
+*ActivityLogAPI* | [**GetActivityLog**](docs/ActivityLogAPI.md#getactivitylog) | **Get** /users/me/organization/activity-log | Get organization activity log
 *BillingAPI* | [**GetBilling**](docs/BillingAPI.md#getbilling) | **Get** /billing | Get billing information
 *BillingAPI* | [**GetInvoicePdf**](docs/BillingAPI.md#getinvoicepdf) | **Get** /billing/invoices/{invoiceId}/pdf | Download invoice PDF
 *BillingAPI* | [**GetPlans**](docs/BillingAPI.md#getplans) | **Get** /billing/plans | Get all available plans
@@ -120,6 +121,7 @@ Class | Method | HTTP request | Description
 *CurrentUserTokensAPI* | [**GetTokenById**](docs/CurrentUserTokensAPI.md#gettokenbyid) | **Get** /users/me/tokens/{tokenId} | Get a Personal Access Token by ID
 *CurrentUserTokensAPI* | [**ListTokens**](docs/CurrentUserTokensAPI.md#listtokens) | **Get** /users/me/tokens | List all Personal Access Tokens
 *CurrentUserTokensAPI* | [**RevokeToken**](docs/CurrentUserTokensAPI.md#revoketoken) | **Delete** /users/me/tokens/{tokenId} | Revoke a Personal Access Token
+*CurrentUserTokensAPI* | [**RotateToken**](docs/CurrentUserTokensAPI.md#rotatetoken) | **Post** /users/me/tokens/{tokenId}/rotate | Rotate a Personal Access Token
 *OSSIndexCompatibilityAPI* | [**GetComponentReport**](docs/OSSIndexCompatibilityAPI.md#getcomponentreport) | **Get** /api/v3/authorized/component-report/** | Get component report by PURL
 *OSSIndexCompatibilityAPI* | [**GetComponentReport1**](docs/OSSIndexCompatibilityAPI.md#getcomponentreport1) | **Get** /api/v3/component-report/** | Get component report by PURL
 *OSSIndexCompatibilityAPI* | [**GetComponentReports**](docs/OSSIndexCompatibilityAPI.md#getcomponentreports) | **Post** /api/v3/component-report | Get component reports for multiple PURLs
@@ -167,6 +169,8 @@ Class | Method | HTTP request | Description
  - [MethodSignature](docs/MethodSignature.md)
  - [OnboardingAccessResponse](docs/OnboardingAccessResponse.md)
  - [OnboardingBannerStatusDTO](docs/OnboardingBannerStatusDTO.md)
+ - [OrgActivityLogEntry](docs/OrgActivityLogEntry.md)
+ - [OrgActivityLogResponse](docs/OrgActivityLogResponse.md)
  - [OrgConfigRequest](docs/OrgConfigRequest.md)
  - [OrgGovernanceView](docs/OrgGovernanceView.md)
  - [OrgOnboardingActivity](docs/OrgOnboardingActivity.md)
@@ -191,6 +195,7 @@ Class | Method | HTTP request | Description
  - [RemovalPrResult](docs/RemovalPrResult.md)
  - [RepoConfigRequest](docs/RepoConfigRequest.md)
  - [RepoGovernanceView](docs/RepoGovernanceView.md)
+ - [RotateTokenRequest](docs/RotateTokenRequest.md)
  - [UpdateOrganizationRequest](docs/UpdateOrganizationRequest.md)
  - [UsageDTO](docs/UsageDTO.md)
  - [UserTokenDTO](docs/UserTokenDTO.md)
