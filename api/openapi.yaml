@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Sonatype Guide API
-  version: "202607"
+  version: "202608"
 servers:
 - description: Production
   url: https://api.guide.sonatype.com
