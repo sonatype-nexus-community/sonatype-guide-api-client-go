@@ -69,6 +69,8 @@ type APIClient struct {
 
 	RecommendationsAPI *RecommendationsAPIService
 
+	SecurityEventsAPI *SecurityEventsAPIService
+
 	UsageAPI *UsageAPIService
 
 	VulnerabilitiesAPI *VulnerabilitiesAPIService
@@ -100,6 +102,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CurrentUserTokensAPI = (*CurrentUserTokensAPIService)(&c.common)
 	c.OSSIndexCompatibilityAPI = (*OSSIndexCompatibilityAPIService)(&c.common)
 	c.RecommendationsAPI = (*RecommendationsAPIService)(&c.common)
+	c.SecurityEventsAPI = (*SecurityEventsAPIService)(&c.common)
 	c.UsageAPI = (*UsageAPIService)(&c.common)
 	c.VulnerabilitiesAPI = (*VulnerabilitiesAPIService)(&c.common)
 
