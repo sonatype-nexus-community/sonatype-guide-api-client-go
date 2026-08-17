@@ -22,6 +22,20 @@ func Test_sonatypeguide_SecurityEventsAPIService(t *testing.T) {
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
 
+	t.Run("Test SecurityEventsAPIService GetSecurityEventAffectedComponents", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.SecurityEventsAPI.GetSecurityEventAffectedComponents(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test SecurityEventsAPIService GetSecurityEventById", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

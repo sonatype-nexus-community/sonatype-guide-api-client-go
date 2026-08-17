@@ -23,6 +23,169 @@ import (
 // SecurityEventsAPIService SecurityEventsAPI service
 type SecurityEventsAPIService service
 
+type ApiGetSecurityEventAffectedComponentsRequest struct {
+	ctx context.Context
+	ApiService *SecurityEventsAPIService
+	id string
+	query *string
+	offset *int32
+	limit *int32
+	sortField *string
+	sortOrder *string
+}
+
+// Text search query over component coordinates
+func (r ApiGetSecurityEventAffectedComponentsRequest) Query(query string) ApiGetSecurityEventAffectedComponentsRequest {
+	r.query = &query
+	return r
+}
+
+// Pagination offset (default: 0)
+func (r ApiGetSecurityEventAffectedComponentsRequest) Offset(offset int32) ApiGetSecurityEventAffectedComponentsRequest {
+	r.offset = &offset
+	return r
+}
+
+// Pagination limit (default: 50)
+func (r ApiGetSecurityEventAffectedComponentsRequest) Limit(limit int32) ApiGetSecurityEventAffectedComponentsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Field to sort by: ecosystem (FULL only), package, version
+func (r ApiGetSecurityEventAffectedComponentsRequest) SortField(sortField string) ApiGetSecurityEventAffectedComponentsRequest {
+	r.sortField = &sortField
+	return r
+}
+
+// Sort order: asc or desc (default: asc)
+func (r ApiGetSecurityEventAffectedComponentsRequest) SortOrder(sortOrder string) ApiGetSecurityEventAffectedComponentsRequest {
+	r.sortOrder = &sortOrder
+	return r
+}
+
+func (r ApiGetSecurityEventAffectedComponentsRequest) Execute() (*ApiSearchResponse, *http.Response, error) {
+	return r.ApiService.GetSecurityEventAffectedComponentsExecute(r)
+}
+
+/*
+GetSecurityEventAffectedComponents Get affected components for a security event
+
+Returns paginated component versions affected by the security event. Returns an empty list for events with no linked CVEs.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id Security event ID
+ @return ApiGetSecurityEventAffectedComponentsRequest
+*/
+func (a *SecurityEventsAPIService) GetSecurityEventAffectedComponents(ctx context.Context, id string) ApiGetSecurityEventAffectedComponentsRequest {
+	return ApiGetSecurityEventAffectedComponentsRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return ApiSearchResponse
+func (a *SecurityEventsAPIService) GetSecurityEventAffectedComponentsExecute(r ApiGetSecurityEventAffectedComponentsRequest) (*ApiSearchResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ApiSearchResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SecurityEventsAPIService.GetSecurityEventAffectedComponents")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/security-events/{id}/affected-components"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.query != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.sortField != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortField", r.sortField, "form", "")
+	}
+	if r.sortOrder != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortOrder", r.sortOrder, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"*/*"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiSearchResponseAffectedComponentVersion
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetSecurityEventByIdRequest struct {
 	ctx context.Context
 	ApiService *SecurityEventsAPIService

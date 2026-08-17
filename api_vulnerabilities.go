@@ -52,7 +52,7 @@ func (r ApiGetVulnerabilityAffectedComponentsRequest) Limit(limit int32) ApiGetV
 	return r
 }
 
-// Field to sort by: ecosystem, package (fullPackageName), version (default: package)
+// Field to sort by: ecosystem, package/component (aliases), version (default: component)
 func (r ApiGetVulnerabilityAffectedComponentsRequest) SortField(sortField string) ApiGetVulnerabilityAffectedComponentsRequest {
 	r.sortField = &sortField
 	return r

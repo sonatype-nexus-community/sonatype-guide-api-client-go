@@ -128,6 +128,7 @@ Class | Method | HTTP request | Description
 *OSSIndexCompatibilityAPI* | [**GetComponentReports1**](docs/OSSIndexCompatibilityAPI.md#getcomponentreports1) | **Post** /api/v3/authorized/component-report | Get component reports for multiple PURLs
 *OSSIndexCompatibilityAPI* | [**GetVersion**](docs/OSSIndexCompatibilityAPI.md#getversion) | **Get** /api/v3/version | Get API version
 *RecommendationsAPI* | [**GetRecommendations**](docs/RecommendationsAPI.md#getrecommendations) | **Post** /recommendations | Get version upgrade recommendations
+*SecurityEventsAPI* | [**GetSecurityEventAffectedComponents**](docs/SecurityEventsAPI.md#getsecurityeventaffectedcomponents) | **Get** /security-events/{id}/affected-components | Get affected components for a security event
 *SecurityEventsAPI* | [**GetSecurityEventById**](docs/SecurityEventsAPI.md#getsecurityeventbyid) | **Get** /security-events/{id} | Get security event by ID
 *UsageAPI* | [**GetCreditPeriods**](docs/UsageAPI.md#getcreditperiods) | **Get** /usage/credit-periods | Get credit periods
 *UsageAPI* | [**GetCumulativeUsage**](docs/UsageAPI.md#getcumulativeusage) | **Get** /usage/cumulative | Get cumulative credit usage for a billing period
