@@ -34,7 +34,7 @@ func main() {
 	query := "query_example" // string | Text search query over component coordinates (optional)
 	offset := int32(56) // int32 | Pagination offset (default: 0) (optional)
 	limit := int32(56) // int32 | Pagination limit (default: 50) (optional)
-	sortField := "sortField_example" // string | Field to sort by: ecosystem (FULL only), package, version (optional)
+	sortField := "sortField_example" // string | Field to sort by: ecosystem (FULL only), package/packageName, component, version (optional)
 	sortOrder := "sortOrder_example" // string | Sort order: asc or desc (default: asc) (optional)
 
 	configuration := sonatypeguide.NewConfiguration()
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
  **query** | **string** | Text search query over component coordinates | 
  **offset** | **int32** | Pagination offset (default: 0) | 
  **limit** | **int32** | Pagination limit (default: 50) | 
- **sortField** | **string** | Field to sort by: ecosystem (FULL only), package, version | 
+ **sortField** | **string** | Field to sort by: ecosystem (FULL only), package/packageName, component, version | 
  **sortOrder** | **string** | Sort order: asc or desc (default: asc) | 
 
 ### Return type

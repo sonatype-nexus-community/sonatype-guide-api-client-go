@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **DirectVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
 **DtsDimensions** | Pointer to [**DtsDimensions**](DtsDimensions.md) |  | [optional] 
 **LicenseThreatLevels** | Pointer to **map[string]int32** |  | [optional] 
+**Malware** | Pointer to **bool** |  | [optional] 
 **MaxSeverity** | Pointer to **float64** |  | [optional] 
 **PolicyCompliance** | Pointer to [**PolicyCompliance**](PolicyCompliance.md) |  | [optional] 
 **TransitiveVulnerabilities** | Pointer to **map[string]float64** |  | [optional] 
@@ -158,6 +159,31 @@ SetLicenseThreatLevels sets LicenseThreatLevels field to given value.
 `func (o *FromVersion) HasLicenseThreatLevels() bool`
 
 HasLicenseThreatLevels returns a boolean if a field has been set.
+
+### GetMalware
+
+`func (o *FromVersion) GetMalware() bool`
+
+GetMalware returns the Malware field if non-nil, zero value otherwise.
+
+### GetMalwareOk
+
+`func (o *FromVersion) GetMalwareOk() (*bool, bool)`
+
+GetMalwareOk returns a tuple with the Malware field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMalware
+
+`func (o *FromVersion) SetMalware(v bool)`
+
+SetMalware sets Malware field to given value.
+
+### HasMalware
+
+`func (o *FromVersion) HasMalware() bool`
+
+HasMalware returns a boolean if a field has been set.
 
 ### GetMaxSeverity
 

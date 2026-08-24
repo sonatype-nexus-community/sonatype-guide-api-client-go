@@ -24,6 +24,7 @@ type FromVersion struct {
 	DirectVulnerabilities map[string]float64 `json:"directVulnerabilities,omitempty"`
 	DtsDimensions *DtsDimensions `json:"dtsDimensions,omitempty"`
 	LicenseThreatLevels map[string]int32 `json:"licenseThreatLevels,omitempty"`
+	Malware *bool `json:"malware,omitempty"`
 	MaxSeverity *float64 `json:"maxSeverity,omitempty"`
 	PolicyCompliance *PolicyCompliance `json:"policyCompliance,omitempty"`
 	TransitiveVulnerabilities map[string]float64 `json:"transitiveVulnerabilities,omitempty"`
@@ -206,6 +207,38 @@ func (o *FromVersion) HasLicenseThreatLevels() bool {
 // SetLicenseThreatLevels gets a reference to the given map[string]int32 and assigns it to the LicenseThreatLevels field.
 func (o *FromVersion) SetLicenseThreatLevels(v map[string]int32) {
 	o.LicenseThreatLevels = v
+}
+
+// GetMalware returns the Malware field value if set, zero value otherwise.
+func (o *FromVersion) GetMalware() bool {
+	if o == nil || IsNil(o.Malware) {
+		var ret bool
+		return ret
+	}
+	return *o.Malware
+}
+
+// GetMalwareOk returns a tuple with the Malware field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FromVersion) GetMalwareOk() (*bool, bool) {
+	if o == nil || IsNil(o.Malware) {
+		return nil, false
+	}
+	return o.Malware, true
+}
+
+// HasMalware returns a boolean if a field has been set.
+func (o *FromVersion) HasMalware() bool {
+	if o != nil && !IsNil(o.Malware) {
+		return true
+	}
+
+	return false
+}
+
+// SetMalware gets a reference to the given bool and assigns it to the Malware field.
+func (o *FromVersion) SetMalware(v bool) {
+	o.Malware = &v
 }
 
 // GetMaxSeverity returns the MaxSeverity field value if set, zero value otherwise.
@@ -392,6 +425,9 @@ func (o FromVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LicenseThreatLevels) {
 		toSerialize["licenseThreatLevels"] = o.LicenseThreatLevels
+	}
+	if !IsNil(o.Malware) {
+		toSerialize["malware"] = o.Malware
 	}
 	if !IsNil(o.MaxSeverity) {
 		toSerialize["maxSeverity"] = o.MaxSeverity

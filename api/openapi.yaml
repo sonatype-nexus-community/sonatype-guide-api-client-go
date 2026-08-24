@@ -1790,7 +1790,8 @@ paths:
           format: int32
           type: integer
         style: form
-      - description: "Field to sort by: ecosystem (FULL only), package, version"
+      - description: "Field to sort by: ecosystem (FULL only), package/packageName,\
+          \ component, version"
         explode: true
         in: query
         name: sortField
@@ -3110,6 +3111,7 @@ components:
             type: type
           refid: refid
         breakingChangesCount: breakingChangesCount
+        malware: true
         transitiveVulnerabilities:
           key: 4.145608029883936
         developerTrustScore: 0
@@ -3142,6 +3144,8 @@ components:
           additionalProperties:
             format: int32
             type: integer
+        malware:
+          type: boolean
         maxSeverity:
           format: double
           type: number
@@ -3777,6 +3781,7 @@ components:
               type: type
             refid: refid
           breakingChangesCount: breakingChangesCount
+          malware: true
           transitiveVulnerabilities:
             key: 4.145608029883936
           developerTrustScore: 0
@@ -3832,10 +3837,10 @@ components:
             refid: refid
           breakingChangesCount: breakingChangesCount
           transitiveVulnerabilities:
-            key: 4.145608029883936
-          developerTrustScore: 0
+            key: 7.457744773683766
+          developerTrustScore: 1
           licenseThreatLevels:
-            key: 3
+            key: 1
           dtsDimensions:
             license: 5
             security: 9
@@ -3844,9 +3849,9 @@ components:
             overall: 5
             age: 1
           version: version
-          maxSeverity: 2.027123023002322
+          maxSeverity: 6.84685269835264
           directVulnerabilities:
-            key: 6.027456183070403
+            key: 1.0246457001441578
         - policyCompliance:
             compliant: true
             conditions:
@@ -3885,10 +3890,10 @@ components:
             refid: refid
           breakingChangesCount: breakingChangesCount
           transitiveVulnerabilities:
-            key: 4.145608029883936
-          developerTrustScore: 0
+            key: 7.457744773683766
+          developerTrustScore: 1
           licenseThreatLevels:
-            key: 3
+            key: 1
           dtsDimensions:
             license: 5
             security: 9
@@ -3897,9 +3902,9 @@ components:
             overall: 5
             age: 1
           version: version
-          maxSeverity: 2.027123023002322
+          maxSeverity: 6.84685269835264
           directVulnerabilities:
-            key: 6.027456183070403
+            key: 1.0246457001441578
         outcome: FOUND_RECOMMENDATIONS
       properties:
         fromVersion:
@@ -3976,10 +3981,10 @@ components:
           refid: refid
         breakingChangesCount: breakingChangesCount
         transitiveVulnerabilities:
-          key: 4.145608029883936
-        developerTrustScore: 0
+          key: 7.457744773683766
+        developerTrustScore: 1
         licenseThreatLevels:
-          key: 3
+          key: 1
         dtsDimensions:
           license: 5
           security: 9
@@ -3988,9 +3993,9 @@ components:
           overall: 5
           age: 1
         version: version
-        maxSeverity: 2.027123023002322
+        maxSeverity: 6.84685269835264
         directVulnerabilities:
-          key: 6.027456183070403
+          key: 1.0246457001441578
       properties:
         breakingChangesCount:
           type: string

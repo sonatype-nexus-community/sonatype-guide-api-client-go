@@ -52,7 +52,7 @@ func (r ApiGetSecurityEventAffectedComponentsRequest) Limit(limit int32) ApiGetS
 	return r
 }
 
-// Field to sort by: ecosystem (FULL only), package, version
+// Field to sort by: ecosystem (FULL only), package/packageName, component, version
 func (r ApiGetSecurityEventAffectedComponentsRequest) SortField(sortField string) ApiGetSecurityEventAffectedComponentsRequest {
 	r.sortField = &sortField
 	return r
