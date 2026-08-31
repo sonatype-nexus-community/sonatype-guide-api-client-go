@@ -5,7 +5,7 @@ All URIs are relative to *https://api.guide.sonatype.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AgenticModeAccess**](AGPGovernanceAPI.md#AgenticModeAccess) | **Get** /api/agp/agentic-mode-access | Whether the caller&#39;s org is registered for AgentP agentic mode (org-scoped; gates the AI Fix toggle + AI agent config in the UI)
-[**DeleteRepoConfig**](AGPGovernanceAPI.md#DeleteRepoConfig) | **Delete** /api/agp/repos/{installationRepoId}/config | Reset a repo to the Default Configuration by clearing its config overrides (any org member)
+[**DeleteRepoConfig**](AGPGovernanceAPI.md#DeleteRepoConfig) | **Delete** /api/agp/repos/{installationRepoId}/config | Reset a repo to the Default Configuration by clearing its config overrides (Owner-only)
 [**GetOrgConfig**](AGPGovernanceAPI.md#GetOrgConfig) | **Get** /api/agp/org/config | Get the AgentP Default Configuration (read: any org member)
 [**GetOrgEffectiveConfig**](AGPGovernanceAPI.md#GetOrgEffectiveConfig) | **Get** /api/agp/org/effective-config | Get the rendered Default Configuration agp.yml (defaults + org) (Owner-only)
 [**GetRepoConfig**](AGPGovernanceAPI.md#GetRepoConfig) | **Get** /api/agp/repos/{installationRepoId}/config | Get a repo&#39;s AgentP config overrides + inherited Default Configuration + version (any org member)
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**Pause**](AGPGovernanceAPI.md#Pause) | **Post** /api/agp/repos/{installationRepoId}/pause | Pause AgentP for a repository (any org member)
 [**Resume**](AGPGovernanceAPI.md#Resume) | **Post** /api/agp/repos/{installationRepoId}/resume | Resume AgentP for a repository (any org member)
 [**UpdateOrgConfig**](AGPGovernanceAPI.md#UpdateOrgConfig) | **Put** /api/agp/org/config | Set the AgentP Default Configuration + developer-access flag (Owner-only)
-[**UpdateRepoConfig**](AGPGovernanceAPI.md#UpdateRepoConfig) | **Put** /api/agp/repos/{installationRepoId}/config | Set per-repo AgentP config overrides (any org member)
+[**UpdateRepoConfig**](AGPGovernanceAPI.md#UpdateRepoConfig) | **Put** /api/agp/repos/{installationRepoId}/config | Set per-repo AgentP config overrides (Owner-only)
 
 
 
@@ -81,7 +81,7 @@ Other parameters are passed through a pointer to a apiAgenticModeAccessRequest s
 
 > DeleteRepoConfig(ctx, installationRepoId).ExpectedVersion(expectedVersion).Execute()
 
-Reset a repo to the Default Configuration by clearing its config overrides (any org member)
+Reset a repo to the Default Configuration by clearing its config overrides (Owner-only)
 
 ### Example
 
@@ -669,7 +669,7 @@ Name | Type | Description  | Notes
 
 > GovernanceWriteResponse UpdateRepoConfig(ctx, installationRepoId).RepoConfigRequest(repoConfigRequest).Execute()
 
-Set per-repo AgentP config overrides (any org member)
+Set per-repo AgentP config overrides (Owner-only)
 
 ### Example
 

@@ -87,7 +87,7 @@ Class | Method | HTTP request | Description
 *AGPDashboardAPI* | [**Dashboard**](docs/AGPDashboardAPI.md#dashboard) | **Get** /api/agp/dashboard | List connected repositories with status (search, filter &amp; paging)
 *AGPDashboardAPI* | [**OnboardingAccess**](docs/AGPDashboardAPI.md#onboardingaccess) | **Get** /api/agp/dashboard/onboarding-access | Whether the caller may onboard repositories
 *AGPGovernanceAPI* | [**AgenticModeAccess**](docs/AGPGovernanceAPI.md#agenticmodeaccess) | **Get** /api/agp/agentic-mode-access | Whether the caller&#39;s org is registered for AgentP agentic mode (org-scoped; gates the AI Fix toggle + AI agent config in the UI)
-*AGPGovernanceAPI* | [**DeleteRepoConfig**](docs/AGPGovernanceAPI.md#deleterepoconfig) | **Delete** /api/agp/repos/{installationRepoId}/config | Reset a repo to the Default Configuration by clearing its config overrides (any org member)
+*AGPGovernanceAPI* | [**DeleteRepoConfig**](docs/AGPGovernanceAPI.md#deleterepoconfig) | **Delete** /api/agp/repos/{installationRepoId}/config | Reset a repo to the Default Configuration by clearing its config overrides (Owner-only)
 *AGPGovernanceAPI* | [**GetOrgConfig**](docs/AGPGovernanceAPI.md#getorgconfig) | **Get** /api/agp/org/config | Get the AgentP Default Configuration (read: any org member)
 *AGPGovernanceAPI* | [**GetOrgEffectiveConfig**](docs/AGPGovernanceAPI.md#getorgeffectiveconfig) | **Get** /api/agp/org/effective-config | Get the rendered Default Configuration agp.yml (defaults + org) (Owner-only)
 *AGPGovernanceAPI* | [**GetRepoConfig**](docs/AGPGovernanceAPI.md#getrepoconfig) | **Get** /api/agp/repos/{installationRepoId}/config | Get a repo&#39;s AgentP config overrides + inherited Default Configuration + version (any org member)
@@ -96,7 +96,7 @@ Class | Method | HTTP request | Description
 *AGPGovernanceAPI* | [**Pause**](docs/AGPGovernanceAPI.md#pause) | **Post** /api/agp/repos/{installationRepoId}/pause | Pause AgentP for a repository (any org member)
 *AGPGovernanceAPI* | [**Resume**](docs/AGPGovernanceAPI.md#resume) | **Post** /api/agp/repos/{installationRepoId}/resume | Resume AgentP for a repository (any org member)
 *AGPGovernanceAPI* | [**UpdateOrgConfig**](docs/AGPGovernanceAPI.md#updateorgconfig) | **Put** /api/agp/org/config | Set the AgentP Default Configuration + developer-access flag (Owner-only)
-*AGPGovernanceAPI* | [**UpdateRepoConfig**](docs/AGPGovernanceAPI.md#updaterepoconfig) | **Put** /api/agp/repos/{installationRepoId}/config | Set per-repo AgentP config overrides (any org member)
+*AGPGovernanceAPI* | [**UpdateRepoConfig**](docs/AGPGovernanceAPI.md#updaterepoconfig) | **Put** /api/agp/repos/{installationRepoId}/config | Set per-repo AgentP config overrides (Owner-only)
 *ActivityLogAPI* | [**GetActivityLog**](docs/ActivityLogAPI.md#getactivitylog) | **Get** /users/me/organization/activity-log | Get organization activity log
 *BillingAPI* | [**GetBilling**](docs/BillingAPI.md#getbilling) | **Get** /billing | Get billing information
 *BillingAPI* | [**GetInvoicePdf**](docs/BillingAPI.md#getinvoicepdf) | **Get** /billing/invoices/{invoiceId}/pdf | Download invoice PDF

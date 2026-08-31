@@ -137,7 +137,7 @@ func (r ApiDeleteRepoConfigRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteRepoConfig Reset a repo to the Default Configuration by clearing its config overrides (any org member)
+DeleteRepoConfig Reset a repo to the Default Configuration by clearing its config overrides (Owner-only)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param installationRepoId
@@ -1033,7 +1033,7 @@ func (r ApiUpdateRepoConfigRequest) Execute() (*GovernanceWriteResponse, *http.R
 }
 
 /*
-UpdateRepoConfig Set per-repo AgentP config overrides (any org member)
+UpdateRepoConfig Set per-repo AgentP config overrides (Owner-only)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param installationRepoId
