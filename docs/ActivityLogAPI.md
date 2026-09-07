@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	category := "category_example" // string | Filter by category (TOKEN, ORGANIZATION, BILLING, SUPPORT) (optional)
+	category := "category_example" // string | Filter by category (optional)
 	fromDate := time.Now() // string | Start date (YYYY-MM-DD) (optional)
 	toDate := time.Now() // string | End date (YYYY-MM-DD) (optional)
 	page := int32(0) // int32 | Page number (0-indexed) (optional) (default to 0)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetActivityLogRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **category** | **string** | Filter by category (TOKEN, ORGANIZATION, BILLING, SUPPORT) | 
+ **category** | **string** | Filter by category | 
  **fromDate** | **string** | Start date (YYYY-MM-DD) | 
  **toDate** | **string** | End date (YYYY-MM-DD) | 
  **page** | **int32** | Page number (0-indexed) | [default to 0]

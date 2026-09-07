@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ActualTotal** | Pointer to **int64** |  | [optional] 
 **Aggregations** | Pointer to **map[string]map[string]int64** |  | [optional] 
 **Hits** | Pointer to **[]interface{}** |  | [optional] 
 **Limit** | Pointer to **int32** |  | [optional] 
@@ -28,6 +29,31 @@ will change when the set of required properties is changed
 NewApiSearchResponseWithDefaults instantiates a new ApiSearchResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetActualTotal
+
+`func (o *ApiSearchResponse) GetActualTotal() int64`
+
+GetActualTotal returns the ActualTotal field if non-nil, zero value otherwise.
+
+### GetActualTotalOk
+
+`func (o *ApiSearchResponse) GetActualTotalOk() (*int64, bool)`
+
+GetActualTotalOk returns a tuple with the ActualTotal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActualTotal
+
+`func (o *ApiSearchResponse) SetActualTotal(v int64)`
+
+SetActualTotal sets ActualTotal field to given value.
+
+### HasActualTotal
+
+`func (o *ApiSearchResponse) HasActualTotal() bool`
+
+HasActualTotal returns a boolean if a field has been set.
 
 ### GetAggregations
 

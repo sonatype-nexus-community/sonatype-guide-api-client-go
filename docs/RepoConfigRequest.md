@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpectedVersion** | Pointer to **int64** |  | [optional] 
+**ExpectedVersion** | **int64** |  | 
 **Overrides** | **map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewRepoConfigRequest
 
-`func NewRepoConfigRequest(overrides map[string]interface{}, ) *RepoConfigRequest`
+`func NewRepoConfigRequest(expectedVersion int64, overrides map[string]interface{}, ) *RepoConfigRequest`
 
 NewRepoConfigRequest instantiates a new RepoConfigRequest object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetExpectedVersion sets ExpectedVersion field to given value.
 
-### HasExpectedVersion
-
-`func (o *RepoConfigRequest) HasExpectedVersion() bool`
-
-HasExpectedVersion returns a boolean if a field has been set.
 
 ### GetOverrides
 

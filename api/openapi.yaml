@@ -8,13 +8,17 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Sonatype Guide API
-  version: "202608"
+  version: "202609"
 servers:
 - description: Production
   url: https://api.guide.sonatype.com
 security:
 - bearer-jwt: []
 tags:
+- description: "AgentP feature governance: org-level Default Configuration writes\
+    \ are Owner-only; per-repo config writes, reads, and per-repo lifecycle actions\
+    \ are available to any org member"
+  name: AGP Governance
 - description: Credit usage and billing period APIs
   name: Usage
 - description: "Connected repository status with search, filter & paging"
@@ -25,10 +29,6 @@ tags:
   name: AGP Bulk Onboarding
 - description: Personal Access Token management APIs
   name: Current User Tokens
-- description: "AgentP feature governance: Default Configuration and per-repo config\
-    \ writes are Owner-only; reads and per-repo lifecycle actions are available to\
-    \ any org member"
-  name: AGP Governance
 - description: Legacy OSSI API providing backward compatibility. Allows existing OSSI
     users to continue using their OSSI API tokens without creating a new Sonatype
     Guide account. Authentication requires HTTP Basic Auth with OSSI username and
@@ -296,7 +296,7 @@ paths:
       - explode: true
         in: query
         name: expectedVersion
-        required: false
+        required: true
         schema:
           format: int64
           type: integer
@@ -305,7 +305,7 @@ paths:
         "200":
           description: OK
       summary: Reset a repo to the Default Configuration by clearing its config overrides
-        (Owner-only)
+        (any org member)
       tags:
       - AGP Governance
     get:
@@ -354,7 +354,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/GovernanceWriteResponse"
           description: OK
-      summary: Set per-repo AgentP config overrides (Owner-only)
+      summary: Set per-repo AgentP config overrides (any org member)
       tags:
       - AGP Governance
   /api/agp/repos/{installationRepoId}/effective-config:
@@ -2033,7 +2033,7 @@ paths:
         Only accessible by organization owners.
       operationId: getActivityLog
       parameters:
-      - description: "Filter by category (TOKEN, ORGANIZATION, BILLING, SUPPORT)"
+      - description: Filter by category
         explode: true
         in: query
         name: category
@@ -2044,6 +2044,7 @@ paths:
           - ORGANIZATION
           - BILLING
           - SUPPORT
+          - INTEGRATION
           type: string
         style: form
       - description: Start date (YYYY-MM-DD)
@@ -2598,16 +2599,20 @@ components:
           type: boolean
     ApiSearchResponse:
       example:
+        actualTotal: 0
         hits:
         - ""
         - ""
         total: 5
-        offset: 1
-        limit: 6
+        offset: 5
+        limit: 1
         aggregations:
           key:
-            key: 0
+            key: 6
       properties:
+        actualTotal:
+          format: int64
+          type: integer
         aggregations:
           additionalProperties:
             additionalProperties:
@@ -2627,16 +2632,20 @@ components:
           type: integer
     ApiSearchResponseAffectedComponentVersion:
       example:
+        actualTotal: 0
         hits:
         - null
         - null
         total: 5
-        offset: 1
-        limit: 6
+        offset: 5
+        limit: 1
         aggregations:
           key:
-            key: 0
+            key: 6
       properties:
+        actualTotal:
+          format: int64
+          type: integer
         aggregations:
           additionalProperties:
             additionalProperties:
@@ -2657,16 +2666,20 @@ components:
           type: integer
     ApiSearchResponseComponentDetailDocument:
       example:
+        actualTotal: 0
         hits:
         - malware: true
         - malware: true
         total: 5
-        offset: 1
-        limit: 6
+        offset: 5
+        limit: 1
         aggregations:
           key:
-            key: 0
+            key: 6
       properties:
+        actualTotal:
+          format: int64
+          type: integer
         aggregations:
           additionalProperties:
             additionalProperties:
@@ -2687,16 +2700,20 @@ components:
           type: integer
     ApiSearchResponseComponentDocument:
       example:
+        actualTotal: 2
         hits:
         - malware: true
         - malware: true
-        total: 9
-        offset: 7
-        limit: 2
+        total: 2
+        offset: 3
+        limit: 9
         aggregations:
           key:
-            key: 5
+            key: 7
       properties:
+        actualTotal:
+          format: int64
+          type: integer
         aggregations:
           additionalProperties:
             additionalProperties:
@@ -2717,16 +2734,20 @@ components:
           type: integer
     ApiSearchResponseVulnerabilityDocument:
       example:
+        actualTotal: 0
         hits:
         - malware: true
         - malware: true
         total: 5
-        offset: 1
-        limit: 6
+        offset: 5
+        limit: 1
         aggregations:
           key:
-            key: 0
+            key: 6
       properties:
+        actualTotal:
+          format: int64
+          type: integer
         aggregations:
           additionalProperties:
             additionalProperties:
@@ -3341,6 +3362,7 @@ components:
           - ORGANIZATION
           - BILLING
           - SUPPORT
+          - INTEGRATION
           type: string
         eventLabel:
           type: string
@@ -3358,6 +3380,7 @@ components:
           - SUBSCRIPTION_CHANGED
           - SUBSCRIPTION_CANCELED
           - SUPPORT_TICKET_CREATED
+          - SCM_GROUP_SYNCED
           type: string
     OrgActivityLogResponse:
       example:
@@ -4064,6 +4087,7 @@ components:
         overrides:
           additionalProperties: {}
       required:
+      - expectedVersion
       - overrides
     RepoGovernanceView:
       example:
