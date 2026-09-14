@@ -90,6 +90,16 @@ paths:
         schema:
           type: string
         style: form
+      - description: "Restrict to one SCM provider (e.g. `github`). Omit for every\
+          \ provider the caller has connected. The bulk-onboarding picker sends `github`,\
+          \ since only GitHub repos can be onboarded through it."
+        explode: true
+        in: query
+        name: provider
+        required: false
+        schema:
+          type: string
+        style: form
       - explode: true
         in: query
         name: sort
@@ -2992,27 +3002,31 @@ components:
       example:
         total: 5
         rows:
-        - archived: true
+        - repoUrl: repoUrl
           lastRunAt: lastRunAt
           repoId: 6
           lastRunStatus: lastRunStatus
           workflowPresent: true
           setupPrUrl: setupPrUrl
-          runCount: 1
-          repoFullName: repoFullName
           installationRepoId: 0
           statusLabel: statusLabel
+          archived: true
+          provider: provider
+          runCount: 1
+          repoFullName: repoFullName
           status: status
-        - archived: true
+        - repoUrl: repoUrl
           lastRunAt: lastRunAt
           repoId: 6
           lastRunStatus: lastRunStatus
           workflowPresent: true
           setupPrUrl: setupPrUrl
-          runCount: 1
-          repoFullName: repoFullName
           installationRepoId: 0
           statusLabel: statusLabel
+          archived: true
+          provider: provider
+          runCount: 1
+          repoFullName: repoFullName
           status: status
       properties:
         rows:
@@ -3024,16 +3038,18 @@ components:
           type: integer
     DashboardRowResponse:
       example:
-        archived: true
+        repoUrl: repoUrl
         lastRunAt: lastRunAt
         repoId: 6
         lastRunStatus: lastRunStatus
         workflowPresent: true
         setupPrUrl: setupPrUrl
-        runCount: 1
-        repoFullName: repoFullName
         installationRepoId: 0
         statusLabel: statusLabel
+        archived: true
+        provider: provider
+        runCount: 1
+        repoFullName: repoFullName
         status: status
       properties:
         archived:
@@ -3045,11 +3061,15 @@ components:
           type: string
         lastRunStatus:
           type: string
+        provider:
+          type: string
         repoFullName:
           type: string
         repoId:
           format: int64
           type: integer
+        repoUrl:
+          type: string
         runCount:
           format: int32
           type: integer

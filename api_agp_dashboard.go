@@ -143,6 +143,7 @@ type ApiDashboardRequest struct {
 	q *string
 	search *string
 	status *string
+	provider *string
 	sort *string
 	page *int32
 	pageSize *int32
@@ -163,6 +164,12 @@ func (r ApiDashboardRequest) Search(search string) ApiDashboardRequest {
 
 func (r ApiDashboardRequest) Status(status string) ApiDashboardRequest {
 	r.status = &status
+	return r
+}
+
+// Restrict to one SCM provider (e.g. &#x60;github&#x60;). Omit for every provider the caller has connected. The bulk-onboarding picker sends &#x60;github&#x60;, since only GitHub repos can be onboarded through it.
+func (r ApiDashboardRequest) Provider(provider string) ApiDashboardRequest {
+	r.provider = &provider
 	return r
 }
 
@@ -227,6 +234,9 @@ func (a *AGPDashboardAPIService) DashboardExecute(r ApiDashboardRequest) (*Dashb
 	}
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.provider != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "provider", r.provider, "form", "")
 	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")

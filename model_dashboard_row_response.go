@@ -23,8 +23,10 @@ type DashboardRowResponse struct {
 	InstallationRepoId *int64 `json:"installationRepoId,omitempty"`
 	LastRunAt *string `json:"lastRunAt,omitempty"`
 	LastRunStatus *string `json:"lastRunStatus,omitempty"`
+	Provider *string `json:"provider,omitempty"`
 	RepoFullName *string `json:"repoFullName,omitempty"`
 	RepoId *int64 `json:"repoId,omitempty"`
+	RepoUrl *string `json:"repoUrl,omitempty"`
 	RunCount *int32 `json:"runCount,omitempty"`
 	SetupPrUrl *string `json:"setupPrUrl,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -177,6 +179,38 @@ func (o *DashboardRowResponse) SetLastRunStatus(v string) {
 	o.LastRunStatus = &v
 }
 
+// GetProvider returns the Provider field value if set, zero value otherwise.
+func (o *DashboardRowResponse) GetProvider() string {
+	if o == nil || IsNil(o.Provider) {
+		var ret string
+		return ret
+	}
+	return *o.Provider
+}
+
+// GetProviderOk returns a tuple with the Provider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DashboardRowResponse) GetProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.Provider) {
+		return nil, false
+	}
+	return o.Provider, true
+}
+
+// HasProvider returns a boolean if a field has been set.
+func (o *DashboardRowResponse) HasProvider() bool {
+	if o != nil && !IsNil(o.Provider) {
+		return true
+	}
+
+	return false
+}
+
+// SetProvider gets a reference to the given string and assigns it to the Provider field.
+func (o *DashboardRowResponse) SetProvider(v string) {
+	o.Provider = &v
+}
+
 // GetRepoFullName returns the RepoFullName field value if set, zero value otherwise.
 func (o *DashboardRowResponse) GetRepoFullName() string {
 	if o == nil || IsNil(o.RepoFullName) {
@@ -239,6 +273,38 @@ func (o *DashboardRowResponse) HasRepoId() bool {
 // SetRepoId gets a reference to the given int64 and assigns it to the RepoId field.
 func (o *DashboardRowResponse) SetRepoId(v int64) {
 	o.RepoId = &v
+}
+
+// GetRepoUrl returns the RepoUrl field value if set, zero value otherwise.
+func (o *DashboardRowResponse) GetRepoUrl() string {
+	if o == nil || IsNil(o.RepoUrl) {
+		var ret string
+		return ret
+	}
+	return *o.RepoUrl
+}
+
+// GetRepoUrlOk returns a tuple with the RepoUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DashboardRowResponse) GetRepoUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.RepoUrl) {
+		return nil, false
+	}
+	return o.RepoUrl, true
+}
+
+// HasRepoUrl returns a boolean if a field has been set.
+func (o *DashboardRowResponse) HasRepoUrl() bool {
+	if o != nil && !IsNil(o.RepoUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetRepoUrl gets a reference to the given string and assigns it to the RepoUrl field.
+func (o *DashboardRowResponse) SetRepoUrl(v string) {
+	o.RepoUrl = &v
 }
 
 // GetRunCount returns the RunCount field value if set, zero value otherwise.
@@ -423,11 +489,17 @@ func (o DashboardRowResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastRunStatus) {
 		toSerialize["lastRunStatus"] = o.LastRunStatus
 	}
+	if !IsNil(o.Provider) {
+		toSerialize["provider"] = o.Provider
+	}
 	if !IsNil(o.RepoFullName) {
 		toSerialize["repoFullName"] = o.RepoFullName
 	}
 	if !IsNil(o.RepoId) {
 		toSerialize["repoId"] = o.RepoId
+	}
+	if !IsNil(o.RepoUrl) {
+		toSerialize["repoUrl"] = o.RepoUrl
 	}
 	if !IsNil(o.RunCount) {
 		toSerialize["runCount"] = o.RunCount

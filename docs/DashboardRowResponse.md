@@ -8,8 +8,10 @@ Name | Type | Description | Notes
 **InstallationRepoId** | Pointer to **int64** |  | [optional] 
 **LastRunAt** | Pointer to **string** |  | [optional] 
 **LastRunStatus** | Pointer to **string** |  | [optional] 
+**Provider** | Pointer to **string** |  | [optional] 
 **RepoFullName** | Pointer to **string** |  | [optional] 
 **RepoId** | Pointer to **int64** |  | [optional] 
+**RepoUrl** | Pointer to **string** |  | [optional] 
 **RunCount** | Pointer to **int32** |  | [optional] 
 **SetupPrUrl** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
@@ -135,6 +137,31 @@ SetLastRunStatus sets LastRunStatus field to given value.
 
 HasLastRunStatus returns a boolean if a field has been set.
 
+### GetProvider
+
+`func (o *DashboardRowResponse) GetProvider() string`
+
+GetProvider returns the Provider field if non-nil, zero value otherwise.
+
+### GetProviderOk
+
+`func (o *DashboardRowResponse) GetProviderOk() (*string, bool)`
+
+GetProviderOk returns a tuple with the Provider field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProvider
+
+`func (o *DashboardRowResponse) SetProvider(v string)`
+
+SetProvider sets Provider field to given value.
+
+### HasProvider
+
+`func (o *DashboardRowResponse) HasProvider() bool`
+
+HasProvider returns a boolean if a field has been set.
+
 ### GetRepoFullName
 
 `func (o *DashboardRowResponse) GetRepoFullName() string`
@@ -184,6 +211,31 @@ SetRepoId sets RepoId field to given value.
 `func (o *DashboardRowResponse) HasRepoId() bool`
 
 HasRepoId returns a boolean if a field has been set.
+
+### GetRepoUrl
+
+`func (o *DashboardRowResponse) GetRepoUrl() string`
+
+GetRepoUrl returns the RepoUrl field if non-nil, zero value otherwise.
+
+### GetRepoUrlOk
+
+`func (o *DashboardRowResponse) GetRepoUrlOk() (*string, bool)`
+
+GetRepoUrlOk returns a tuple with the RepoUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRepoUrl
+
+`func (o *DashboardRowResponse) SetRepoUrl(v string)`
+
+SetRepoUrl sets RepoUrl field to given value.
+
+### HasRepoUrl
+
+`func (o *DashboardRowResponse) HasRepoUrl() bool`
+
+HasRepoUrl returns a boolean if a field has been set.
 
 ### GetRunCount
 

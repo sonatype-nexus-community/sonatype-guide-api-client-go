@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 ## Dashboard
 
-> DashboardPageResponse Dashboard(ctx).Q(q).Search(search).Status(status).Sort(sort).Page(page).PageSize(pageSize).Execute()
+> DashboardPageResponse Dashboard(ctx).Q(q).Search(search).Status(status).Provider(provider).Sort(sort).Page(page).PageSize(pageSize).Execute()
 
 List connected repositories with status (search, filter & paging)
 
@@ -98,13 +98,14 @@ func main() {
 	q := "q_example" // string | Name filter (canonical). Takes precedence over the deprecated `search`. (optional)
 	search := "search_example" // string | Deprecated alias for `q`; ignored when `q` is also provided. (optional)
 	status := "status_example" // string |  (optional)
+	provider := "provider_example" // string | Restrict to one SCM provider (e.g. `github`). Omit for every provider the caller has connected. The bulk-onboarding picker sends `github`, since only GitHub repos can be onboarded through it. (optional)
 	sort := "sort_example" // string |  (optional) (default to "asc")
 	page := int32(56) // int32 |  (optional) (default to 0)
 	pageSize := int32(56) // int32 |  (optional) (default to 25)
 
 	configuration := sonatypeguide.NewConfiguration()
 	apiClient := sonatypeguide.NewAPIClient(configuration)
-	resp, r, err := apiClient.AGPDashboardAPI.Dashboard(context.Background()).Q(q).Search(search).Status(status).Sort(sort).Page(page).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.AGPDashboardAPI.Dashboard(context.Background()).Q(q).Search(search).Status(status).Provider(provider).Sort(sort).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AGPDashboardAPI.Dashboard``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -128,6 +129,7 @@ Name | Type | Description  | Notes
  **q** | **string** | Name filter (canonical). Takes precedence over the deprecated &#x60;search&#x60;. | 
  **search** | **string** | Deprecated alias for &#x60;q&#x60;; ignored when &#x60;q&#x60; is also provided. | 
  **status** | **string** |  | 
+ **provider** | **string** | Restrict to one SCM provider (e.g. &#x60;github&#x60;). Omit for every provider the caller has connected. The bulk-onboarding picker sends &#x60;github&#x60;, since only GitHub repos can be onboarded through it. | 
  **sort** | **string** |  | [default to &quot;asc&quot;]
  **page** | **int32** |  | [default to 0]
  **pageSize** | **int32** |  | [default to 25]
