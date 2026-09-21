@@ -49,15 +49,7 @@ type APIClient struct {
 
 	// API Services
 
-	AGPBulkOnboardingAPI *AGPBulkOnboardingAPIService
-
-	AGPDashboardAPI *AGPDashboardAPIService
-
-	AGPGovernanceAPI *AGPGovernanceAPIService
-
 	ActivityLogAPI *ActivityLogAPIService
-
-	BillingAPI *BillingAPIService
 
 	ComponentsAPI *ComponentsAPIService
 
@@ -92,11 +84,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.AGPBulkOnboardingAPI = (*AGPBulkOnboardingAPIService)(&c.common)
-	c.AGPDashboardAPI = (*AGPDashboardAPIService)(&c.common)
-	c.AGPGovernanceAPI = (*AGPGovernanceAPIService)(&c.common)
 	c.ActivityLogAPI = (*ActivityLogAPIService)(&c.common)
-	c.BillingAPI = (*BillingAPIService)(&c.common)
 	c.ComponentsAPI = (*ComponentsAPIService)(&c.common)
 	c.CurrentUserOrganizationAPI = (*CurrentUserOrganizationAPIService)(&c.common)
 	c.CurrentUserTokensAPI = (*CurrentUserTokensAPIService)(&c.common)

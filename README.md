@@ -79,29 +79,7 @@ All URIs are relative to *https://api.guide.sonatype.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AGPBulkOnboardingAPI* | [**Active**](docs/AGPBulkOnboardingAPI.md#active) | **Get** /api/agp/onboarding/bulk/active | Get the caller&#39;s currently-running bulk onboarding job, if any
-*AGPBulkOnboardingAPI* | [**OrgActivity**](docs/AGPBulkOnboardingAPI.md#orgactivity) | **Get** /api/agp/onboarding/bulk/org-activity | Whether another org member currently has a bulk onboarding job in flight
-*AGPBulkOnboardingAPI* | [**Progress**](docs/AGPBulkOnboardingAPI.md#progress) | **Get** /api/agp/onboarding/bulk/{jobId} | Get bulk onboarding job progress
-*AGPBulkOnboardingAPI* | [**Start**](docs/AGPBulkOnboardingAPI.md#start) | **Post** /api/agp/onboarding/bulk | Start bulk onboarding for selected repositories
-*AGPDashboardAPI* | [**CandidateIds**](docs/AGPDashboardAPI.md#candidateids) | **Get** /api/agp/dashboard/candidate-ids | Ids of all onboarding-candidate repositories matching the name filter
-*AGPDashboardAPI* | [**Dashboard**](docs/AGPDashboardAPI.md#dashboard) | **Get** /api/agp/dashboard | List connected repositories with status (search, filter &amp; paging)
-*AGPDashboardAPI* | [**OnboardingAccess**](docs/AGPDashboardAPI.md#onboardingaccess) | **Get** /api/agp/dashboard/onboarding-access | Whether the caller may onboard repositories
-*AGPGovernanceAPI* | [**AgenticModeAccess**](docs/AGPGovernanceAPI.md#agenticmodeaccess) | **Get** /api/agp/agentic-mode-access | Whether the caller&#39;s org is registered for AgentP agentic mode (org-scoped; gates the AI Fix toggle + AI agent config in the UI)
-*AGPGovernanceAPI* | [**DeleteRepoConfig**](docs/AGPGovernanceAPI.md#deleterepoconfig) | **Delete** /api/agp/repos/{installationRepoId}/config | Reset a repo to the Default Configuration by clearing its config overrides (any org member)
-*AGPGovernanceAPI* | [**GetOrgConfig**](docs/AGPGovernanceAPI.md#getorgconfig) | **Get** /api/agp/org/config | Get the AgentP Default Configuration (read: any org member)
-*AGPGovernanceAPI* | [**GetOrgEffectiveConfig**](docs/AGPGovernanceAPI.md#getorgeffectiveconfig) | **Get** /api/agp/org/effective-config | Get the rendered Default Configuration agp.yml (defaults + org) (Owner-only)
-*AGPGovernanceAPI* | [**GetRepoConfig**](docs/AGPGovernanceAPI.md#getrepoconfig) | **Get** /api/agp/repos/{installationRepoId}/config | Get a repo&#39;s AgentP config overrides + inherited Default Configuration + version (any org member)
-*AGPGovernanceAPI* | [**GetRepoEffectiveConfig**](docs/AGPGovernanceAPI.md#getrepoeffectiveconfig) | **Get** /api/agp/repos/{installationRepoId}/effective-config | Get the rendered effective agp.yml for a repo (defaults + org + overrides) (any org member)
-*AGPGovernanceAPI* | [**OpenRemovalPr**](docs/AGPGovernanceAPI.md#openremovalpr) | **Post** /api/agp/repos/{installationRepoId}/removal-pr | Open (and optionally merge) a PR removing the AgentP workflow file from a repository (any org member)
-*AGPGovernanceAPI* | [**Pause**](docs/AGPGovernanceAPI.md#pause) | **Post** /api/agp/repos/{installationRepoId}/pause | Pause AgentP for a repository (any org member)
-*AGPGovernanceAPI* | [**Resume**](docs/AGPGovernanceAPI.md#resume) | **Post** /api/agp/repos/{installationRepoId}/resume | Resume AgentP for a repository (any org member)
-*AGPGovernanceAPI* | [**UpdateOrgConfig**](docs/AGPGovernanceAPI.md#updateorgconfig) | **Put** /api/agp/org/config | Set the AgentP Default Configuration + developer-access flag (Owner-only)
-*AGPGovernanceAPI* | [**UpdateRepoConfig**](docs/AGPGovernanceAPI.md#updaterepoconfig) | **Put** /api/agp/repos/{installationRepoId}/config | Set per-repo AgentP config overrides (any org member)
 *ActivityLogAPI* | [**GetActivityLog**](docs/ActivityLogAPI.md#getactivitylog) | **Get** /users/me/organization/activity-log | Get organization activity log
-*BillingAPI* | [**GetBilling**](docs/BillingAPI.md#getbilling) | **Get** /billing | Get billing information
-*BillingAPI* | [**GetInvoicePdf**](docs/BillingAPI.md#getinvoicepdf) | **Get** /billing/invoices/{invoiceId}/pdf | Download invoice PDF
-*BillingAPI* | [**GetPlans**](docs/BillingAPI.md#getplans) | **Get** /billing/plans | Get all available plans
-*BillingAPI* | [**GetUserInvoiceHistory**](docs/BillingAPI.md#getuserinvoicehistory) | **Get** /billing/invoices | Get user invoice history
 *ComponentsAPI* | [**GetComponentDependenciesByPurlQueryParam**](docs/ComponentsAPI.md#getcomponentdependenciesbypurlqueryparam) | **Get** /components/dependencies | Get dependencies for a component by coordinates (query parameters)
 *ComponentsAPI* | [**GetComponentDetailByPurlQueryParam**](docs/ComponentsAPI.md#getcomponentdetailbypurlqueryparam) | **Get** /components/detail | Get component detail by coordinates (query parameters)
 *ComponentsAPI* | [**GetComponentVersionsByPurlQueryParam**](docs/ComponentsAPI.md#getcomponentversionsbypurlqueryparam) | **Get** /components/versions | Get all component versions by coordinates (query parameters)
@@ -140,15 +118,11 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AgenticModeAccessResponse](docs/AgenticModeAccessResponse.md)
  - [ApiSearchResponse](docs/ApiSearchResponse.md)
  - [ApiSearchResponseAffectedComponentVersion](docs/ApiSearchResponseAffectedComponentVersion.md)
  - [ApiSearchResponseComponentDetailDocument](docs/ApiSearchResponseComponentDetailDocument.md)
  - [ApiSearchResponseComponentDocument](docs/ApiSearchResponseComponentDocument.md)
  - [ApiSearchResponseVulnerabilityDocument](docs/ApiSearchResponseVulnerabilityDocument.md)
- - [BillingDTO](docs/BillingDTO.md)
- - [BulkOnboardRequest](docs/BulkOnboardRequest.md)
- - [BulkOnboardResponse](docs/BulkOnboardResponse.md)
  - [BulkRemoveMembersRequest](docs/BulkRemoveMembersRequest.md)
  - [ComponentDetailDocument](docs/ComponentDetailDocument.md)
  - [ComponentDocument](docs/ComponentDocument.md)
@@ -157,25 +131,14 @@ Class | Method | HTTP request | Description
  - [CreateTokenRequest](docs/CreateTokenRequest.md)
  - [CumulativeCreditUsage](docs/CumulativeCreditUsage.md)
  - [DailyCreditUsage](docs/DailyCreditUsage.md)
- - [DashboardPageResponse](docs/DashboardPageResponse.md)
- - [DashboardRowResponse](docs/DashboardRowResponse.md)
  - [DtsDimensions](docs/DtsDimensions.md)
- - [EffectiveConfigYamlResponse](docs/EffectiveConfigYamlResponse.md)
  - [FromVersion](docs/FromVersion.md)
- - [GovernanceWriteResponse](docs/GovernanceWriteResponse.md)
  - [InviteUsersRequest](docs/InviteUsersRequest.md)
- - [Invoice](docs/Invoice.md)
- - [ItemProgress](docs/ItemProgress.md)
- - [JobProgress](docs/JobProgress.md)
  - [LatestVersionRequest](docs/LatestVersionRequest.md)
  - [MethodSignature](docs/MethodSignature.md)
- - [OnboardingAccessResponse](docs/OnboardingAccessResponse.md)
  - [OnboardingBannerStatusDTO](docs/OnboardingBannerStatusDTO.md)
  - [OrgActivityLogEntry](docs/OrgActivityLogEntry.md)
  - [OrgActivityLogResponse](docs/OrgActivityLogResponse.md)
- - [OrgConfigRequest](docs/OrgConfigRequest.md)
- - [OrgGovernanceView](docs/OrgGovernanceView.md)
- - [OrgOnboardingActivity](docs/OrgOnboardingActivity.md)
  - [OrganizationDTO](docs/OrganizationDTO.md)
  - [OrganizationMembersResponse](docs/OrganizationMembersResponse.md)
  - [OssiMonthlyUsage](docs/OssiMonthlyUsage.md)
@@ -185,7 +148,6 @@ Class | Method | HTTP request | Description
  - [OssiVulnerabilityGet](docs/OssiVulnerabilityGet.md)
  - [OssiVulnerabilityPost](docs/OssiVulnerabilityPost.md)
  - [PeriodDTO](docs/PeriodDTO.md)
- - [PlanDTO](docs/PlanDTO.md)
  - [PolicyCompliance](docs/PolicyCompliance.md)
  - [PolicyConditionResult](docs/PolicyConditionResult.md)
  - [PurlRequestPost](docs/PurlRequestPost.md)
@@ -194,9 +156,6 @@ Class | Method | HTTP request | Description
  - [RecommendationVulnerableMethod](docs/RecommendationVulnerableMethod.md)
  - [RecommendedVersion](docs/RecommendedVersion.md)
  - [Reference](docs/Reference.md)
- - [RemovalPrResult](docs/RemovalPrResult.md)
- - [RepoConfigRequest](docs/RepoConfigRequest.md)
- - [RepoGovernanceView](docs/RepoGovernanceView.md)
  - [RotateTokenRequest](docs/RotateTokenRequest.md)
  - [SecurityEventDetailDocument](docs/SecurityEventDetailDocument.md)
  - [UpdateOrganizationRequest](docs/UpdateOrganizationRequest.md)
